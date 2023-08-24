@@ -36,7 +36,7 @@ const Login = ({
         <Button className="bg-blue-600 text-white" type='submit'>Submit</Button>
 
         <p className="my-3">
-          Don't have an account? Signup <i
+          Do not have an account? Signup <i
             className="text-blue-400 underline"
             onClick={() => setOp(false)}>Here</i>
         </p>

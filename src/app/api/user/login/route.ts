@@ -6,7 +6,7 @@ const table = "Users"
 export async function POST(request: Request) {
   try {
     let body = await request.json();
-   return NextResponse.json({body},{status:201});
+  
    const result = await getRecordByFields(table, body);
      
      return NextResponse.json({result},{status:201});

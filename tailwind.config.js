@@ -29,6 +29,12 @@ module.exports = {
           neutral: withOpacity('--neutral'),
           white: withOpacity('--white'),
         },
+        dashboard:{
+          primary:"#00728d",
+          dark:"#1d2939",
+          green:"#1d2939",
+          red:"#fa0101 "
+        }
       },
     },
   },

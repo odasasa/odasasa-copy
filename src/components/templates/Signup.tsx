@@ -3,7 +3,7 @@ import React from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
-import { Button,  Input, Typography } from "@/components"
+import { Button, Input, Typography } from "@/components"
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 import { InputFieldProps } from '../Input';
@@ -12,8 +12,12 @@ import { InputFieldProps } from '../Input';
 const validationSchema = Yup.object().shape({
   fullName: Yup.string().required('Full Name is required'),
   email: Yup.string().email('Invalid email address').required('Email is required'),
-  password: Yup.string().required('Password is required'),
-  confirmPassword: Yup.string().required('Field is required'),
+  password: Yup.string()
+    .min(8, 'Password must be at least 8 characters long')
+    .required('Password is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password')], 'Passwords must match')
+    .required('Confirm Password is required'),
   businessName: Yup.string().required('Field is required'),
   businessCode: Yup.string().required('Field is required'),
   phone: Yup.string().required('Field is required'),
@@ -95,7 +99,7 @@ const Signup = ({
       mx-auto flex flex-col  bg-slate-200
       justify-center items-center
      text-auth-gray border border-solid border-2 border-auth-border_color`, className)}>
-        <div className='w-full p-[20px] h-[111] flex flex-col border-b border-solid border-2 border-auth-border_color'>
+        <div className='w-full p-[20px] h-[111] flex flex-col border border-solid border-b border-auth-border_color'>
           <Typography variant={'h3'} className=' text-xl text-auth-gray font-normal '>Registrations Form</Typography>
           <Typography variant={'p'} className=' text-base text-auth-gray font-normal'>Please enter your user information</Typography>
           <hr />
@@ -111,20 +115,20 @@ const Signup = ({
           </div>
 
           <Input name="remember_me" label='By creating an account, you agree the terms and conditions' type="checkbox" className='my-2 px-3' labelClasses='text-[15px] text-auth-gray font-normal py-3' />
-          
+
           <div className='px-3 w-full mb-3'>
             <Button className="bg-auth-facebook_blue hover:auth-hover_blue text-white w-full  py-2" type='submit' >Facebook</Button>
 
           </div>
 
-         <div className='px-3 w-full mb-3'>
+          <div className='px-3 w-full mb-3'>
             <Button className="bg-auth-twitter_blue hover:auth-hover_blue text-white w-full  py-2" type='submit' >Twitter</Button>
 
           </div>
 
         </div>
 
-        <div className='w-full h-[45px] px-3 py-3 justify-center items-center border border-solid border-2 border-auth-border_color'>
+        <div className='w-full h-[45px] px-3 py-3 justify-center items-center border border-solid border-b border-auth-border_color'>
           <Typography variant={'p'} className='px-3 text-center text-base text-auth-gray font-normal'>Already a member? <Link href="/auth/login">Login Here</Link></Typography>
         </div>
 

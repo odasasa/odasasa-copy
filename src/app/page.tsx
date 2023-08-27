@@ -1,8 +1,9 @@
 
 export default function Home() {
   return (
-  
-  <p>Comming soon ....</p>
+    <div className="flex jistify-center items-center">
+      <p >Comming soon ....</p>
+    </div>
   )
-  
+
 }

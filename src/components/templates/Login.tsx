@@ -62,8 +62,8 @@ const Login = ({
       <Form className={twMerge(`w-full max-w-[500px]
       mx-auto flex flex-col  bg-slate-200
       justify-center items-center
-     text-auth-gray border border-solid border-2 border-auth-border_color`, className)}>
-        <div className='w-full p-[20px] h-[111] flex flex-col border-b border-solid border-2 border-auth-border_color'>
+     text-auth-gray border border-solid  border-auth-border_color`, className)}>
+        <div className='w-full p-[20px] h-[111] flex flex-col border border-solid border-b border-auth-border_color'>
           <div className='text-center ' >
             <Link href={'/'}>
               <Img src='/assets/images/logo.png' alt='oda.com logo'
@@ -89,7 +89,7 @@ const Login = ({
 
         </div>
 
-        <div className='w-full h-[45px] flex  gap-3 px-3 py-5 justify-center items-center border border-solid border-2 border-auth-border_color'>
+        <div className='w-full h-[45px] flex  gap-3 px-3 py-5 justify-center items-center border border-solid border-b border-auth-border_color'>
           {
             [
               { title: "Create An Account", href: "/auth/signup" },

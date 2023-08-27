@@ -1,5 +1,6 @@
 "use client"
 import { ReactNode } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 interface ButtonProps {
   onClick?: () => void;
@@ -17,7 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   type = "button"
 }) => (
   <button
-    className={` bg-skin-primary text-white font-bold p-4 px-8 rounded hover:border-2 hover:border-white  hover:border-solid hover:rounded text-base ${className}`}
+    className={twMerge(` bg-skin-primary text-white font-bold p-4 px-8 rounded hover:border-2 hover:border-white  hover:border-solid hover:rounded text-base mx-auto w-full`, className)}
     onClick={onClick}
     disabled={disabled}
     type={type}

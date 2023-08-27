@@ -5,7 +5,7 @@ export async function POST(request: Request) {
     try {
         let body = await request.json(),
             { email, name, subject } = body;
-
+            // return NextResponse.json(body);
 
 
         let p = await sendTestEmail(email, "Enquiries", "Hello there");

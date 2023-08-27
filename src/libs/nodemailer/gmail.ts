@@ -10,11 +10,10 @@ type Mailer = (
 export const sendTestEmail: Mailer = async (to, subject, body,sender = undefined,  isHTML = undefined) => {
   // Create a nodemailer transport object
   const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-
-    // service:'gmail',
+    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
     auth: {
       user: process.env.NEXT_PUBLIC_EMAIL_USER,
       pass: process.env.NEXT_PUBLIC_EMAIL_PWD,

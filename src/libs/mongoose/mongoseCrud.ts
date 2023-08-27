@@ -1,4 +1,4 @@
-import { ProductModel, CategoryModel, BannerModel, PaymentModel, PackageModel, UserModel, ActivationModel, closeDbCon } from './dbCon'; // Import your Mongoose models here
+import { ProductModel, CategoryModel, BannerModel, PaymentModel, PackageModel, UserModel, ActivationModel } from './models'; // Import your Mongoose models here
 // const { v4: uuidv4 } = require('uuid');
 
 // Create
@@ -29,7 +29,7 @@ export async function createRecord(table: string, body: any) {
         console.error(`Error creating record in ${table}:`, error.message);
         throw new Error(`Failed to create record in ${table}`);
     } finally {
-         closeDbCon()
+        //  closeDbCon()
     }
 }
 
@@ -58,7 +58,7 @@ export async function getRecords(table: string) {
         console.error(`Error fetching records from ${table}:`, error.message);
         throw new Error(`Failed to fetch records from ${table}`);
     } finally {
-         closeDbCon()
+        //  closeDbCon()
     }
 }
 
@@ -87,7 +87,7 @@ export async function getRecordById(table: string, id: string) {
         console.error(`Error fetching record from ${table}:`, error.message);
         throw new Error(`Failed to fetch record from ${table}`);
     } finally {
-         closeDbCon()
+        //  closeDbCon()
     }
 }
 // Read by ID
@@ -115,7 +115,7 @@ export async function getRecordByFields(table: string, filter: any) {
         console.error(`Error fetching record from ${table}:`, error.message);
         throw new Error(`Failed to fetch record from ${table}`);
     } finally {
-         closeDbCon()
+        //  closeDbCon()
     }
 }
 
@@ -144,7 +144,7 @@ export async function updateRecord(table: string, id: string, values: any) {
         console.error(`Error updating record in ${table}:`, error.message);
         throw new Error(`Failed to update record in ${table}`);
     } finally {
-         closeDbCon()
+        //  closeDbCon()
     }
 }
 
@@ -173,6 +173,6 @@ export async function deleteRecord(table: string, id: string) {
         console.error(`Error deleting record from ${table}:`, error.message);
         throw new Error(`Failed to delete record from ${table}`);
     } finally {
-         closeDbCon()
+        //  closeDbCon()
     }
 }

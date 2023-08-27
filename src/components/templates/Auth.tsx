@@ -5,7 +5,7 @@ import Login from "./Login"
 import Signup from "./Signup"
 
 function Auth() {
-  const [op, setOp] = useState(true)
+  const [op, setOp] = useState<Boolean>(true)
   
   return (
     

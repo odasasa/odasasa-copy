@@ -93,7 +93,7 @@ const Login = ({
           {
             [
               { title: "Create An Account", href: "/auth/signup" },
-              { title: "Create An Account", href: "/auth/forget-password" }
+              { title: "Forgot Password", href: "/auth/forgot-password" }
             ].map((item, indx) => <Link key={indx} href={item.href}
               className={`w-1/2  text-center  hover:text-auth-red text-auth-gray`}
             >{item.title}</Link>)

@@ -29,7 +29,8 @@ export const sendTestEmail: Mailer = async (to, subject, body,sender = undefined
     html?: string;
   } = {
     // from: process.env.NEXT_PUBLIC_EMAIL_USER as string,
-    from: sender? sender: "Mombasa DigitalSolutions<mweroabdalla@gmail.com>",
+    // from: sender? sender: "Mombasa DigitalSolutions<mweroabdalla@gmail.com>",
+    from: sender? sender: "Odasasa <info@splendidmedia.co.ke>",
     to,
     subject: subject || 'Test Email',
     text: body || 'Test email text',

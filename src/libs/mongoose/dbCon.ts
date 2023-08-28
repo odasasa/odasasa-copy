@@ -16,7 +16,8 @@ const MONGO_DB_URI = getDbURI('splendid_media_db')
 // export const db = mongoose.createConnection(MONGO_DB_URI);
 export async function dbCon() {
   // Connecting to MongoDB using Mongoose
-  mongoose.connect('mongodb://127.0.0.1:27017/mydatabase');
+  mongoose.connect(MONGO_DB_URI);
+  // mongoose.connect('mongodb://127.0.0.1:27017/mydatabase');
   const db = mongoose.connection;
 
   db.on('error', (error) => {

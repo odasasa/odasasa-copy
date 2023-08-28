@@ -14,16 +14,34 @@ function getDbURI(dbname: string) {
 const MONGO_DB_URI = getDbURI('splendid_media_db')
 
 // export const db = mongoose.createConnection(MONGO_DB_URI);
-export function dbCon() {
+export async function dbCon() {
   // Connecting to MongoDB using Mongoose
   mongoose.connect('mongodb://127.0.0.1:27017/mydatabase');
   const db = mongoose.connection;
 
   db.on('error', (error) => {
     console.error('MongoDB connection error:', error);
+    return false
   });
+  
   db.once('open', () => {
     console.log('Connected to MongoDB database.');
+    return db;
   });
 
 }
+
+// export async function dbClose() {
+//   // Connecting to MongoDB using Mongoose
+//   // mongoose.connect('mongodb://127.0.0.1:27017/mydatabase');
+//   // const db = mongoose.connection;
+
+//   // db.on('error', (error) => {
+//   //   console.error('MongoDB connection error:', error);
+//   // });
+//   // db.once('open', () => {
+//   //   console.log('Connected to MongoDB database.');
+//   // });
+//   await dbCon().close()
+
+// }

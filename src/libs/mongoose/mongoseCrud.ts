@@ -1,8 +1,10 @@
+import { dbCon } from './dbCon';
 import { ProductModel, CategoryModel, BannerModel, PaymentModel, PackageModel, UserModel, ActivationModel } from './models'; // Import your Mongoose models here
 // const { v4: uuidv4 } = require('uuid');
 
 // Create
 export async function createRecord(table: string, body: any) {
+    await dbCon()
     try {
         const modelMap: any = {
             products: ProductModel,
@@ -35,6 +37,7 @@ export async function createRecord(table: string, body: any) {
 
 // Read
 export async function getRecords(table: string) {
+    await dbCon()
     try {
         const modelMap: any = {
             products: ProductModel,
@@ -64,6 +67,7 @@ export async function getRecords(table: string) {
 
 // Read by ID
 export async function getRecordById(table: string, id: string) {
+    await dbCon()
     try {
         const modelMap: any = {
             products: ProductModel,
@@ -92,6 +96,7 @@ export async function getRecordById(table: string, id: string) {
 }
 // Read by ID
 export async function getRecordByFields(table: string, filter: any) {
+    await dbCon()
     try {
         const modelMap: any = {
             products: ProductModel,
@@ -121,6 +126,7 @@ export async function getRecordByFields(table: string, filter: any) {
 
 // Update
 export async function updateRecord(table: string, id: string, values: any) {
+    await dbCon()
     try {
         const modelMap: any = {
             products: ProductModel,
@@ -150,6 +156,7 @@ export async function updateRecord(table: string, id: string, values: any) {
 
 // Delete
 export async function deleteRecord(table: string, id: string) {
+    await dbCon()
     try {
         const modelMap: any = {
             products: ProductModel,

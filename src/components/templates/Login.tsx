@@ -33,9 +33,11 @@ const Login = ({
     try {
       const data = await (await fetch("/api/user/login", { body: JSON.stringify(values), method: "POST", headers: { "Content-Type": "application/json" } })).json()
       console.log({ values, data });
+      alert(JSON.stringify(values))
     } catch (error: any) {
 
       console.log({ msg: error.message });
+      alert(JSON.stringify({ msg: error.message }))
     }
 
   };

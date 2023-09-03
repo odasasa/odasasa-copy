@@ -7,7 +7,7 @@ export async function POST(request: Request) {
   try {
     let body = await request.json();
   
-   const result = await getRecordByFields(table, body);
+   const result = await getRecordByFields(table,body);
      
      return NextResponse.json({result},{status:201});
   } catch (error: any) {

@@ -1,18 +1,62 @@
-export const products: {
-    title: string,
-    category: string
-    description: string,
-    unit: string
-    img?: string
-    price: number
-}[] = 
+// // Define the product interface
+// interface Product {
+//     title: string;
+//     category: string;
+//     description: string;
+//     unit: string;
+//     img?: string;
+//     price: number;
+// }
+
+// // Function to extract products from HTML
+// function extractProductsFromHTML() {
+//     const productContainers = document.querySelectorAll('.food-box');
+//     const products: Product[] = [];
+
+//     productContainers.forEach((container) => {
+//         const titleElement = container.querySelector('.food-title');
+//         const priceElement = container.querySelector('.food-price');
+//         const descriptionElements = container.querySelectorAll('.texts-together p');
+
+//         if (titleElement && priceElement && descriptionElements.length >= 2) {
+//             const title = titleElement.textContent.trim();
+//             const priceMatch = priceElement.textContent.match(/Ksh\.(\d+)/);
+//             const price = priceMatch ? parseInt(priceMatch[1]) : 0;
+//             const description = descriptionElements[1].textContent.trim();
+//             const unit = descriptionElements[0].textContent.trim();
+//             const category = container.parentElement?.classList[2] || '';
+
+//             const imgElement = container.querySelector('.food-img');
+//             const img = imgElement ? imgElement.getAttribute('src') || '' : '';
+
+//             const product: Product = {
+//                 title,
+//                 category,
+//                 description,
+//                 unit,
+//                 img,
+//                 price,
+//             };
+
+//             products.push(product);
+//         }
+//     });
+
+//     return products;
+// }
+
+// // Call the function to extract products
+// const products = extractProductsFromHTML();
+// console.log(products);
+
+
 [
     {
         "title": "Fresh Potatoes",
         "category": "vegetables",
         "description": "Fresh Potatoes Best for Fries",
         "unit": "MOQ 3KGS",
-        "img": "viazi.jpg",
+        "img": "img/viazi.jpg",
         "price": 50
     },
     {
@@ -20,7 +64,7 @@ export const products: {
         "category": "vegetables",
         "description": "Fresh Onion Best for Cooking",
         "unit": "MOQ 2KGS",
-        "img": "kitungu.jfif",
+        "img": "img/kitungu.jfif",
         "price": 200
     },
     {
@@ -28,7 +72,7 @@ export const products: {
         "category": "vegetables",
         "description": "Fresh Carrots Best for Cooking",
         "unit": "MOQ 1KGS",
-        "img": "carrot.webp",
+        "img": "img/carrot.webp",
         "price": 70
     },
     {
@@ -36,7 +80,7 @@ export const products: {
         "category": "vegetables",
         "description": "Fresh Gingers Best for Cooking",
         "unit": "MOQ 1KGS",
-        "img": "tangawizi.webp",
+        "img": "img/tangawizi.webp",
         "price": 65
     },
     {
@@ -44,7 +88,7 @@ export const products: {
         "category": "vegetables",
         "description": "Fresh Tomatoes Best for Cooking",
         "unit": "MOQ 1KGS",
-        "img": "tomatoes1.webp",
+        "img": "img/tomatoes1.webp",
         "price": 100
     },
     {
@@ -52,7 +96,7 @@ export const products: {
         "category": "vegetables",
         "description": "Fresh Garlics Best for Cooking",
         "unit": "MOQ 1KGS",
-        "img": "garlic.jpg_480Wx480H",
+        "img": "img/garlic.jpg_480Wx480H",
         "price": 160
     },
     {
@@ -60,7 +104,7 @@ export const products: {
         "category": "fruits",
         "description": "Fresh Pineapple Best For Juice",
         "unit": "Per Pc",
-        "img": "pina.jpg",
+        "img": "img/pina.jpg",
         "price": 80
     },
     {
@@ -68,7 +112,7 @@ export const products: {
         "category": "fruits",
         "description": "Fresh Avocadoes Best For Juice",
         "unit": "Per Pc",
-        "img": "avocado.jpg",
+        "img": "img/avocado.jpg",
         "price": 30
     },
     {
@@ -76,7 +120,7 @@ export const products: {
         "category": "fruits",
         "description": "Fresh Oranges Best for juice",
         "unit": "Per Pc",
-        "img": "oranges.jpg",
+        "img": "img/oranges.jpg",
         "price": 15
     },
     {
@@ -84,7 +128,7 @@ export const products: {
         "category": "fruits",
         "description": "Fresh Apples Best for juice",
         "unit": "Per Pc",
-        "img": "apples.webp",
+        "img": "img/apples.webp",
         "price": 25
     },
     {
@@ -92,7 +136,7 @@ export const products: {
         "category": "fruits",
         "description": "Fresh Mangoes Best for juice",
         "unit": "Per Pc",
-        "img": "mangoes.jpeg",
+        "img": "img/mangoes.jpeg",
         "price": 30
     },
     {
@@ -100,7 +144,7 @@ export const products: {
         "category": "fruits",
         "description": "Fresh Mangoes Best for juice",
         "unit": "Per Pc",
-        "img": "mangoes.jpeg",
+        "img": "img/mangoes.jpeg",
         "price": 30
     },
     {
@@ -108,7 +152,7 @@ export const products: {
         "category": "cereals",
         "description": "Availability subject to stocks and seasonality",
         "unit": "MOQ 1KGS",
-        "img": "maharagwe.webp",
+        "img": "img/maharagwe.webp",
         "price": 120
     },
     {
@@ -116,7 +160,7 @@ export const products: {
         "category": "cereals",
         "description": "Availability subject to stocks and seasonality",
         "unit": "MOQ 1KGS",
-        "img": "lentis.jpg",
+        "img": "img/lentis.jpg",
         "price": 140
     },
     {
@@ -124,7 +168,7 @@ export const products: {
         "category": "cereals",
         "description": "Availability subject to stocks and seasonality",
         "unit": "MOQ 1KGS",
-        "img": "mahindi.jpg",
+        "img": "img/mahindi.jpg",
         "price": 150
     },
     {
@@ -132,7 +176,7 @@ export const products: {
         "category": "cereals",
         "description": "Availability subject to stocks and seasonality",
         "unit": "MOQ 1KGS",
-        "img": "pojo.jpg",
+        "img": "img/pojo.jpg",
         "price": 130
     },
     {
@@ -140,7 +184,7 @@ export const products: {
         "category": "cereals",
         "description": "Availability subject to stocks and seasonality",
         "unit": "MOQ 1KGS",
-        "img": "chpea.jpg",
+        "img": "img/chpea.jpg",
         "price": 240
     },
     {
@@ -148,19 +192,7 @@ export const products: {
         "category": "cereals",
         "description": "Availability subject to stocks and seasonality",
         "unit": "MOQ 1KGS",
-        "img": "whitebeans.jpg",
+        "img": "img/whitebeans.jpg",
         "price": 120
     }
-];
-
-
-const user = {
-    "name": "Mwero",
-    "email": "mdroaer@gmail.com",
-    "role": "su",
-    "status": "active",
-    "phone": "0713559421",
-    "password": "pwd@1"
-}
-
-//   qzap=>f6enHRpRhRDrjULqtC3aLtFIG0kWMkPJzuddhK2g
+]

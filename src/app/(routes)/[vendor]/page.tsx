@@ -74,14 +74,11 @@ export default function VendorHome({ params: { vendor } }: any) {
             {/*  Products Grid*/}
 
             <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mx-4">
-                {products.map(p => <div key={p.title} className="w-full flex flex-col gap-2 aspect-w-2 aspect-h-1 shadow-2xl border bg-slate-100 px-3 py-2" >
-                    <div className="w-full flex mb-1">
+                {products.map(p => <div key={p.title} className="w-full flex flex-col gap-2 aspect-w-2 aspect-h-1 shadow-2xl border bg-white px-3 py-2" >
+                    <div className="w-full flex mb-1 h-full">
                         <div className="w-1/2 flex justify-center items-center h-full">
-                            <Img src={`/vendors/vendor/avocado.jpg`}
-                                alt={`${p.img?.split('.')[0]} Image`}
-                                className=""
-                            />
-                            {/* <Img src={`/vendors/vendor/${p.img}`}  alt={`${p.img?.split('.')[0]} Image`} /> */}
+                           
+                            <Img src={`/vendors/vendor/${p.img}`}  alt={`${p.img?.split('.')[0]} Image`} />
                         </div>
                         <div className="w-1/2 flex flex-col px-2 gap-2">
                             <h2 className="text-product-gold font-bold text-2xl">{p.title}</h2>

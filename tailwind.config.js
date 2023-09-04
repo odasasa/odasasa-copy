@@ -45,6 +45,10 @@ module.exports = {
           border_color:"#d2d2e4",
           title_color:"#3d405c"
 
+        },
+        product:{
+          blue: "#2ed573",
+          gold:"#ff6348"
         }
       },
     },

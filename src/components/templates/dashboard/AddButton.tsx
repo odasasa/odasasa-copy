@@ -13,7 +13,7 @@ interface AddButtonProps{
 const AddButton = ({label,className =""}:AddButtonProps) => {
   return (
     <button className={twMerge("flex ", className)}>
-        <Typography variant="h3" className={twMerge(" ", className)}>"+"</Typography>
+        <Typography variant="h3" className={twMerge(" ", className)}>+</Typography>
         <Typography variant="h3" className={twMerge("", className)}>{label}</Typography>
     </button>
   )

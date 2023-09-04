@@ -24,7 +24,7 @@ export default function VendorHome({ params: { vendor } }: any) {
     }, [category])
 
 
-    return <div className="flex flex-col  shadow-xl relative" >
+    return <div className="w-full flex flex-col  shadow-xl relative" >
         <header className="bg-white h-20 flex justify-between fixed w-full z-20 ">
             {/* <Logo LOGO_PIC={`/assets/vendors/${vendor}/logo.png` || `/assets/vendors/vendor/logo.jpg`} /> */}
             <div className="w-1/5">
@@ -63,7 +63,7 @@ export default function VendorHome({ params: { vendor } }: any) {
       
 
 
-        <div className="flex  flex-col">
+        <div className="w-full flex  flex-col">
             {/*  Products Filter*/}
             <Select
                 className="mx-2"
@@ -83,7 +83,7 @@ export default function VendorHome({ params: { vendor } }: any) {
                         <div className="w-1/2 flex flex-col px-2 gap-2">
                             <h2 className="text-product-gold font-bold text-2xl">{p.title}</h2>
                             <span className="text-black font-bold">Ksh. {p.price}</span>
-                            <hr className="w-full text-red-600 border border-t-2"/>
+                            <hr className="w-full  border border-t-2"/>
                             <p className="text-gray-600 font-light">{p.unit}</p>
                             <p className="text-gray-600 font-light">{p.description}</p>
                         </div>

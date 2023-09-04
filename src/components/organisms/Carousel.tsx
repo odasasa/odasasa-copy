@@ -1,6 +1,6 @@
 "use client"
 import Image, { ImageProps } from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swipe from "react-easy-swipe";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
@@ -20,6 +20,16 @@ export default function Carousel({ images }: CarouselProps) {
     let newSlide = currentSlide === 0 ? images.length - 1 : currentSlide - 1;
     setCurrentSlide(newSlide);
   };
+
+  useEffect(() => {
+    const slideInterval = setInterval(() => {
+      handleNextSlide();
+    }, 3000); // Slide every 30 seconds
+
+    return () => {
+      clearInterval(slideInterval); // Clear the interval when the component unmounts
+    };
+  }, [currentSlide]);
 
   return (
     <div className="relative w-full">

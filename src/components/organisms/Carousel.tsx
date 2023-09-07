@@ -3,6 +3,7 @@ import Image, { ImageProps } from "next/image";
 import { useEffect, useState } from "react";
 import Swipe from "react-easy-swipe";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { Img } from "..";
 
 interface CarouselProps {
   images: { id: string; src: string; alt: string }[];
@@ -29,7 +30,7 @@ export default function Carousel({ images }: CarouselProps) {
     return () => {
       clearInterval(slideInterval); // Clear the interval when the component unmounts
     };
-  }, [currentSlide]);
+  }, [currentSlide,handleNextSlide]);
 
   return (
     <div className="relative w-full">
@@ -46,14 +47,13 @@ export default function Carousel({ images }: CarouselProps) {
           {images.map((image, index) => {
             if (index === currentSlide) {
               return (
-                <Image
+                <Img
                   key={image.id}
                   src={image.src}
                   alt={image.alt}
-                  loading="lazy"
-                  layout="fill"
                  
-                  className="animate-fadeIn  w-full aspect-ratio"
+                                  
+                  className=" ease animate-fadeIn  w-full aspect-ratio"
                 />
               );
             }

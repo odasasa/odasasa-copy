@@ -95,14 +95,7 @@ export const products: {
         "img": "mangoes.jpeg",
         "price": 30
     },
-    {
-        "title": "Fresh Mangoes",
-        "category": "fruits",
-        "description": "Fresh Mangoes Best for juice",
-        "unit": "Per Pc",
-        "img": "mangoes.jpeg",
-        "price": 30
-    },
+   
     {
         "title": "Maharagwe",
         "category": "cereals",

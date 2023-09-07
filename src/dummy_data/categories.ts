@@ -1,4 +1,4 @@
-import { Category } from "@/tyes";
+import { Category } from "@/types";
 
 const categories: Category[] = []
 

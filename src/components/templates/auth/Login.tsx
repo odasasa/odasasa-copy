@@ -6,7 +6,8 @@ import * as Yup from 'yup';
 import { Button, Img, Input, Typography } from "@/components"
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
-import { InputFieldProps } from '../Input';
+import { InputFieldProps } from '@/components/Input';
+// import { InputFieldProps } from '.././Input';
 
 
 const validationSchema = Yup.object().shape({
@@ -68,8 +69,8 @@ const Login = ({
         <div className='w-full p-[20px] h-[111] flex flex-col border border-solid border-b border-auth-border_color'>
           <div className='text-center ' >
             <Link href={'/'}>
-              <Img src='/assets/images/logo.png' alt='oda.com logo'
-                className='h-8 aspect-ratio'
+              <Img src='/assets/logo.png' alt='odasasa logo'
+                className='h-12 aspect-ratio'
               />
             </Link>
           </div>

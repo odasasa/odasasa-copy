@@ -18,11 +18,11 @@ export interface InputFieldProps {
 
 const Input: React.FC<InputFieldProps> = ({ name, label, labeled = false, type = 'text', className = "", options = [], labelClasses }) => {
 
-  const classes = twMerge(` px-4 py-2 mt-1  border rounded-lg  focus:ring focus:ring-indigo-300 focus:outline-none `, className)
+  const classes = twMerge(` px-3 py-2 mt-1  border rounded-lg  focus:ring focus:ring-indigo-300 focus:outline-none `, className)
 
   return (
 
-    <div className="mb-1 flex flex-col px-3 md:px-8 w-full">
+    <div className="mb-1 flex flex-col px-3  w-full">
       {labeled && !['checkbox'].includes(type) &&
         <label htmlFor={name} className={twMerge("block text-md font-bold ", labelClasses)}>
           {label}

@@ -6,12 +6,14 @@ import * as Yup from 'yup';
 import { Button, Input, Typography } from "@/components"
 import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
-import { InputFieldProps } from '../Input';
+import { InputFieldProps } from '@/components/Input';
+
 
 
 const validationSchema = Yup.object().shape({
   fullName: Yup.string().required('Full Name is required'),
   email: Yup.string().email('Invalid email address').required('Email is required'),
+  idNumber: Yup.string().required('ID Number is required'),
   password: Yup.string()
     .min(8, 'Password must be at least 8 characters long')
     .required('Password is required'),
@@ -35,6 +37,7 @@ const Signup = ({
 }: SignupProps) => {
   const initialValues = {
     email: '',
+    idNumber:"",
     password: '',
     fullName: '',
     confirmPassword: '',
@@ -60,6 +63,11 @@ const Signup = ({
       name: "fullName",
       label: "Full Name",
       type: "text"
+    },
+    {
+      name: "idNumber",
+      label: "ID Number",
+      type: "string"
     },
     ,
     {
@@ -98,13 +106,13 @@ const Signup = ({
       <Form className={twMerge(`w-full max-w-[500px]
       mx-auto flex flex-col  bg-slate-200
       justify-center items-center
-     text-auth-gray border border-solid border-2 border-auth-border_color`, className)}>
-        <div className='w-full p-[20px] h-[111] flex flex-col border border-solid border-b border-auth-border_color'>
+     text-auth-gray border border-solid border-auth-border_color`, className)}>
+        <div className='w-full p-[20px] h-[111] flex flex-col  border-solid border-b border-auth-border_color'>
           <Typography variant={'h3'} className=' text-xl text-auth-gray font-normal '>Registrations Form</Typography>
-          <Typography variant={'p'} className=' text-base text-auth-gray font-normal'>Please enter your user information</Typography>
-          <hr />
+          <Typography variant={'p'} className=' text-base text-auth-gray font-bold text-center'>Please enter your user information</Typography>
+          {/* <hr /> */}
         </div>
-        <div className='w-full  flex flex-col justify-center items-center px-3 pt-3'>
+        <div className='w-full  flex flex-col justify-center items-center px-3 pt-3 border-solid border-b border-auth-border_color'>
           {
             signupFields.map((field, indx) => <Input key={indx} name={field.name} label={field.label} type={field.type} className={inputCommonClasses} />)
           }
@@ -114,9 +122,9 @@ const Signup = ({
 
           </div>
 
-          <Input name="remember_me" label='By creating an account, you agree the terms and conditions' type="checkbox" className='my-2 px-3' labelClasses='text-[15px] text-auth-gray font-normal py-3' />
+          {/* <Input name="remember_me" label='By creating an account, you agree the terms and conditions' type="checkbox" className='my-2 px-3' labelClasses='text-[15px] text-auth-gray font-normal py-3' /> */}
 
-          <div className='px-3 w-full mb-3'>
+          {/* <div className='px-3 w-full mb-3'>
             <Button className="bg-auth-facebook_blue hover:auth-hover_blue text-white w-full  py-2" type='submit' >Facebook</Button>
 
           </div>
@@ -124,11 +132,11 @@ const Signup = ({
           <div className='px-3 w-full mb-3'>
             <Button className="bg-auth-twitter_blue hover:auth-hover_blue text-white w-full  py-2" type='submit' >Twitter</Button>
 
-          </div>
+          </div> */}
 
         </div>
 
-        <div className='w-full h-[45px] px-3 py-3 justify-center items-center border border-solid border-b border-auth-border_color'>
+        <div className='w-full h-[45px] px-3 py-3 justify-center items-center  border-solid border-t border-auth-border_color'>
           <Typography variant={'p'} className='px-3 text-center text-base text-auth-gray font-normal'>Already a member? <Link href="/auth/login">Login Here</Link></Typography>
         </div>
 

@@ -1,10 +1,14 @@
 import React from "react";
 
-export interface SidebarNavProps{
-    navItems:{title:string, href:string}[],
-    className?:string,
-    children?:React.ReactNode
-}
 
+
+type navItem = {title:string, href:string}
+export interface SidebarNavProps{
+    navItems:navItem[],
+    className?:string,
+    baseUrl?:string,
+    children?:React.ReactNode
+    path?:string
+}
 
 

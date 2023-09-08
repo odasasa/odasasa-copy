@@ -1,5 +1,8 @@
-
+"use client"
+import { Sidebar, SidebarNav, Typography, VendorHeader } from '@/components';
 import type { Metadata } from 'next'
+import Link from 'next/link';
+import { usePathname } from 'next/navigation'
 
 
 export const metadata = {
@@ -32,14 +35,53 @@ export const metadata = {
   ],
 };
 
+
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const vendor = 'mds'
+
+
   return (
-    
-      <div >{children}</div>
-   
+
+    <div className='w-full flex flex-col text-white'>
+      <VendorHeader >
+        <div className="flex justify-between items-center w-1/12">
+          {/* Search box */}
+          <input placeholder='Search ...'
+            // onChange={(e)=>console.log(e.target.value)}
+
+            className='rounded-ld px-6 py-3 outline-2 outline-sold outline-slate-200'
+          />
+        </div>
+      </VendorHeader>
+      {/*  */}
+      <div className='mt-20 w-full flex'>
+
+        <Sidebar>
+          <SidebarNav
+            navItems={[
+              { title: "Dashboard", href: "" },
+              { title: "Categories", href: "categories" },
+              { title: "Products", href: "products" },
+              { title: "Banners", href: "banners" },
+              { title: "Orders", href: "orders" },
+              { title: "Account", href: "account" },
+            ]}
+
+            baseUrl='/mds/dashboard'
+
+          />
+        </Sidebar>
+        <div className='flex-1 flex flex-col justify-center items-center'>
+        {children}
+        </div>
+        
+      </div>
+
+    </div>
+
   )
 }

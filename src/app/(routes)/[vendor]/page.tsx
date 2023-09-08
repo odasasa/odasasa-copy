@@ -1,5 +1,5 @@
 "use client"
-import { Img, Logo, Select, Typography } from "@/components";
+import { Img, Logo, Select, Typography, VendorHeader } from "@/components";
 import Carousel from "@/components/organisms/Carousel";
 import Products from "@/components/templates/Products/ProductPage";
 import { products as prods } from "@/dummy_data/products";
@@ -26,13 +26,13 @@ export default function VendorHome({ params: { vendor } }: any) {
 
 
     return <div className="w-full flex flex-col  shadow-xl relative" >
-        <header className="bg-white h-20 flex justify-between fixed w-full z-20 ">
-            <div className="w-1/5">
-                <Logo LOGO_PIC={`/vendors/vendor/logo.jpg`} className="justify-self-start" />
-
+       
+        <VendorHeader >
+            <div className="flex justify-between items-center">
+                <span>Login</span>
+                <span>Register</span>
             </div>
-
-        </header>
+        </VendorHeader>
 
         <p className="mt-20"></p>
         <Carousel

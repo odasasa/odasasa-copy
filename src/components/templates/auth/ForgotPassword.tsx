@@ -83,7 +83,7 @@ const ForgotPassword = ({
                 <div className='w-full h-[45px] flex  gap-3 px-3 py-5 justify-center items-center  border-solid border-t border-auth-border_color'>
 
                     <Typography variant='p' className='h-full text-auth-gray'>Do not have an account?  <Link href={'/auth/signup'}
-                        className={`w-full  text-center  hover:text-auth-red`}
+                        className={`w-full  text-center text-auth-red hover:text-auth-gray`}
                     >Sign Up </Link>
                     </Typography>
                 </div>

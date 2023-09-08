@@ -137,7 +137,8 @@ const Signup = ({
         </div>
 
         <div className='w-full h-[45px] px-3 py-3 justify-center items-center  border-solid border-t border-auth-border_color'>
-          <Typography variant={'p'} className='px-3 text-center text-base text-auth-gray font-normal'>Already a member? <Link href="/auth/login">Login Here</Link></Typography>
+          <Typography variant={'p'} className='px-3 text-center text-base text-auth-gray font-normal'>Already a member? <Link href="/auth/login"
+            className={` text-auth-red hover:text-auth-gray`} >Login Here</Link></Typography>
         </div>
 
       </Form>

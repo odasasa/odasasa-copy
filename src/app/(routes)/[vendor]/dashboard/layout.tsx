@@ -46,7 +46,7 @@ export default function DashboardLayout({
 
   return (
 
-    <div className='w-full flex flex-col text-white'>
+    <div className='w-full flex flex-col'>
       <VendorHeader >
         <div className="flex justify-between items-center w-1/12">
           {/* Search box */}
@@ -58,7 +58,7 @@ export default function DashboardLayout({
         </div>
       </VendorHeader>
       {/*  */}
-      <div className='mt-20 w-full flex'>
+      <div className='mt-20 w-full flex bg-dpage-gray '>
 
         <Sidebar>
           <SidebarNav
@@ -75,7 +75,7 @@ export default function DashboardLayout({
 
           />
         </Sidebar>
-        <div className='flex-1 flex flex-col justify-center items-center'>
+        <div className='flex-1  mx-8 my-4 flex flex-col  bg-white rounded-lg h-screen min-h-fit '>
         {children}
         </div>
         

@@ -11,7 +11,7 @@ interface VendorHeaderProps {
 }
 
 export default function VendorHeader({ children, className, logoImageSrc }: VendorHeaderProps) {
-    return <header className={twMerge("bg-white h-20 flex justify-between fixed w-full z-20 ", className)}>
+    return <header className={twMerge("bg-white h-20 flex justify-between fixed w-full z-20 shadow-lg", className)}>
         <div className="w-1/5">
             <Logo LOGO_PIC={logoImageSrc || `/vendors/vendor/logo.jpg`} className="justify-self-start" />
 

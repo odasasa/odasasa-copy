@@ -57,6 +57,9 @@ module.exports = {
         product: {
           blue: "#2ed573",
           gold: "#ff6348"
+        },
+        dpage:{
+          gray:"#e9e8f0"
         }
       },
     },

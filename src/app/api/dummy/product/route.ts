@@ -8,7 +8,9 @@ export async function GET(request: Request) {
 
   try {
 
-    const data = await getRecords(table);
+    // const data = await getRecords(table);
+const data = products.slice(0,6);
+
 
     return new Response(JSON.stringify(Object.values(data).length > 0 ? data : products), {
       status: 200,

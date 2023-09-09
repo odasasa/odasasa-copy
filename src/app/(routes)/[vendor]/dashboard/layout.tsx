@@ -1,6 +1,7 @@
 "use client"
-import { Sidebar, SidebarNav, Typography, VendorHeader } from '@/components';
+import { AuthNav, Sidebar, SidebarNav, Typography, VendorHeader } from '@/components';
 import type { Metadata } from 'next'
+import { FaBell } from 'react-icons/fa';
 
 
 
@@ -47,14 +48,25 @@ export default function DashboardLayout({
 
     <div className='w-full flex flex-col'>
       <VendorHeader >
-        <div className="flex justify-between items-center w-1/12">
-          {/* Search box */}
-          <input placeholder='Search ...'
-            // onChange={(e)=>console.log(e.target.value)}
 
-            className='rounded-ld px-6 py-3 outline-2 outline-sold outline-slate-200'
-          />
+        <div className="flex justify-between items-center w-3/12 gap-5">
+          <div className="flex justify-end items-center w-2/3  ">
+            {/* Search box */}
+            <input placeholder='Search ...'
+              // onChange={(e)=>console.log(e.target.value)}
+              className='rounded-lg px-6 py-2 border-2 border-solid border-slate-600 block mx-3'
+            />
+          </div>
+          {/*Notifications & user menu */}
+          <div className='flex gap-3 w-1/3'>
+            <div className="flex-1 p-3   border-solid border-l-2 border-slate-500 flex items-center justify-center"><FaBell /></div>
+            <div className="flex-1 p-3  border-l-2 border-slate-500 flex items-center justify-center">
+              <span className="w-10/12 bg-slate-300 rounded-full h-full aspect-square"></span>
+
+            </div>
+          </div>
         </div>
+        {/* <AuthNav /> */}
       </VendorHeader>
       {/*  */}
       <div className='mt-20 w-full flex bg-dpage-gray '>
@@ -75,9 +87,9 @@ export default function DashboardLayout({
           />
         </Sidebar>
         <div className='flex-1  mx-8 my-4 flex flex-col  bg-white rounded-lg h-screen min-h-fit '>
-        {children}
+          {children}
         </div>
-        
+
       </div>
 
     </div>

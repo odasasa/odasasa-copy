@@ -13,7 +13,7 @@ const Img: React.FC<ImageProps> = ({ src, alt, className }) => (
     alt={alt}
     width={600}
     height={600}
-    className={twMerge(`w-full aspect-auto object-contain`,className)}
+    className={twMerge(`w-full aspect-auto object-contain `,className)}
     loading="lazy"
   />
 );

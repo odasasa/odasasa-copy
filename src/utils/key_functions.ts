@@ -40,3 +40,5 @@ export function extraProductCategories(products: { category: string }[]) {
   })
 
 }
+
+// HTTPSFUNCTIONS

@@ -1,16 +1,22 @@
 
 import { Typography } from "@/components";
 import { Product } from "@/types";
+import { IS_PROD_ENV } from "@/utils/next_host";
+const basePath = IS_PROD_ENV ? "http://localhost:3000":"https://oda-dev.vercel.app"
 
-
-const getProducts = async () => await (await fetch("http://localhost:3000/api/dummy/product", {
+const getProducts = async () => await (await fetch(`${basePath}/api/dummy/product`, {
     next: { revalidate: 3 }
 })).json()
 
-export default async function Page() {
+export default async function Page(props:any) {
+console.log({props, basePath});
+
+    // const pathname = usePathname();
+    // const router = useRouter();
+    // console.log({pathname})
 
     const data = await getProducts();
-    console.log({ data })
+    // console.log({ data })
     if (!data) return <div>No data</div>
     return <div className=" w-full px-8 py-5 flex flex-col gap-3">
         <div className="text-left">Add prod</div>

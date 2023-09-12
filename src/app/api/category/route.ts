@@ -1,4 +1,4 @@
-import { createRecord, db, getRecords } from '@/libs';
+import { createRecord,  getRecords } from '@/libs/mongoose/mongoseCrud';
 import { NextResponse } from 'next/server';
 const table = "products"
 
@@ -8,7 +8,7 @@ const table = "products"
 
 export async function GET(request: Request) {
  
-  return new Response(JSON.stringify([]))
+  return new Response(JSON.stringify([{name:"mwero"},{name:"abdalla"}]))
   try {
     const data = await getRecords(table);
     

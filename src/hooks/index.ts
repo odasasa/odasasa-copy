@@ -1,21 +1,31 @@
+import { deleteById, fetchData, postData, updateById } from "@/utils"
 import { useState, useEffect } from "react"
 
-const BASE_URL = ""
-const headers = {
-    "Content-Type": "application/json"
-}
-
-export function useFetch(endipont:string) {
+export function useFetch(endipont: string, method: string = "GET", _data: any = null) {
     const [data, setData] = useState(null)
     const [error, setError] = useState(null)
 
     useEffect(() => {
         async function getData() {
             try {
-                let fetchedData = await (await fetch(endipont, { headers })).json()
-                setData(fetchedData)
+                let response;
+                switch (method) {
 
-            } catch (error:any) {
+                    case 'POST':
+                        response = await postData(endipont, _data)
+
+                    case 'PUT':
+                        response = await updateById(endipont, _data)
+
+                    case 'DELETE':
+                        response = await deleteById(endipont)
+                    default:
+                        response = await fetchData(endipont)
+                }
+
+                setData(response)
+
+            } catch (error: any) {
                 setError(error)
             }
         }

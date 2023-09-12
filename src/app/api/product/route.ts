@@ -1,4 +1,6 @@
 import { products } from '@/dummy_data/products';
+import { dbCon } from '@/libs/mongoose/dbCon';
+import { ProductModel } from '@/libs/mongoose/models';
 import { createRecord, getRecords } from '@/libs/mongoose/mongoseCrud';
 import { NextResponse } from 'next/server';
 const table = "products"
@@ -7,9 +9,10 @@ export async function GET(request: Request) {
 
 
   try {
-
+    // await dbCon()
     const data = await getRecords(table);
-
+    // const data = await ProductModel.find({})
+    // console.log({ data })
     return new Response(JSON.stringify(Object.values(data).length > 0 ? data : products), {
       status: 200,
       statusText: 'OK',

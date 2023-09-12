@@ -13,10 +13,11 @@ export interface InputFieldProps {
   placeholder?: string
   labeled?: boolean
   labelClasses?: string
+  readOnly?:boolean
 }
 
 
-const Input: React.FC<InputFieldProps> = ({ name, label, labeled = false, type = 'text', className = "", options = [], labelClasses }) => {
+const Input: React.FC<InputFieldProps> = ({ name, label, labeled = false, type = 'text', className = "", options = [], labelClasses, ...others }) => {
 
   const classes = twMerge(` px-3 py-2 mt-1  border rounded-lg  focus:ring focus:ring-indigo-300 focus:outline-none `, className)
 
@@ -34,11 +35,15 @@ const Input: React.FC<InputFieldProps> = ({ name, label, labeled = false, type =
           rows={3}
           id={name} name={name}
           placeholder={!labeled ? label : ""}
-          className={classes} />
+          className={classes} 
+          
+          {...others}
+          />
 
         :
         type === "select" ?
           <Field
+           {...others}
             as="select"
 
             id={name} name={name}
@@ -58,6 +63,7 @@ const Input: React.FC<InputFieldProps> = ({ name, label, labeled = false, type =
                 name={name}
                 className={'mr-3'}
                 placeholder={!labeled ? label : ""}
+                {...others}
               />
               {label}
             </label>
@@ -67,6 +73,7 @@ const Input: React.FC<InputFieldProps> = ({ name, label, labeled = false, type =
               name={name}
               className={classes}
               placeholder={!labeled ? label : ""}
+              {...others}
             />
 
       }

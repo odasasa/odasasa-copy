@@ -4,3 +4,4 @@ export {default as ForgotPassword} from "./auth/ForgotPassword"
 export {default as Auth} from "./auth/Auth"
 export * from './dashboard'
 export * from './vendorheader'
+export * from './upload'

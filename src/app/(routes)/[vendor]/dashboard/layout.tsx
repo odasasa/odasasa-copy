@@ -1,6 +1,7 @@
 "use client"
 import { AuthNav, Sidebar, SidebarNav, Typography, VendorHeader } from '@/components';
 import type { Metadata } from 'next'
+import { usePathname } from 'next/navigation';
 import { FaBell } from 'react-icons/fa';
 
 
@@ -36,12 +37,16 @@ export const metadata = {
 };
 
 
-export default function DashboardLayout({
+export default function DashboardLayout({ params,
   children,
 }: {
+  params: any,
   children: React.ReactNode
 }) {
-  const vendor = 'mds'
+  const vendor = params.vendor
+  const pathname = usePathname()
+
+
 
 
   return (
@@ -71,7 +76,9 @@ export default function DashboardLayout({
       {/*  */}
       <div className='mt-20 w-full flex bg-dpage-gray '>
 
-        <Sidebar>
+        <Sidebar className='text-white'
+          vendor={vendor}
+        >
           <SidebarNav
             navItems={[
               { title: "Dashboard", href: "" },
@@ -86,7 +93,8 @@ export default function DashboardLayout({
 
           />
         </Sidebar>
-        <div className='flex-1  mx-8 my-4 flex flex-col  bg-white rounded-lg h-screen min-h-fit '>
+        {/* Page roote */}
+        <div className={`flex-1  mx-8 my-4 flex flex-col ${pathname.includes('banners') ? '' : 'bg-white'}  rounded-lg min-h-screen h-fit  `}>
           {children}
         </div>
 

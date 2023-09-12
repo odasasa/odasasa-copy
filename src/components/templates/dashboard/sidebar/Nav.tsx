@@ -40,7 +40,7 @@ const Nav = (
                     onClick={() => setActiveLink(item.href)}
                     className={`rounded-[2px] w-full overflow-hidden ${isActiveRoute(item.href.trim()) ? 'border-l-[5px] border-solid border-white' : ''}`}
                 ><Link
-                    className={`w-full block px-6 py-3
+                    className={`w-full block px-6 py-3 hover:bg-dashboard-gra_end
                      ${isActiveRoute(item.href.trim()) ? ' bg-dashboard-nav_item_bg  bg-gradient-to-r from-dashboard-gra_start to-dashboard-gra_end' : ''}`}
 
                     href={`${baseUrl}/${item.href}`}>{item.title}</Link>

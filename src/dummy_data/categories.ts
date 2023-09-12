@@ -1,6 +1,37 @@
 import { Category } from "@/types";
 
-const categories: Category[] = []
+const vegetableCategory: Category = {
+    id: '1',
+    name: 'Vegetables',
+    description: 'Fresh and healthy vegetables',
+    unit: 'kg',
+    status: 'Active',
+    createdAt: new Date(),
+};
+
+const fruitCategory: Category = {
+    id: '2',
+    name: 'Fruits',
+    description: 'Delicious and nutritious fruits',
+    unit: 'Each',
+    status: 'paused',
+    createdAt: new Date(),
+};
+
+const cerealCategory: Category = {
+    id: '3',
+    name: 'Cereals',
+    description: 'Various cereals and grains',
+    unit: 'kg',
+    status: 'Active',
+    createdAt: new Date(),
+};
+
+// Create an array to hold these categories
+export const categories: Category[] = [vegetableCategory, fruitCategory, cerealCategory];
+
+// You can now use the 'categories' array as needed.
+
 
 
 

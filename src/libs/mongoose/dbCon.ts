@@ -4,12 +4,13 @@ import mongoose from 'mongoose';
 
 function getDbURI(dbname: string) {
   const MONGO_DB_URI_DEV = `mongodb://127.0.0.1:27017/${dbname}?retryWrites=true&w=majority`;
+  const LIVE_URI = `mongodb+srv://${process.env.NEXT_PUBLIC_MONGO_USER}:${process.env.NEXT_PUBLIC_MONGO_PWD}@cluster0.2f29nts.mongodb.net/${dbname}?retryWrites=true&w=majority`
   const ENV = process.env.NODE_ENV || 'developemnt'
 
-  return ENV === "production"
-    ? `mongodb+srv://${process.env.NEXT_PUBLIC_MONGO_USER}:${process.env.NEXT_PUBLIC_MONGO_PWD}@cluster0.2f29nts.mongodb.net/${dbname}?retryWrites=true&w=majority`
-    : MONGO_DB_URI_DEV;
-
+  // return ENV === "production"
+  //   ? LIVE_URI
+  //   : MONGO_DB_URI_DEV;
+return LIVE_URI 
 }
 
 

@@ -1,6 +1,7 @@
-import { createRecord, db, getRecords } from '@/libs';
+import { categories } from '@/dummy_data/categories';
+import { createRecord,  getRecords } from '@/libs/mongoose/mongoseCrud';
 import { NextResponse } from 'next/server';
-const table = "products"
+const table = "categories"
 
 
 
@@ -8,11 +9,10 @@ const table = "products"
 
 export async function GET(request: Request) {
  
-  return new Response(JSON.stringify([]))
   try {
     const data = await getRecords(table);
     
-    return new Response(JSON.stringify(data||[]), {
+    return new Response(JSON.stringify(data?.length>0?data:categories), {
       status: 200,
       statusText: 'OK',
     });

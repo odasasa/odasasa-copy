@@ -37,6 +37,7 @@
     "react-easy-swipe": "^0.0.23",
     "react-icons": "^4.10.1",
     "react-scroll": "^1.8.9",
+    "react-share": "^4.4.1",
     "sqlite": "^5.0.1",
     "sqlite3": "^5.1.6",
     "sweetalert2": "^11.7.27",

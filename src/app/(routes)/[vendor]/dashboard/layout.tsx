@@ -1,12 +1,12 @@
 "use client"
-import { AuthNav, Sidebar, SidebarNav, Typography, VendorHeader } from '@/components';
+import { Sidebar, SidebarNav, VendorHeader } from '@/components';
 import type { Metadata } from 'next'
 import { usePathname } from 'next/navigation';
 import { FaBell } from 'react-icons/fa';
 
 
 
-export const metadata = {
+ const metadata: Metadata = {
   title: 'Odasasa ',
   description: 'Odasasa official website',
   icons: [
@@ -58,8 +58,8 @@ export default function DashboardLayout({ params,
           <div className="flex justify-end items-center w-2/3  ">
             {/* Search box */}
             <input placeholder='Search ...'
-            id='searchText'
-            name="searchText"
+              id='searchText'
+              name="searchText"
               // onChange={(e)=>console.log(e.target.value)}
               className='rounded-lg px-6 py-2 border-2 border-solid border-slate-600 block mx-3'
             />

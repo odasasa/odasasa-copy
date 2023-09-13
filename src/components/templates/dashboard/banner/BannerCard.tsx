@@ -1,6 +1,5 @@
 "use client"
 import { Img } from "@/components";
-import Image from "next/image";
 import { ReactNode, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 interface BannerCardProps {
@@ -35,7 +34,7 @@ export default function BannerCard({ indx, activeIndx,banner, setActiveIndx, upl
                     </div>
                     <div className="w-full bg-gray-400 flex-1">
                         <Img
-                            src={`/uploads/${banner.src}`||`/vendors/vendor/banner-default.jpg`}
+                            src={`/uploads/${banner.src}`}
                             alt="banner img"
 
                             className="w-full "

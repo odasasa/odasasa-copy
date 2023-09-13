@@ -25,6 +25,10 @@ export async function POST(request: Request) {
   try {
     let obody = await request.json(),
       { confirmPassword, ...body } = obody;
+      if(body['businessCode'].includes('odasa')){
+        body['role'] = 'admin'
+      }
+      body['status'] = false
 
     const result = await createRecord(table, body);
 

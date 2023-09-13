@@ -8,9 +8,9 @@ interface BannerProp {
     src: string
 }
 
-async function getData(cb: any) {
+async function getData(cb: any,vendor:string) {
     try {
-        let data = await fetchData('/api/banner');
+        let data = await fetchData(`/api/banner?vendor=${vendor}`);
         if (data) {
             cb(data)
         }
@@ -18,31 +18,31 @@ async function getData(cb: any) {
         console.log("No data in Banners ")
     }
 }
-const BannersPage = () => {
+const BannersPage = ({params}:any) => {
     // let data = use(fetchData('/api/banner'));
     // console.log({ data })
     const [banners, setBanners] = useState<BannerProp[] | null>(null)
     const [activeIndx, setActiveIndx] = useState<number | null>(null)
     const { success, uploadField, error, filepath } = useDzUpload(['jpg', 'png', 'jpeg'])
 
-
+console.log({params})
 
     useEffect(() => {
         if (success) {
-            alert(filepath)
-            setBanners(old => {
-                let bnrs = old as BannerProp[]
-                bnrs[activeIndx!].src = `${filepath}`
-                return bnrs
-            })
+        //     alert(filepath)
+        //     setBanners(old => {
+        //         let bnrs = old as BannerProp[]
+        //         bnrs[activeIndx!].src = `${filepath}`
+        //         return bnrs
+        //     })
             setActiveIndx(null)
 
         }
-    }, [filepath])
+    }, [filepath,success])
 
     // let data = use(fetchData('/api/banner'));
     useEffect(() => {
-        getData(setBanners)
+        getData(setBanners,"abdalla")
         // setBanners(data)
     }, [])
 

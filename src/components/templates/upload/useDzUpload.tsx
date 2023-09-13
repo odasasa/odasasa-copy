@@ -7,10 +7,6 @@ import { useDropzone } from 'react-dropzone';
 import axios, { AxiosResponse } from 'axios';
 import { FiUpload, FiUploadCloud } from 'react-icons/fi';
 
-// interface useDzUploadResponse {
-//     success: string;
-//     filename: string;
-// }
 
 interface FileUploadProps {
     acceptedFileExtensions?: string[];
@@ -69,7 +65,7 @@ const useDzUpload = (acceptedFileExtensions: string[] = [], apiEndpoint: string 
             setError('Error uploading file: ' + error.message)
             setUploadSuccess(false);
         }
-    }, []);
+    }, [acceptedFileExtensions,apiEndpoint]);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 

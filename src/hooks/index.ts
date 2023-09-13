@@ -31,7 +31,7 @@ export function useFetch(endipont: string, method: string = "GET", _data: any = 
         }
         getData()
 
-    }, [endipont])
+    }, [endipont,_data,method])
 
 
 

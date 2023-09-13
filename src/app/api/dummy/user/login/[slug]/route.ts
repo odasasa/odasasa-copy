@@ -1,4 +1,4 @@
-import { deleteRecord, getRecordById, updateRecord } from '@/libs';
+import { deleteRecord, getRecordById, updateRecord } from '@/libs/mongoose/mongoseCrud';
 import { NextResponse } from 'next/server';
 
 const table = 'Users';

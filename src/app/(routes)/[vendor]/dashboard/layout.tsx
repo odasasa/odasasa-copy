@@ -58,6 +58,8 @@ export default function DashboardLayout({ params,
           <div className="flex justify-end items-center w-2/3  ">
             {/* Search box */}
             <input placeholder='Search ...'
+            id='searchText'
+            name="searchText"
               // onChange={(e)=>console.log(e.target.value)}
               className='rounded-lg px-6 py-2 border-2 border-solid border-slate-600 block mx-3'
             />
@@ -89,7 +91,7 @@ export default function DashboardLayout({ params,
               { title: "Account", href: "account" },
             ]}
 
-            baseUrl='/mds/dashboard'
+            baseUrl={`/${vendor}/dashboard`}
 
           />
         </Sidebar>

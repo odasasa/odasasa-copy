@@ -11,7 +11,7 @@ import { InputFieldProps } from '@/components/Input';
 
 
 const validationSchema = Yup.object().shape({
-  fullName: Yup.string().required('Full Name is required'),
+  name: Yup.string().required('Full Name is required'),
   email: Yup.string().email('Invalid email address').required('Email is required'),
   idNumber: Yup.string().required('ID Number is required'),
   password: Yup.string()
@@ -39,7 +39,7 @@ const Signup = ({
     email: '',
     idNumber:"",
     password: '',
-    fullName: '',
+    name: '',
     confirmPassword: '',
     phone: '',
     businessName: '',
@@ -52,6 +52,7 @@ const Signup = ({
     try {
       const data = await (await fetch("/api/user", { body: JSON.stringify(values), method: "POST", headers: { "Content-Type": "application/json" } })).json()
       console.log({ values, data });
+      alert(JSON.stringify(data))
     } catch (error: any) {
 
       console.log({ msg: error.message });
@@ -60,7 +61,7 @@ const Signup = ({
   };
   const signupFields = [
     {
-      name: "fullName",
+      name: "name",
       label: "Full Name",
       type: "text"
     },
@@ -69,7 +70,7 @@ const Signup = ({
       label: "ID Number",
       type: "string"
     },
-    ,
+   
     {
       name: "phone",
       label: "Phone Number",
@@ -80,7 +81,7 @@ const Signup = ({
       label: "Email Address",
       type: "email"
     }, {
-      name: "businesName",
+      name: "businessName",
       label: "Business Name",
       type: "text"
     }, {

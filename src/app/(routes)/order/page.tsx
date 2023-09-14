@@ -10,14 +10,12 @@ const products = [
   { id: 3, name: "Product 3", price: 7.49 },
 ];
 
-
-
 const ShoppingCart: React.FC = () => {
   const [cart, setCart] = useState<
     { id: number; name: string; price: number; quantity: number }[]
   >([]);
 
-  const [url, setUrl] = useState<string>("")
+  const [url, setUrl] = useState<string>("");
 
   useEffect(() => {}, [cart]);
 
@@ -107,7 +105,7 @@ const ShoppingCart: React.FC = () => {
     )}\n\n${totalMessage}`;
   };
 
-  const generateWhatsAppMessage = (phoneNumber: string) => {
+  const generateWhatsAppMessage6 = (phoneNumber: string) => {
     const itemsMessage = cart.map((item) => {
       const subtotal = (item.price * item.quantity).toFixed(2);
       return `${item.name} (x${item.quantity}) - $${subtotal}`;
@@ -128,25 +126,45 @@ const ShoppingCart: React.FC = () => {
     https: return whatsappURL;
   };
 
-   const generateWhatsAppMessage5 = (phoneNumber: string) => {
-     const itemsMessage = cart.map((item) => {
-       const subtotal = (item.price * item.quantity).toFixed(2);
-       return `${item.name} (x${item.quantity}) - $${subtotal}`;
-     });
+  const generateWhatsAppMessage5 = (phoneNumber: string) => {
+    const itemsMessage = cart.map((item) => {
+      const subtotal = (item.price * item.quantity).toFixed(2);
+      return `${item.name} (x${item.quantity}) - $${subtotal}`;
+    });
 
-     const totalMessage = `Total: $${cartTotal.toFixed(2)}`;
+    const totalMessage = `Total: $${cartTotal.toFixed(2)}`;
 
-     // Combine the individual item messages and the total message with line breaks and separators
-     const message = `🛒 Shopping Cart 🛒\n\n${itemsMessage.join(
-       "\n"
-     )}\n\n${totalMessage}`;
+    // Combine the individual item messages and the total message with line breaks and separators
+    const message = `🛒 Shopping Cart 🛒\n\n${itemsMessage.join(
+      "\n"
+    )}\n\n${totalMessage}`;
 
-     // Encode the message and phone number for use in the WhatsApp URL
-     const encodedMessage = encodeURIComponent(message);
-     const whatsappURL = `https://wa.me/${phoneNumber}&text=${encodedMessage}`;
+    // Encode the message and phone number for use in the WhatsApp URL
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/${phoneNumber}&text=${encodedMessage}`;
 
-     return whatsappURL;
-   };
+    return whatsappURL;
+  };
+
+  const generateWhatsAppMessage = (phoneNumber: string) => {
+    const itemsMessage = cart.map((item) => {
+      const subtotal = (item.price * item.quantity).toFixed(2);
+      return `${item.name} (x${item.quantity}) - $${subtotal}`;
+    });
+
+    const totalMessage = `Total: $${cartTotal.toFixed(2)}`;
+
+    // Combine the individual item messages and the total message with line breaks and separators
+    const message = `🛒 Shopping Cart 🛒\n\n${itemsMessage.join(
+      "\n"
+    )}\n\n${totalMessage}`;
+
+    // Encode the message and phone number for use in the WhatsApp URL
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+    return whatsappURL;
+  };
 
   return (
     <div className="container mx-auto mt-8">
@@ -215,25 +233,17 @@ const ShoppingCart: React.FC = () => {
         {/* ... (previous code) */}
         <div className="mt-4">
           <p className="text-xl font-bold">Total: ${cartTotal.toFixed(2)}</p>
-          {/* <WhatsappShareButton
-            url={`whatsapp://send?text=${encodeURIComponent(
-              generateWhatsAppMessage()
-            )}`}
-            separator=" - "
-          >
-            <button className="px-2 py-1 bg-green-500 text-white rounded">
-              Share on WhatsApp
-            </button>
-          </WhatsappShareButton> */}
-          {/* <WhatsappShareButton
-            url={generateWhatsAppMessage("254727654531")}
-            separator=" - "
-          > */}
-            <a href ={'https://api.whatsapp.com/send?phone=254791784343&text=Hello%20MobileX%20Solution!'} className="px-2 py-1 bg-green-500 text-white rounded" >
-              Share on WhatsApp
-            </a>
-          {/* </WhatsappShareButton> */}
 
+          <button
+            onClick={() =>
+              window
+                .open(generateWhatsAppMessage("254727654531"), "_blank")
+                ?.focus()
+            }
+            className="px-2 py-1 bg-green-500 text-white rounded"
+          >
+            Share on WhatsApp
+          </button>
         </div>
       </div>
     </div>

@@ -7,3 +7,4 @@ export { default as Label } from './Label';
 export { default as InputField } from './InputField';
 export { default as Typography } from './Typography';
 export { default as Icon } from './Icon2';
+export { default as MyDiv } from './MyDiv';

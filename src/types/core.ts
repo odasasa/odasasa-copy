@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 
 export interface User {
     _id?: string;
@@ -14,3 +15,9 @@ export interface User {
     businessCode:string
   }
  
+
+  export interface ElementProps {
+    className?: string;
+   children?: ReactNode;
+   
+ }

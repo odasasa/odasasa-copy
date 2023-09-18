@@ -18,27 +18,28 @@ export function objectToArrayOfObjects(obj: KeyedObject): Array<KeyedObject> {
   return keyValueArray;
 }
 
-
-
 /**
  * Get category from products
  */
 
 export function extraProductCategories(products: { category: string }[]) {
-  let uniqueCategory = Array.from(new Set(products.map(p => p.category)))
-  return uniqueCategory.map(category => {
+  let uniqueCategory = Array.from(new Set(products.map((p) => p.category)));
+  return uniqueCategory.map((category) => {
     let option = {
       label: "",
-      value: ""
-    }
+      value: "",
+    };
     return {
       ...option,
       label: ucWords(category),
-      value: category
-    }
-
-  })
-
+      value: category,
+    };
+  });
 }
 
 // HTTPSFUNCTIONS
+
+export function getSearchParams(url: string) {
+  let params = new URL(url).searchParams;
+  return params.get("vendor") || "";
+}

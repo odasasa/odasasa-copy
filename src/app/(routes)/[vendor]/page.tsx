@@ -3,15 +3,19 @@ import { Img, Logo, Select, Typography, VendorHeader } from "@/components";
 import Carousel from "@/components/organisms/Carousel";
 import Products from "@/components/templates/Products/ProductPage";
 import { products as prods } from "@/dummy_data/products";
+import { useFetch } from "@/hooks";
 import { extraProductCategories } from "@/utils/key_functions";
 import { useEffect, useState } from "react";
 
 // const image = "http://127.0.0.1:3000/assets/vendors/vendor/avocado.jpg"
 
 export default function VendorHome({ params: { vendor } }: any) {
-
     const [products, setProducts] = useState(prods)
     const [category, setCategory] = useState<string>("")
+    const {data, error} = useFetch(`/api/product/?vendor=${vendor}`)
+    console.log({error,data})
+
+    return <p>Hello Prd test</p>
 
     useEffect(() => {
 
@@ -28,7 +32,7 @@ export default function VendorHome({ params: { vendor } }: any) {
     return <div className="w-full flex flex-col  shadow-xl relative" >
        
         <VendorHeader >
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center space-x-2">
                 <span>Login</span>
                 <span>Register</span>
             </div>

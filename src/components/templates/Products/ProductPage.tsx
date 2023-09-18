@@ -91,7 +91,7 @@ export default function Products({ products }: any) {
         />
         {/*  Products Grid*/}
 
-        <div className="w-[96vw] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mx-4">
+        <div className="w-[96vw] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 space-x-2">
 
           {products.map((prod: Product, indx: number) => <ProductCard key={indx} product={prod} handleAddToCart={handleAddToCart} />)}
         </div>

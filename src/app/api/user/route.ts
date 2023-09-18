@@ -1,6 +1,7 @@
+import { pwdHasher } from "@/libs/bcrypt/passord";
 import { createRecord, getRecords } from "@/libs/mongoose/mongoseCrud";
 import { NextResponse } from "next/server";
-const table = "Users";
+const table = "users";
 const headers: any = {
   "Content-Type": "application/json",
 };
@@ -25,10 +26,17 @@ export async function POST(request: Request) {
   try {
     let obody = await request.json(),
       { confirmPassword, ...body } = obody;
-      if(body['businessCode'].includes('odasa')){
-        body['role'] = 'admin'
-      }
-      body['status'] = false
+    if (body["vendor"].includes("odasa")) {
+      body["role"] = "admin";
+    } else if (body["vendor"].includes("mds")) {
+      body["role"] = "su";
+    } else {
+      body["role"] = "vendor";
+    }
+    body["status"] = false;
+    const { hashedPassword, hashSalt } = pwdHasher(body["password"]);
+    body["password"] = hashedPassword;
+    body["hashSalt"] = hashSalt;
 
     const result = await createRecord(table, body);
 

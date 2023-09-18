@@ -1,126 +1,164 @@
-"use client"
-import React from 'react';
-import { Formik, Form } from 'formik';
-import * as Yup from 'yup';
+"use client";
+import React from "react";
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
 
-import { Button, Input, Typography } from "@/components"
-import Link from 'next/link';
-import { twMerge } from 'tailwind-merge';
-import { InputFieldProps } from '@/components/Input';
-
-
+import { Button, Input, Typography } from "@/components";
+import Link from "next/link";
+import { twMerge } from "tailwind-merge";
+import { InputFieldProps } from "@/components/Input";
+import { useRouter } from "next/navigation";
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required('Full Name is required'),
-  email: Yup.string().email('Invalid email address').required('Email is required'),
-  idNumber: Yup.string().required('ID Number is required'),
+  name: Yup.string().required("Full Name is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  idNumber: Yup.string().required("ID Number is required"),
   password: Yup.string()
-    .min(8, 'Password must be at least 8 characters long')
-    .required('Password is required'),
+    .min(8, "Password must be at least 8 characters long")
+    .required("Password is required"),
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password')], 'Passwords must match')
-    .required('Confirm Password is required'),
-  businessName: Yup.string().required('Field is required'),
-  businessCode: Yup.string().required('Field is required'),
-  phone: Yup.string().required('Field is required'),
-
+    .oneOf([Yup.ref("password")], "Passwords must match")
+    .required("Confirm Password is required"),
+  businessName: Yup.string().required("Field is required"),
+  vendor: Yup.string().required("Field is required"),
+  phone: Yup.string().required("Field is required"),
 });
 
 interface SignupProps {
-  setOp?: (flag: Boolean) => void
-  className?: string
+  setOp?: (flag: Boolean) => void;
+  className?: string;
 }
 
-const Signup = ({
-  setOp,
-  className = ""
-}: SignupProps) => {
+const Signup = ({ setOp, className = "" }: SignupProps) => {
   const initialValues = {
-    email: '',
-    idNumber:"",
-    password: '',
-    name: '',
-    confirmPassword: '',
-    phone: '',
-    businessName: '',
-    businessCode: '',
-
+    email: "",
+    idNumber: "",
+    password: "",
+    name: "",
+    confirmPassword: "",
+    phone: "",
+    businessName: "",
+    vendor: "",
   };
 
+  const router = useRouter();
   const handleSubmit = async (values: any) => {
     // Handle form submission here
     try {
-      const data = await (await fetch("/api/user", { body: JSON.stringify(values), method: "POST", headers: { "Content-Type": "application/json" } })).json()
-      console.log({ values, data });
-      alert(JSON.stringify(data))
+      const data = await (
+        await fetch("/api/user", {
+          body: JSON.stringify(values),
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        })
+      ).json();
+      console.log( data );
+      // alert(JSON.stringify(data));
+      alert("Account Successfully created.Go to login");
+
+      router.push("/auth/login");
     } catch (error: any) {
+      alert("There was an error creating your account.Pleasetry again")
 
       console.log({ msg: error.message });
     }
-
   };
   const signupFields = [
     {
       name: "name",
       label: "Full Name",
-      type: "text"
+      type: "text",
     },
     {
       name: "idNumber",
       label: "ID Number",
-      type: "string"
+      type: "string",
     },
-   
+
     {
       name: "phone",
       label: "Phone Number",
-      type: "tel"
+      type: "tel",
     },
     {
       name: "email",
       label: "Email Address",
-      type: "email"
-    }, {
+      type: "email",
+    },
+    {
       name: "businessName",
       label: "Business Name",
-      type: "text"
-    }, {
+      type: "text",
+    },
+    {
       label: "Business Code",
-      name: "businessCode",
-      type: "text"
-    }, {
+      name: "vendor",
+      type: "text",
+    },
+    {
       name: "password",
       label: "Password",
-      type: "password"
-    }, {
+      type: "password",
+    },
+    {
       name: "confirmPassword",
       label: "Confirm Password",
-      type: "password"
-    }
-  ] as InputFieldProps[]
+      type: "password",
+    },
+  ] as InputFieldProps[];
 
-  const inputCommonClasses = 'mb-3 px-3 py-2 rounded-sm w-full outline outline-2 outline-auth-border_color'
+  const inputCommonClasses =
+    "mb-3 px-3 py-2 rounded-sm w-full outline outline-2 outline-auth-border_color";
   return (
-
-    <Formik initialValues={initialValues}
-      validationSchema={validationSchema} onSubmit={handleSubmit}>
-      <Form className={twMerge(`w-full max-w-[500px]
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      <Form
+        className={twMerge(
+          `w-full max-w-[500px]
       mx-auto flex flex-col  bg-slate-200
       justify-center items-center
-     text-auth-gray border border-solid border-auth-border_color`, className)}>
-        <div className='w-full p-[20px] h-[111] flex flex-col  border-solid border-b border-auth-border_color'>
-          <Typography variant={'h3'} className=' text-xl text-auth-gray font-normal '>Registrations Form</Typography>
-          <Typography variant={'p'} className=' text-base text-auth-gray font-bold text-center'>Please enter your user information</Typography>
+     text-auth-gray border border-solid border-auth-border_color`,
+          className
+        )}
+      >
+        <div className="w-full p-[20px] h-[111] flex flex-col  border-solid border-b border-auth-border_color">
+          <Typography
+            variant={"h3"}
+            className=" text-xl text-auth-gray font-normal "
+          >
+            Registrations Form
+          </Typography>
+          <Typography
+            variant={"p"}
+            className=" text-base text-auth-gray font-bold text-center"
+          >
+            Please enter your user information
+          </Typography>
           {/* <hr /> */}
         </div>
-        <div className='w-full  flex flex-col justify-center items-center px-3 pt-3 border-solid border-b border-auth-border_color'>
-          {
-            signupFields.map((field, indx) => <Input key={indx} name={field.name} label={field.label} type={field.type} className={inputCommonClasses} />)
-          }
+        <div className="w-full  flex flex-col justify-center items-center px-3 pt-3 border-solid border-b border-auth-border_color">
+          {signupFields.map((field, indx) => (
+            <Input
+              key={indx}
+              name={field.name}
+              label={field.label}
+              type={field.type}
+              className={inputCommonClasses}
+            />
+          ))}
 
-          <div className='px-3 w-full mb-3'>
-            <Button className="bg-auth-blue hover:auth-hover_blue text-white w-full  py-2" type='submit' >Register My Account</Button>
-
+          <div className="px-3 w-full mb-3">
+            <Button
+              className="bg-auth-blue hover:auth-hover_blue text-white w-full  py-2"
+              type="submit"
+            >
+              Register My Account
+            </Button>
           </div>
 
           {/* <Input name="remember_me" label='By creating an account, you agree the terms and conditions' type="checkbox" className='my-2 px-3' labelClasses='text-[15px] text-auth-gray font-normal py-3' /> */}
@@ -134,14 +172,22 @@ const Signup = ({
             <Button className="bg-auth-twitter_blue hover:auth-hover_blue text-white w-full  py-2" type='submit' >Twitter</Button>
 
           </div> */}
-
         </div>
 
-        <div className='w-full h-[45px] px-3 py-3 justify-center items-center  border-solid border-t border-auth-border_color'>
-          <Typography variant={'p'} className='px-3 text-center text-base text-auth-gray font-normal'>Already a member? <Link href="/auth/login"
-            className={` text-auth-red hover:text-auth-gray`} >Login Here</Link></Typography>
+        <div className="w-full h-[45px] px-3 py-3 justify-center items-center  border-solid border-t border-auth-border_color">
+          <Typography
+            variant={"p"}
+            className="px-3 text-center text-base text-auth-gray font-normal"
+          >
+            Already a member?{" "}
+            <Link
+              href="/auth/login"
+              className={` text-auth-red hover:text-auth-gray`}
+            >
+              Login Here
+            </Link>
+          </Typography>
         </div>
-
       </Form>
     </Formik>
   );

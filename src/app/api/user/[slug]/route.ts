@@ -1,3 +1,4 @@
+import { pwdHasher } from '@/libs/bcrypt/passord';
 import { deleteRecord, getRecordById, updateRecord } from '@/libs/mongoose/mongoseCrud';
 import { NextResponse } from 'next/server';
 
@@ -11,11 +12,16 @@ export async function GET(
     if (product) {
       return NextResponse.json(product);
     } else {
-      return NextResponse.json({ error: `${table.substring(0, table.length - 2)} not found` }, { status: 400 });
+      return  new  NextResponse(JSON.stringify({ error: `${table.substring(0, table.length - 2)} not found` }),{
+        status:404
+      });
+    
     }
 
   } catch (error: any) {
-    return NextResponse.json({ error: error.message });
+    return new  NextResponse(JSON.stringify({ error: error.message }),{
+      status:500
+    });
   }
 }
 
@@ -36,7 +42,14 @@ export async function PUT(
   request: Request,
   { params: { slug } }: { params: { slug: any } }
 ) {
-  let body = await request.json();
+  let body = await request.json()
+  if(Object.keys(body).includes('password')){
+    const{hashedPassword, hashSalt} = pwdHasher(body.password)
+    body['passowrd'] = hashedPassword
+    body['hashSalt'] = hashSalt
+  }
+  
+
 
   try {
     const result = await updateRecord(table, slug, body);

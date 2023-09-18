@@ -44,7 +44,7 @@ const userSchema = new mongoose.Schema<User>(
       type: String,
       required: [true, "Business Name is required"],
     },
-    businessCode: {
+    vendor: {
       type: String,
       required: [true, "Business Code is required"],
     },

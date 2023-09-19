@@ -1,7 +1,6 @@
 import { pwdConfirm } from "@/libs/bcrypt/passord";
 import { dbCon } from "@/libs/mongoose/dbCon";
 import { UserModel } from "@/libs/mongoose/models";
-import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 const table = "Users";
 
@@ -16,7 +15,8 @@ export async function POST(request: Request) {
     });
 
     if (!users)
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return new NextResponse(JSON.stringify({ error: "User not found" }), { status: 404 });
+
     let user: any;
     users.forEach((u) => {
       // if (pwdConfirm(password, u.password)) user = u;

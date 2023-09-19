@@ -1,5 +1,4 @@
 "use client"
-import { Typography } from "@/components";
 import { twMerge } from "tailwind-merge";
 
 interface AddButtonProps {

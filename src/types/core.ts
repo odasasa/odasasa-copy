@@ -5,7 +5,7 @@ export interface User {
     name: string;
     email: string;
     idNumber: string;
-    role: string;
+    role: 'vendor' | 'admin' | 'su';
     createdAt: Date;
     status: string;
     phone: string;

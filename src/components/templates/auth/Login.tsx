@@ -1,14 +1,16 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import { Button, Img, Input, Typography } from "@/components";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { InputFieldProps } from "@/components/Input";
 import { useRouter } from "next/navigation";
-// import { InputFieldProps } from '.././Input';
+import { useGlobalContext } from "@/context/GlobalContext";
+const MySwal = withReactContent(Swal);
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required("This field  is required"),
@@ -16,41 +18,103 @@ const validationSchema = Yup.object().shape({
 });
 
 interface LoginProps {
-  setOp?: (flag: Boolean) => void;
   className?: string;
 }
 
-const Login = ({ setOp, className = "" }: LoginProps) => {
+const Login = ({ className = "" }: LoginProps) => {
   const initialValues = {
     email: "",
     password: "",
   };
   const router = useRouter();
+  const { data, setData } = useGlobalContext();
+  const [isLoading, setIsLoading] = useState(false);
+  
+
   const handleSubmit = async (values: any) => {
     // Handle form submission here
+    setIsLoading(true);
+    // MySwal.showLoading();
     try {
-      const data = await (
+      const responseData = await (
         await fetch("/api/user/login", {
           body: JSON.stringify(values),
           method: "POST",
           headers: { "Content-Type": "application/json" },
         })
       ).json();
-      // console.log({ values, data });
-      // alert(JSON.stringify(values))
-      // alert("Login successful. Go")
-      if (!data.vendor) {
-        throw "Login failed";
+      setIsLoading(false);
+      if (!responseData.vendor) {
+        throw new Error("Login failed. Check your login details and try again");
       }
-      window.localStorage.setItem("user", JSON.stringify(data));
+      setData({
+        ...data,
+        user: responseData,
+      });
+      console.log({ data });
       Swal.fire("Login success");
-      router.push(`/${data.vendor}/dashboard`);
+      router.push(`/${responseData.vendor}/dashboard`);
     } catch (error: any) {
-      console.log({ msg: error.message });
-      Swal.fire("Hello " + error.message);
+      setIsLoading(false);
+      console.log({ error });
+      // Swal.fire(error.message);
+
+      // MySwal.fire({
+      //   // title: <p>Hello World</p>,
+      //   didOpen: () => {
+      //     // `MySwal` is a subclass of `Swal` with all the same instance & static methods
+      //     MySwal.showLoading();
+      //   },
+      // }).then(() => {
+      //   return MySwal.fire(<p>Shorthand works too</p>);
+      // });
       // alert(JSON.stringify({ msg: error.message }))
     }
   };
+
+
+//handle2
+ const handleSubmit2 = async (values: any) => {
+    // Handle form submission here
+
+    try {
+      const responseData = await (
+        await fetch("/api/user/login", {
+          body: JSON.stringify(values),
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        })
+      ).json();
+      setIsLoading(false);
+      if (!responseData.vendor) {
+        throw new Error("Login failed. Check your login details and try again");
+      }
+      setData({
+        ...data,
+        user: responseData,
+      });
+      console.log({ data });
+      Swal.fire("Login success");
+      router.push(`/${responseData.vendor}/dashboard`);
+    } catch (error: any) {
+      setIsLoading(false);
+      console.log({ error });
+      // Swal.fire(error.message);
+
+      // MySwal.fire({
+      //   // title: <p>Hello World</p>,
+      //   didOpen: () => {
+      //     // `MySwal` is a subclass of `Swal` with all the same instance & static methods
+      //     MySwal.showLoading();
+      //   },
+      // }).then(() => {
+      //   return MySwal.fire(<p>Shorthand works too</p>);
+      // });
+      // alert(JSON.stringify({ msg: error.message }))
+    }
+  };
+
+
 
   const loginFields = [
     {

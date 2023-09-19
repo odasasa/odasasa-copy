@@ -1,56 +1,40 @@
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
+"use client";
 
 import { Wrapper } from "@/components/templates/dashboard/main";
-import { Product } from "@/types";
-import { fetchData } from "@/utils";
+import { useGlobalContext } from "@/context/GlobalContext";
+import { useRouter } from "next/navigation";
+import { twMerge } from "tailwind-merge";
 
+export default  function Page(props: any) {
+  const{data, setData} = useGlobalContext()
+  const router = useRouter();
+  // if (!window.localStorage.getItem("user")) {
+  //   router.replace("/auth/login");
+  // }
+console.log({data, loc:"dash->pg"})
+  const colors = [
+    'orange',
+    'green',
+    'red',
+    'blue'
+  ]
+  const colors1 = [
+    'bg-orange-500',
+    'bg-green-500',
+    'bg-red-500',
+    'bg-blue-500'
+  ]
 
-export default async function Page(props: any) {
-
-    const data = await fetchData('/api/product', { revalidate: 3 });
-    // console.log({ data })
-    if (!data) return <div>No data</div>
-    return(
-        <Wrapper
-        // handleAddBtn={() => console.log("Helo Mwero")}
-        shouldAddBtn ={true}
-    >
-        {/* Headers */}
-        
-        <div
-            className="w-full grid grid-cols-10 border-b-2 border-solid bg-[#f9f9ff] font-bold py-3 mx-1 text-sm">
-            <span className="overflow-hidden">#</span>
-            <span className="overflow-hidden">Image</span>
-            <span className="overflow-hidden">Name</span>
-            <span className="overflow-hidden ">Category</span>
-            <span className="overflow-hidden col-span-2">Description</span>
-            <span className="overflow-hidden">Unit</span>
-            <span className="overflow-hidden">Price</span>
-            <span className="overflow-hidden">Status</span>
-            <span className="overflow-hidden">Edit</span>
-        </div>
-
-        {
-            data.map((p: Product, indx: number) => <div key={`${p.id}-${indx}`}
-                className="w-full overflow-x-hidden grid grid-cols-10 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm">
-                <span className="overflow-hidden">{indx + 1}</span>
-                <span className="overflow-hidden">Image Here</span>
-                <span className="overflow-hidden">{p.title}</span>
-                <span className="overflow-hidden">{p.category}</span>
-                <span className="overflow-hidden col-span-2 text-clip ">{p.description}</span>
-                <span className="overflow-hidden">{p.unit}</span>
-                <span className="overflow-hidden">{p.price}</span>
-                <span className="overflow-hidden">{p.status}</span>
-                <div className="flex justify-between items-center ">
-                    <button className="border-2 border-solid border-orange-400 px-2 py-2 rounded-md"> <FaEdit className="text-lg text-orange-400"  /></button>
-                    <button className="border-2 border-solid border-red-400 px-2 py-2 rounded-md"> <FaTrashAlt className="text-lg text-red-400"  /></button>
-                </div>
-            </div>)
-        }
-          
+  return (
+    <Wrapper>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 mid:6 ">
+        {["vendors", "products", "categories", "orders"].map((item, indx) => (
+          <div
+            key={indx}
+            className={twMerge(`flex flex-col justify-center items-center text-white shadow-lg rounded-lg bg-${colors[indx]}-500 px-8 py-4 `)}
+          >{item}</div>
+        ))}
+      </div>
     </Wrapper>
-  
-    )
-
+  );
 }
-

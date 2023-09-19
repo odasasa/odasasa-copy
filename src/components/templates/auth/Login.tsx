@@ -57,7 +57,7 @@ const Login = ({ className = "" }: LoginProps) => {
     } catch (error: any) {
       setIsLoading(false);
       console.log({ error });
-      // Swal.fire(error.message);
+      Swal.fire(error.message);
 
       // MySwal.fire({
       //   // title: <p>Hello World</p>,

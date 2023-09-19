@@ -43,11 +43,11 @@ export async function PUT(
   { params: { slug } }: { params: { slug: any } }
 ) {
   let body = await request.json()
-  if(Object.keys(body).includes('password')){
-    const{hashedPassword, hashSalt} = pwdHasher(body.password)
-    body['passowrd'] = hashedPassword
-    body['hashSalt'] = hashSalt
-  }
+  // if(Object.keys(body).includes('password')){
+  //   const{hashedPassword, hashSalt} = pwdHasher(body.password)
+  //   body['passowrd'] = hashedPassword
+  //   body['hashSalt'] = hashSalt
+  // }
   
 
 

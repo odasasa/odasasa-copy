@@ -11,7 +11,7 @@ function Auth() {
       <>
       
      { op ?  <Login 
-     setOp={setOp}
+     
      /> : <Signup
      setOp={setOp}
      />  }

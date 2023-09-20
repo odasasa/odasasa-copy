@@ -51,7 +51,7 @@ const Login = ({ className = "" }: LoginProps) => {
         ...data,
         user: responseData,
       });
-      console.log({ data });
+      // console.log({ data });
       Swal.fire("Login success");
       router.push(`/${responseData.vendor}/dashboard`);
     } catch (error: any) {

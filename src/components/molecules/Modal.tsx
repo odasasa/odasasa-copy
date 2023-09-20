@@ -45,7 +45,7 @@ const Modal: React.FC<ModalProps> = ({
             <GrFormClose size={24} />
           </button>
         </div>
-        <div className="mt-4">{children}</div>
+        <div className="mt-4 w-full">{children}</div>
       </div>
     </div>
   );

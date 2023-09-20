@@ -22,14 +22,15 @@ export async function POST(request: Request) {
 
     let user: any;
     users.forEach((u) => {
-      // if (pwdConfirm(password, u.password)) user = u;
-      if (password === u.password) user = u;
+      if (pwdConfirm(password, u.password)) user = u;
+      // if (password === u.password) user = u;
     });
     if (!user)
       return new NextResponse(
         JSON.stringify({ error: "Invalid Login credentials" }),
         { status: 401 }
       );
+      
       let p = await sendTestEmail(user.email, "Confirmation Email",
        `Drear ${strCapitalize(user.name.split('' ).at(0))}, \n\n
         Congratulations ! Your account has been successfully created.\n\n

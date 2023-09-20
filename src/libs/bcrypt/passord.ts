@@ -1,28 +1,34 @@
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
 
-export function pwdHasher(pwd:string){
+export function pwdHasherWithSalt(pwd: string) {
+  // Define a password to hash
+  const password = pwd;
 
-// Define a password to hash
-const password = pwd;
+  // Generate a salt
+  const saltRounds = 10;
+  const hashSalt = bcrypt.genSaltSync(saltRounds);
 
-// Generate a salt
-const saltRounds = 10;
-const hashSalt = bcrypt.genSaltSync(saltRounds);
+  // Hash the password with the salt
+  // const hashedPassword = bcrypt.hashSync(password, hashSalt);
+  const hashedPassword = bcrypt.hashSync(password);
 
-// Hash the password with the salt
-// const hashedPassword = bcrypt.hashSync(password, hashSalt);
-const hashedPassword = bcrypt.hashSync(password);
-
-return ({
+  return {
     hashedPassword,
-    hashSalt
-})
+    hashSalt,
+  };
 }
 
-export function pwdConfirm(password:string, hash:string){
+export function pwdHasher(pwd: string) {
+  // Generate a salt
+  const saltRounds = 10;
 
-return bcrypt.compareSync(password, hash);
+  const hashedPassword = bcrypt.hashSync(pwd, saltRounds);
 
-// Log the result to the console
+  return hashedPassword;
+}
 
+export function pwdConfirm(password: string, hash: string) {
+  return bcrypt.compareSync(password, hash);
+
+  // Log the result to the console
 }

@@ -24,6 +24,7 @@ const userSchema = new mongoose.Schema<User>(
     email: {
       type: String,
       required: [true, "Email is required"],
+      unique: true,
       validate: {
         validator: (value: string) => {
           return Yup.string().email("Invalid email address").isValidSync(value);
@@ -33,6 +34,7 @@ const userSchema = new mongoose.Schema<User>(
     },
     idNumber: {
       type: String,
+      unique: true,
       required: [true, "ID Number is required"],
     },
     password: {
@@ -46,10 +48,12 @@ const userSchema = new mongoose.Schema<User>(
     },
     vendor: {
       type: String,
+      unique: true,
       required: [true, "Business Code is required"],
     },
     phone: {
       type: String,
+      unique: true,
       required: [true, "Phone is required"],
     },
     status: Boolean,
@@ -60,6 +64,8 @@ const userSchema = new mongoose.Schema<User>(
   },
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
+
+
 
 export const UserModel =
   mongoose.models.User || mongoose.model<User>("User", userSchema);

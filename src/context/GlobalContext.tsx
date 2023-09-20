@@ -5,38 +5,57 @@ import { Banners } from "@/types";
 import { User } from "@/types/core";
 import {
   Dispatch,
-  ReactNode,
   SetStateAction,
   createContext,
   useContext,
   useState,
 } from "react";
 
-type Data =
-  | {
-      user: User | null;
-      banners: Banners[];
-    }
-  ;
+type CartProduct = {
+  name: string;
+  quantity: number;
+  price: number;
+  productId?: string;
+};
+
+type Order = null | {
+  customer: {
+    name: string;
+    phone: string;
+    pickupPoint: string;
+  };
+  date?: Date;
+  cart: CartProduct[];
+};
+
+type Data = {
+  user: User | null;
+  banners: Banners[];
+  shoppingCart: CartProduct[];
+  order: Order;
+};
 
 interface ContextProps {
   data: Data;
   setData: Dispatch<SetStateAction<Data>>;
 }
 
+const initialData = {
+  user: null,
+  banners: [],
+  shoppingCart: [],
+  order: null,
+};
+
 const GlobalContext = createContext<ContextProps>({
-  data: {
-    user: null,
-    banners: [],
+  data: initialData,
+  setData: (): any => {
+    user: null;
   },
-  setData: (): any => {user:null}
 });
 
-export const GlobalContextProvider = ({children}:{children:any}) => {
-  const [data, setData] = useState<Data>({
-    user: null,
-    banners: [],
-  });
+export const GlobalContextProvider = ({ children }: { children: any }) => {
+  const [data, setData] = useState<Data>(initialData);
 
   return (
     <GlobalContext.Provider value={{ data, setData }}>
@@ -45,5 +64,4 @@ export const GlobalContextProvider = ({children}:{children:any}) => {
   );
 };
 
-
-export const useGlobalContext = ()=>useContext(GlobalContext)
+export const useGlobalContext = () => useContext(GlobalContext);

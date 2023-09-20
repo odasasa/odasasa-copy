@@ -1,5 +1,7 @@
 "use client";
 
+import { Typography } from "@/components";
+import Modal from "@/components/molecules/Modal";
 import { useEffect, useState } from "react";
 import { WhatsappShareButton } from "react-share";
 
@@ -15,6 +17,7 @@ const ShoppingCart: React.FC = () => {
     { id: number; name: string; price: number; quantity: number }[]
   >([]);
 
+  const [visible, setVisibility] = useState(false);
   const [url, setUrl] = useState<string>("");
 
   useEffect(() => {}, [cart]);
@@ -188,64 +191,71 @@ const ShoppingCart: React.FC = () => {
           ))}
         </ul>
       </div>
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold">Cart</h2>
-        <ul>
-          {cart.map((item) => (
-            <li
-              key={item.id}
-              className="flex items-center justify-between p-2 border-b"
+
+      <button onClick={() => setVisibility(true)}>Check out</button>
+      <Modal isOpen={visible} onClose={setVisibility}>
+        <div className="mt-8">
+          <Typography variant="h2" className="text-center">
+            Cart
+          </Typography>
+          <ul>
+            {cart.map((item) => (
+              <li
+                key={item.id}
+                className="flex items-center justify-between p-2 border-b"
+              >
+                <span>
+                  {item.name} x {item.quantity}
+                </span>
+                <span>${(item.price * item.quantity).toFixed(2)}</span>
+                <div className="flex space-x-2">
+                  <button
+                    onClick={() => increaseQuantity(item.id)}
+                    className="px-2 py-1 bg-green-500 text-white rounded"
+                  >
+                    +
+                  </button>
+                  <button
+                    onClick={() => decreaseQuantity(item.id)}
+                    className="px-2 py-1 bg-red-500 text-white rounded"
+                  >
+                    -
+                  </button>
+                  <button
+                    onClick={() => removeFromCart(item.id)}
+                    className="px-2 py-1 bg-gray-300 rounded"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-4">
+            <p className="text-xl font-bold">Total: ${cartTotal.toFixed(2)}</p>
+          </div>
+        </div>
+        <div className="container mx-auto mt-8">
+          <h1 className="text-3xl font-bold">Shopping Cart</h1>
+          {/* ... (previous code) */}
+          <div className="mt-4">
+            <p className="text-xl font-bold">Total: ${cartTotal.toFixed(2)}</p>
+
+            <button
+              onClick={() =>{
+                setVisibility(false)
+                window
+                  .open(generateWhatsAppMessage("254727654531"), "_blank")
+                  ?.focus()
+                }
+              }
+              className="px-2 py-1 bg-green-500 text-white rounded"
             >
-              <span>
-                {item.name} x {item.quantity}
-              </span>
-              <span>${(item.price * item.quantity).toFixed(2)}</span>
-              <div className="flex space-x-2">
-                <button
-                  onClick={() => increaseQuantity(item.id)}
-                  className="px-2 py-1 bg-green-500 text-white rounded"
-                >
-                  +
-                </button>
-                <button
-                  onClick={() => decreaseQuantity(item.id)}
-                  className="px-2 py-1 bg-red-500 text-white rounded"
-                >
-                  -
-                </button>
-                <button
-                  onClick={() => removeFromCart(item.id)}
-                  className="px-2 py-1 bg-gray-300 rounded"
-                >
-                  Remove
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-4">
-          <p className="text-xl font-bold">Total: ${cartTotal.toFixed(2)}</p>
+              Share on WhatsApp
+            </button>
+          </div>
         </div>
-      </div>
-
-      <div className="container mx-auto mt-8">
-        <h1 className="text-3xl font-bold">Shopping Cart</h1>
-        {/* ... (previous code) */}
-        <div className="mt-4">
-          <p className="text-xl font-bold">Total: ${cartTotal.toFixed(2)}</p>
-
-          <button
-            onClick={() =>
-              window
-                .open(generateWhatsAppMessage("254727654531"), "_blank")
-                ?.focus()
-            }
-            className="px-2 py-1 bg-green-500 text-white rounded"
-          >
-            Share on WhatsApp
-          </button>
-        </div>
-      </div>
+      </Modal>
     </div>
   );
 };

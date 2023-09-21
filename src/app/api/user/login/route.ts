@@ -31,16 +31,7 @@ export async function POST(request: Request) {
         { status: 401 }
       );
       
-      let p = await sendTestEmail(user.email, "Confirmation Email",
-       `Drear ${strCapitalize(user.name.split('' ).at(0))}, \n\n
-        Congratulations ! Your account has been successfully created.\n\n
-        Go to this link ${BASE_PATH}/auth/reset/${user.phone}-${user.idNumber}
-        You have 24hrs to activate your account. Hurry up to avoid inconviences.
-
-      Regards,
-
-      Odasasa Admin
-      `);
+      
 
     return new NextResponse(JSON.stringify(user), { status: 201 });
     // redirect(`/${user?.vendor}/dashboard`);

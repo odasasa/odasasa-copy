@@ -102,6 +102,26 @@ export async function getRecordByFields(table: string, filter: any) {
   }
 }
 
+export async function checkIfExists(table: string, field: any) {
+  await dbCon();
+  try {
+    const model = modelMap[table.toLowerCase()];
+
+    if (!model) {
+      throw new Error(`Table ${table} not found`);
+    }
+
+    const row = await model.find(field);
+    
+    if(!row || !row.length) throw new Error("No, not found");
+    console.log({row})
+   return true;
+  } catch (error: any) {
+    console.error(`Error fetching record from ${table}:`, error.message);
+    throw new Error(`Failed to fetch record from ${table}`);
+  } 
+}
+
 // Update
 export async function updateRecord(table: string, id: string, values: any) {
   await dbCon();

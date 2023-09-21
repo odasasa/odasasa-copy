@@ -5,6 +5,9 @@ import { createRecord, getRecords } from "@/libs/mongoose/mongoseCrud";
 
 import { NextResponse } from "next/server";
 import { dbCon } from "@/libs/mongoose/dbCon";
+import { sendTestEmail } from "@/libs/nodemailer/gmail";
+import { strCapitalize } from "@/utils";
+import { BASE_PATH } from "@/utils/next_host";
 const table = "users";
 const headers: any = {
   "Content-Type": "application/json",
@@ -42,7 +45,7 @@ export async function POST(request: Request) {
     body["password"] = hashedPassword;
 
     // const result = await createRecord(table, body);
-    await dbCon()
+    await dbCon();
     const newUser = new UserModel(body);
     let saved = newUser
       .save()
@@ -50,7 +53,7 @@ export async function POST(request: Request) {
         // User saved successfully
         console.log("User saved successfully.");
       })
-      .catch((error:any) => {
+      .catch((error: any) => {
         if (error.code === 11000 && error.keyValue) {
           // Duplicate key error
           if (error.keyValue.email) {
@@ -70,7 +73,22 @@ export async function POST(request: Request) {
           throw error; // Throw the original error for other types of errors
         }
       });
+    let user = body;
+    let p = await sendTestEmail(
+      user.email,
+      "Confirmation Email",
+      `Drear ${strCapitalize(user.name.split("").at(0))}, \n\n
+        Congratulations ! Your account has been successfully created.\n\n
+        Go to this link ${BASE_PATH}/auth/activate/${user.phone}-${
+        user.idNumber
+      }
+        You have 24hrs to activate your account. Hurry up to avoid inconviences.
 
+      Regards,
+
+      Odasasa Admin
+      `
+    );
     return NextResponse.json(saved, { status: 201 });
   } catch (error: any) {
     console.log({ error: error.message });

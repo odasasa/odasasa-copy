@@ -8,13 +8,36 @@ import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { InputFieldProps } from "@/components/Input";
 import { useRouter } from "next/navigation";
-
+import { postData } from "@/utils";
+async function checkFieldExistance(field: [string, string], table: string) {
+  if (!field[1]) return true;
+  try {
+    let data = await postData(`/api/exists/?table=${table}`, {
+      [field[0]]: field[1],
+    });
+    if (data?.success) return false;
+    return true;
+  } catch (error: any) {
+    return true;
+  }
+}
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Full Name is required"),
   email: Yup.string()
+    .test("checkIfExists", "Email already exists", async function (value: any) {
+      return await checkFieldExistance(["email", value], "users");
+    })
     .email("Invalid email address")
     .required("Email is required"),
-  idNumber: Yup.string().required("ID Number is required"),
+  idNumber: Yup.string()
+    .required("ID Number is required")
+    .test(
+      "checkIfExists",
+      "ID Number already exists",
+      async function (value: any) {
+        return await checkFieldExistance(["idNumber", value], "users");
+      }
+    ),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters long")
     .required("Password is required"),
@@ -22,8 +45,20 @@ const validationSchema = Yup.object().shape({
     .oneOf([Yup.ref("password")], "Passwords must match")
     .required("Confirm Password is required"),
   businessName: Yup.string().required("Field is required"),
-  vendor: Yup.string().required("Field is required"),
-  phone: Yup.string().required("Field is required"),
+  vendor: Yup.string()
+    .required("Field is required")
+    .test("checkIfExists", "Code already taken", async function (value: any) {
+      return await checkFieldExistance(["vendor", value], "users");
+    }),
+  phone: Yup.string()
+    .required("Field is required")
+    .test(
+      "checkIfExists",
+      "Phone Number already exists",
+      async function (value: any) {
+        return await checkFieldExistance(["phone", value], "users");
+      }
+    ),
 });
 
 interface SignupProps {
@@ -54,13 +89,13 @@ const Signup = ({ setOp, className = "" }: SignupProps) => {
           headers: { "Content-Type": "application/json" },
         })
       ).json();
-      console.log( data );
+      console.log(data);
       // alert(JSON.stringify(data));
       alert("Account Successfully created.Go to login");
 
       router.push("/auth/login");
     } catch (error: any) {
-      alert("There was an error creating your account.Pleasetry again")
+      alert("There was an error creating your account.Pleasetry again");
 
       console.log({ msg: error.message });
     }

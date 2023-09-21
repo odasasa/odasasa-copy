@@ -39,7 +39,7 @@ export function extraProductCategories(products: { category: string }[]) {
 
 // HTTPSFUNCTIONS
 
-export function getSearchParams(url: string) {
+export function getSearchParams(url: string, field = "vendor") {
   let params = new URL(url).searchParams;
-  return params.get("vendor") || "";
+  return params.get(field) || "";
 }

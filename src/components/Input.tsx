@@ -81,8 +81,8 @@ const Input: React.FC<InputFieldProps> = ({
           name={name}
           className={` w-full ${classes}`}
         />
-        <span className="absolute top-2/5  right-4 flex justify-center items-center" onClick={()=>setShowPwd(!showPwd)}>
-         { !showPwd? <FaEye />:<FaEyeSlash />}
+        <span className="h-full absolute  right-4 flex justify-center items-center" onClick={()=>setShowPwd(!showPwd)}>
+         { !showPwd? <FaEye className="my-auto" />:<FaEyeSlash className="my-auto" />}
         </span>
         </>
           

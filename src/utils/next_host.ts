@@ -1,6 +1,17 @@
-export const IS_SERVER_ENV = typeof window === 'undefined'
-export function getHostPath() {
+const IS_SERVER: boolean = typeof window === "undefined";
 
+export  function getURL(path: string): string {
+  const baseURL: string = IS_SERVER
+    ? process.env.NEXT_PUBLIC_BASE_URL!
+    : window.location.origin;
+  return new URL(path, baseURL).toString();
 }
 
-export const BASE_PATH = IS_SERVER_ENV ? ('dev' === process.env.NEXT_PUBLIC_ENV ? process.env.NEXT_PUBLIC_DEV_BASE_URL : "https://oda-dev.vercel.app") : ""
+export  function getBaseURL(): string {
+  return IS_SERVER
+    ? process.env.NEXT_PUBLIC_BASE_URL!
+    : window.location.origin;
+  
+}
+
+export const BASE_PATH = getBaseURL()

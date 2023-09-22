@@ -18,20 +18,19 @@ export async function POST(request: Request) {
     });
 
     if (!users)
-      return new NextResponse(JSON.stringify({ error: "User not found" }), { status: 404 });
+      return new NextResponse(JSON.stringify({ error: "User not found" }), {
+        status: 404,
+      });
 
     let user: any;
     users.forEach((u) => {
       if (pwdConfirm(password, u.password)) user = u;
-      // if (password === u.password) user = u;
     });
     if (!user)
       return new NextResponse(
         JSON.stringify({ error: "Invalid Login credentials" }),
         { status: 401 }
       );
-      
-      
 
     return new NextResponse(JSON.stringify(user), { status: 201 });
     // redirect(`/${user?.vendor}/dashboard`);

@@ -112,14 +112,14 @@ export async function checkIfExists(table: string, field: any) {
     }
 
     const row = await model.find(field);
-    
-    if(!row || !row.length) throw new Error("No, not found");
-    console.log({row})
-   return true;
+
+    if (!row || !row.length) throw new Error("No, not found");
+    console.log({ row });
+    return true;
   } catch (error: any) {
     console.error(`Error fetching record from ${table}:`, error.message);
     throw new Error(`Failed to fetch record from ${table}`);
-  } 
+  }
 }
 
 // Update
@@ -153,6 +153,26 @@ export async function deleteRecord(table: string, id: string) {
     }
 
     await model.deleteOne({ _id: id });
+    return "Record deleted successfully";
+  } catch (error: any) {
+    console.error(`Error deleting record from ${table}:`, error.message);
+    throw new Error(`Failed to delete record from ${table}`);
+  } finally {
+    //  closeDbCon()
+  }
+}
+
+// Delete
+export async function deleteAll(table: string) {
+  await dbCon();
+  try {
+    const model = modelMap[table.toLowerCase()];
+
+    if (!model) {
+      throw new Error(`Table ${table} not found`);
+    }
+
+    await model.deleteMany({});
     return "Record deleted successfully";
   } catch (error: any) {
     console.error(`Error deleting record from ${table}:`, error.message);

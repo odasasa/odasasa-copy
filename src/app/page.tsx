@@ -27,59 +27,59 @@ export default function Home() {
         <HeroSection />
 
         {/*savetime  */}
-        <SaveTimeSection />
+        {/* <SaveTimeSection /> */}
 
         {/* Flexible */}
-        <FlexibleSection />
+        {/* <FlexibleSection /> */}
 
         {/* ManageOrders */}
         {/* <ManageOrdersSection /> */}
-        <SectionTemplate
+        {/* <SectionTemplate
           heading="Manage orders efficiently"
           subHeading="No more spreadsheets or missed orders. Track your order status, payment status, daily sales and customer data all in one place."
           imgSrc="/vendors/vendor/manage_order.webp"
-        />
+        /> */}
 
         {/* CreateStore */}
         {/* <CreateStoreSection /> */}
-        <SectionTemplate
+        {/* <SectionTemplate
           heading="Create online store in minutes"
           subHeading="Beautiful product catalog. Built-in search engine optimisations."
           imgSrc="/vendors/vendor/create_store.webp"
           rowReverse = {true}
-        />
+        /> */}
 
         {/* LinkBio */}
         {/* <LinkBioSection /> */}
-        <SectionTemplate
+        {/* <SectionTemplate
           heading="Link In Bio"
           subHeading="Turn your followers to sales."
           imgSrc="/vendors/vendor/link_bio.webp"
           // rowReverse = {true}
-        />
+        /> */}
 
         {/* LinkWhatsapp */}
-        <LinkWhatsappSection />
+        {/* <LinkWhatsappSection />
         <SectionTemplate
           heading="Link in WhatsApp Auto Reply"
           subHeading="Minimise customer waiting time."
           imgSrc="/vendors/vendor/link_to_whatsapp.webp"
           // rowReverse = {true}
-        />
+        /> */}
         {/* Support
         <SupportSection /> */}
 
         {/* OurPartners */}
-        <OurPartnersSection />
+        {/* <OurPartnersSection /> */}
 
         {/* Pricing */}
-        <PricingSection />
+        {/* <PricingSection /> */}
 
         {/* FAQ */}
         <FAQSection />
 
         {/* SecondaryCTA */}
-        <SecondaryCTASection />
+        {/* <SecondaryCTASection /> */}
       </main>
     </div>
   );

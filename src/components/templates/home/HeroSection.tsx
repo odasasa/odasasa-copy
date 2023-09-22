@@ -1,5 +1,6 @@
 import { Img, MyDiv, Typography } from "@/components";
 import { ElementProps } from "@/types/core";
+import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
 type Props = ElementProps & {};
@@ -24,7 +25,8 @@ export default function HeroSection({ className = "", children }: Props) {
 
         <div className="w-full flex flex-col md:flex-row md:gap-3 my-5 justify-center items-center">
           {/* primary button */}
-          <button className="w-fit px-6 py-3  rounded-xl bg-[#000] text-white  mb-1 text-lg md:text-xl font-semi">Get Started for Free</button>
+         <Link href="/auth/signup"> <button className="w-fit px-6 py-3  rounded-xl bg-product-blue text-white  mb-1 text-lg md:text-xl font-semi">Get Started for Free</button>
+         </Link>
 
           {/* secondary button */}
           <button className="w-fit px-6 py-3  rounded-xl  text-[#000]   text-lg font-semi">Login</button>

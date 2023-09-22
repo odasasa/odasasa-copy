@@ -16,7 +16,7 @@ export default function AuthNav({ className = "", navItems }: AuthNavProps) {
     const actualItems = navItems || defaultNavItems
     return <div className={twMerge('flex gap-4 justify-end items-center', className)}>
         {
-            actualItems.map((item, indx) => <Link key={item.href + indx} href={item.href} className="hover:cursor-pointer ">{item.title}</Link>)
+            actualItems.map((item, indx) => <Link key={item.href + indx} href={item.href} className={twMerge(`hover:cursor-pointer px-6 py-3 rounded-lg font-bold text-black  `, `${item.href.includes('signup')?"bg-product-blue text-white hover:bg-black":"hover:tex-white hover:bg-opacity-60"}`)}>{item.title}</Link>)
         }
     </div>
 }

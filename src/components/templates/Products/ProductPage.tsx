@@ -15,7 +15,7 @@ export default function Products({ products }: any) {
   ];
 
 
-  const [toggleModal, setToggleModal] = useState(true)
+  const [toggleModal, setToggleModal] = useState(false)
 
   const [cartItems, setCartItems] = useState<CartItem[]>(initialCartItems);
 

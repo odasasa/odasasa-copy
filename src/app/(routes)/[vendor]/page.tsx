@@ -1,5 +1,5 @@
 "use client"
-import { Img, Logo, Select, Typography, VendorHeader } from "@/components";
+import { AuthNav, Img, Logo, Select, Typography, VendorHeader } from "@/components";
 import Carousel from "@/components/organisms/Carousel";
 import Products from "@/components/templates/Products/ProductPage";
 import { products as prods } from "@/dummy_data/products";
@@ -15,7 +15,7 @@ export default function VendorHome({ params: { vendor } }: any) {
     const {data, error} = useFetch(`/api/product/?vendor=${vendor}`)
     console.log({error,data})
 
-    return <p>Hello Prd test</p>
+   
 
     useEffect(() => {
 
@@ -32,10 +32,11 @@ export default function VendorHome({ params: { vendor } }: any) {
     return <div className="w-full flex flex-col  shadow-xl relative" >
        
         <VendorHeader >
-            <div className="flex justify-between items-center space-x-2">
+            {/* <div className="flex justify-between items-center space-x-2">
                 <span>Login</span>
                 <span>Register</span>
-            </div>
+            </div> */}
+            <AuthNav />
         </VendorHeader>
 
         <p className="mt-20"></p>

@@ -26,7 +26,7 @@ export const findPasswordResetRecord = async (
 ): Promise<any | null> => {
   try {
     await dbCon();
-    return await PasswordResetModel.findOne({ token, isUsed: false }).exec();
+    return await PasswordResetModel.findOne({ token, isUsed: false });
   } catch (error) {
     throw new Error("Error finding password reset record");
   }

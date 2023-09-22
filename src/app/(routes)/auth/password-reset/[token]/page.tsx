@@ -5,7 +5,8 @@ import * as Yup from "yup";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 
-function PasswordResetPage({ params }: { params: { token: string } }) {
+function PasswordResetPage({ params }: any) {
+
   const router = useRouter();
   const formik = useFormik({
     initialValues: {
@@ -27,7 +28,7 @@ function PasswordResetPage({ params }: { params: { token: string } }) {
       try {
         const data = await (
           await fetch("/api/password/reset", {
-            body: JSON.stringify(values),
+            body: JSON.stringify({...values, token:params.token}),
             method: "POST",
             headers: { "Content-Type": "application/json" },
           })

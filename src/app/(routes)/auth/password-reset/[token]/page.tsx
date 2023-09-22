@@ -2,12 +2,12 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 function PasswordResetPage({ params }: { params: { token: string } }) {
- 
- 
- 
-    const formik = useFormik({
+  const router = useRouter();
+  const formik = useFormik({
     initialValues: {
       password: "",
       confirmPassword: "",
@@ -20,11 +20,30 @@ function PasswordResetPage({ params }: { params: { token: string } }) {
         .oneOf([Yup.ref("password"), "null"], "Passwords must match")
         .required("Confirm Password is required"),
     }),
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: async (values, { resetForm }) => {
       // You can add your logic here to send a request to your server to reset the password
 
+      // Handle form submission here
+      try {
+        const data = await (
+          await fetch("/api/password/reset", {
+            body: JSON.stringify(values),
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+          })
+        ).json();
+        console.log({ data });
+        // alert(JSON.stringify(values))
+        if (!data.msg) Swal.fire("Somethong went wrong try again");
+        else Swal.fire(data.msg);
+        router.push("/auth/login");
+        return resetForm();
+      } catch (error: any) {
+        console.log({ msg: error.message });
+        Swal.fire(error.message);
+      }
+
       // After a successful reset, reset the form
-      resetForm();
     },
   });
 

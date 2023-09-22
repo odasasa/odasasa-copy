@@ -9,6 +9,7 @@ import { twMerge } from "tailwind-merge";
 import { InputFieldProps } from "@/components/Input";
 import { useRouter } from "next/navigation";
 import { postData } from "@/utils";
+import Swal from "sweetalert2";
 async function checkFieldExistance(field: [string, string], table: string) {
   if (!field[1]) return true;
   try {
@@ -91,7 +92,7 @@ const Signup = ({ setOp, className = "" }: SignupProps) => {
       ).json();
       console.log(data);
       // alert(JSON.stringify(data));
-      alert("Account Successfully created.Go to login");
+     Swal.fire("Account Successfully created.Go to login");
 
       router.push("/auth/login");
     } catch (error: any) {

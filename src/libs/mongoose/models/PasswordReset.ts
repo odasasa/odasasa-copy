@@ -1,4 +1,11 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
+interface PasswordReset{
+  email: string
+  token : string
+  isUsed:boolean
+  
+}
 
 const passwordResetSchema = new mongoose.Schema({
   email: {
@@ -20,6 +27,5 @@ const passwordResetSchema = new mongoose.Schema({
   },
 });
 
-const PasswordReset = mongoose.model("PasswordReset", passwordResetSchema);
-
-module.exports = PasswordReset;
+export const PasswordResetModel =
+  mongoose.models.PasswordReset || mongoose.model<PasswordReset>("PasswordReset", passwordResetSchema);

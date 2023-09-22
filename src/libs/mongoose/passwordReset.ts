@@ -1,4 +1,5 @@
 import { dbCon } from "./dbCon";
+import { PasswordResetModel } from "./models";
 
 // Create a Password Reset Record
 export const createPasswordResetRecord = async (
@@ -8,11 +9,11 @@ export const createPasswordResetRecord = async (
   try {
     await dbCon();
 
-    const resetRecord = new PasswordReset({
+    const resetRecord = new PasswordResetModel({
       email,
       token,
     });
-    await resetRecord.save();
+    return await resetRecord.save();
   } catch (error) {
     throw new Error("Error creating password reset record");
   }
@@ -20,12 +21,12 @@ export const createPasswordResetRecord = async (
 
 // Find Password Reset Records
 export const findPasswordResetRecord = async (
-  email: string,
+  // email: string,
   token: string
 ): Promise<any | null> => {
   try {
     await dbCon();
-    return await PasswordReset.findOne({ email, token }).exec();
+    return await PasswordResetModel.findOne({ token, isUsed: false }).exec();
   } catch (error) {
     throw new Error("Error finding password reset record");
   }
@@ -35,11 +36,14 @@ export const findPasswordResetRecord = async (
 export const markPasswordResetRecordAsUsed = async (
   email: string,
   token: string
-): Promise<void> => {
+): Promise<boolean> => {
   try {
     await dbCon();
-    await PasswordReset.updateOne({ email, token }, { isUsed: true }).exec();
-    
+    await PasswordResetModel.updateOne(
+      { email, token },
+      { isUsed: true }
+    ).exec();
+    return true;
   } catch (error) {
     throw new Error("Error marking password reset record as used");
   }

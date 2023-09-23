@@ -1,7 +1,8 @@
-"use client"
-import { strCapitalize } from '@/utils';
-import React from 'react';
-import { FaTrash } from 'react-icons/fa';
+"use client";
+import { strCapitalize } from "@/utils";
+import React from "react";
+import { FaTrash } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 interface CartItem {
   name: string;
@@ -11,7 +12,7 @@ interface CartItem {
 
 interface ShoppingCartProps {
   items: CartItem[];
-  customer?:{name:string, phone:string, location:string}
+  customer: { name: string; phone: string; location: string };
   onItemRemove: (index: number) => void;
   onItemIncrement: (index: number) => void;
   onItemDecrement: (index: number) => void;
@@ -23,45 +24,35 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
   onItemRemove,
   onItemIncrement,
   onItemDecrement,
-
 }) => {
+  const calculateTotalAmount = () => {
+    return items.reduce((total, item) => total + item.price * item.quantity, 0);
+  };
+  const generateWhatsAppMessage = (phoneNumber: string) => {
+    const itemsMessage = items.map((item) => {
+      const subtotal = (item.price * item.quantity).toFixed(2);
+      return `${item.name} (x${item.quantity}) - $${subtotal}`;
+    });
 
-   const calculateTotalAmount = () => {
-     return items.reduce(
-       (total, item) => total + item.price * item.quantity,
-       0
-     );
-   };
-   const generateWhatsAppMessage = (phoneNumber: string) => {
-     const itemsMessage = items.map((item) => {
-       const subtotal = (item.price * item.quantity).toFixed(2);
-       return `${item.name} (x${item.quantity}) - $${subtotal}`;
-     });
-
-     const customerDetails = `
-     \n *Customer Details:*\n
-     ${strCapitalize(customer?.name!)}, \n
-       ${strCapitalize(customer?.phone!)}, \n
-       ${strCapitalize(customer?.location!)}, \n
+    const customerDetails = `
+     *Customer Details:*\n
+     ${strCapitalize(customer?.name!)},
+       ${strCapitalize(customer?.phone!)},
+       ${strCapitalize(customer?.location!)}
      `;
-     const totalMessage = `Total: $${calculateTotalAmount().toFixed(2)}`;
+    const totalMessage = `Total: $${calculateTotalAmount().toFixed(2)}`;
 
-     // Combine the individual item messages and the total message with line breaks and separators
-     const message = `🛒 Shopping Cart 🛒\n\n
-     ${customerDetails}\n\n
-     ${itemsMessage.join(
-       "\n"
-     )}\n\n${totalMessage}`;
+    // Combine the individual item messages and the total message with line breaks and separators
+    const message = `🛒 Shopping Cart 🛒\n
+     ${customerDetails}\n
+     ${itemsMessage.join("\n")}\n\n${totalMessage}\n\n`;
 
-     // Encode the message and phone number for use in the WhatsApp URL
-     const encodedMessage = encodeURIComponent(message);
-     const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    // Encode the message and phone number for use in the WhatsApp URL
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
-     return whatsappURL;
-   };
-
- 
-
+    return whatsappURL;
+  };
 
   return (
     <div className="shopping-cart">
@@ -111,9 +102,12 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
           <div className="total-amount font-bold text-xl">
             <span>Total Amount:</span>
             <span>${calculateTotalAmount()}</span>
+            <br />
             <button
+              // disabled ={Object.values(customer).includes("")}
               onClick={() => {
-                
+                if (Object.values(customer).includes(""))
+                  return Swal.fire("Fill Customer Details");
                 window
                   .open(generateWhatsAppMessage("254727654531"), "_blank")
                   ?.focus();

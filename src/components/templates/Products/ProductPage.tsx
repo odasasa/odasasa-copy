@@ -7,10 +7,9 @@ import Modal from '@/components/molecules/Modal';
 import ProductCard from './ProductCard';
 import { Product } from '@/types';
 
-export default function Products({ products }: any) {
+export default function Products({ products, handleFilterByCategory,activeCategory }: any) {
   const initialCartItems: CartItem[] = [
-    { name: 'Item 1', price: 10, quantity: 1 },
-    { name: 'Item 2', price: 15, quantity: 1 },
+   
 
   ];
 
@@ -87,13 +86,13 @@ export default function Products({ products }: any) {
           className="mx-2"
           value="" options={[{ label: "All Categories", value: "" }, ...extraProductCategories(products)]}
           placeholder={"All Categories"}
-          onChange={(value) => { }}
+          onChange={(selectedCategory) => handleFilterByCategory(selectedCategory)}
         />
         {/*  Products Grid*/}
 
         <div className="w-[96vw] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 space-x-2">
 
-          {products.map((prod: Product, indx: number) => <ProductCard key={indx} product={prod} handleAddToCart={handleAddToCart} />)}
+          {(activeCategory? products.filter((p:any)=>p.category === activeCategory) : products).map((prod: Product, indx: number) => <ProductCard key={indx} product={prod} handleAddToCart={handleAddToCart} />)}
         </div>
 
       </div>

@@ -11,22 +11,31 @@ import { useEffect, useState } from "react";
 
 export default function VendorHome({ params: { vendor } }: any) {
     const [products, setProducts] = useState(prods)
-    const [category, setCategory] = useState<string>("")
+    const [activeCategory, setActiveCategory] = useState<string>("")
     const {data, error} = useFetch(`/api/product/?vendor=${vendor}`)
     console.log({error,data})
 
    
+const handleFilterByCategory =(category:string)=>{
+    setActiveCategory(category);
+    // setProducts(oldProd => {
+    //     if (category) return [
+    //         ...oldProd.filter((p: any) => p.category === category)
+    //     ]
+    //     return oldProd
+    // })
 
+}
     useEffect(() => {
 
-        setProducts(oldProd => {
-            if (category) return [
-                ...oldProd.filter((p: any) => p.category == category)
-            ]
-            return oldProd
-        })
+        // setProducts(oldProd => {
+        //     if (category) return [
+        //         ...oldProd.filter((p: any) => p.category == category)
+        //     ]
+        //     return oldProd
+        // })
 
-    }, [category])
+    }, [products])
 
 
     return <div className="w-full flex flex-col  shadow-xl relative" >
@@ -36,7 +45,7 @@ export default function VendorHome({ params: { vendor } }: any) {
                 <span>Login</span>
                 <span>Register</span>
             </div> */}
-            <AuthNav />
+            {/* <AuthNav /> */}
         </VendorHeader>
 
         <p className="mt-20"></p>
@@ -64,7 +73,11 @@ export default function VendorHome({ params: { vendor } }: any) {
 
 
 
-        <Products products={products} />
+        <Products products={products} 
+        handleFilterByCategory ={handleFilterByCategory}
+        activeCategory = {activeCategory}
+
+        />
 
     </div>
 }

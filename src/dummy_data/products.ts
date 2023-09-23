@@ -1,5 +1,5 @@
 export const products: {
-    title: string,
+    name: string,
     category: string
     description: string,
     unit: string
@@ -8,7 +8,7 @@ export const products: {
 }[] = 
 [
     {
-        "title": "Fresh Potatoes",
+        "name": "Fresh Potatoes",
         "category": "vegetables",
         "description": "Fresh Potatoes Best for Fries",
         "unit": "MOQ 3KGS",
@@ -16,7 +16,7 @@ export const products: {
         "price": 50
     },
     {
-        "title": "Fresh Onion",
+        "name": "Fresh Onion",
         "category": "vegetables",
         "description": "Fresh Onion Best for Cooking",
         "unit": "MOQ 2KGS",
@@ -24,7 +24,7 @@ export const products: {
         "price": 200
     },
     {
-        "title": "Fresh Carrots",
+        "name": "Fresh Carrots",
         "category": "vegetables",
         "description": "Fresh Carrots Best for Cooking",
         "unit": "MOQ 1KGS",
@@ -32,7 +32,7 @@ export const products: {
         "price": 70
     },
     {
-        "title": "Fresh Gingers",
+        "name": "Fresh Gingers",
         "category": "vegetables",
         "description": "Fresh Gingers Best for Cooking",
         "unit": "MOQ 1KGS",
@@ -40,7 +40,7 @@ export const products: {
         "price": 65
     },
     {
-        "title": "Fresh Tomatoes",
+        "name": "Fresh Tomatoes",
         "category": "vegetables",
         "description": "Fresh Tomatoes Best for Cooking",
         "unit": "MOQ 1KGS",
@@ -48,7 +48,7 @@ export const products: {
         "price": 100
     },
     {
-        "title": "Fresh Garlic",
+        "name": "Fresh Garlic",
         "category": "vegetables",
         "description": "Fresh Garlics Best for Cooking",
         "unit": "MOQ 1KGS",
@@ -56,7 +56,7 @@ export const products: {
         "price": 160
     },
     {
-        "title": "Fresh Pineapple",
+        "name": "Fresh Pineapple",
         "category": "fruits",
         "description": "Fresh Pineapple Best For Juice",
         "unit": "Per Pc",
@@ -64,7 +64,7 @@ export const products: {
         "price": 80
     },
     {
-        "title": "Fresh Avocadoes",
+        "name": "Fresh Avocadoes",
         "category": "fruits",
         "description": "Fresh Avocadoes Best For Juice",
         "unit": "Per Pc",
@@ -72,7 +72,7 @@ export const products: {
         "price": 30
     },
     {
-        "title": "Fresh Oranges",
+        "name": "Fresh Oranges",
         "category": "fruits",
         "description": "Fresh Oranges Best for juice",
         "unit": "Per Pc",
@@ -80,7 +80,7 @@ export const products: {
         "price": 15
     },
     {
-        "title": "Fresh Apples",
+        "name": "Fresh Apples",
         "category": "fruits",
         "description": "Fresh Apples Best for juice",
         "unit": "Per Pc",
@@ -88,7 +88,7 @@ export const products: {
         "price": 25
     },
     {
-        "title": "Fresh Mangoes",
+        "name": "Fresh Mangoes",
         "category": "fruits",
         "description": "Fresh Mangoes Best for juice",
         "unit": "Per Pc",
@@ -97,7 +97,7 @@ export const products: {
     },
    
     {
-        "title": "Maharagwe",
+        "name": "Maharagwe",
         "category": "cereals",
         "description": "Availability subject to stocks and seasonality",
         "unit": "MOQ 1KGS",
@@ -105,7 +105,7 @@ export const products: {
         "price": 120
     },
     {
-        "title": "Dengu Nzima",
+        "name": "Dengu Nzima",
         "category": "cereals",
         "description": "Availability subject to stocks and seasonality",
         "unit": "MOQ 1KGS",
@@ -113,7 +113,7 @@ export const products: {
         "price": 140
     },
     {
-        "title": "Maize Seeds",
+        "name": "Maize Seeds",
         "category": "cereals",
         "description": "Availability subject to stocks and seasonality",
         "unit": "MOQ 1KGS",
@@ -121,7 +121,7 @@ export const products: {
         "price": 150
     },
     {
-        "title": "Pojo Nzima",
+        "name": "Pojo Nzima",
         "category": "cereals",
         "description": "Availability subject to stocks and seasonality",
         "unit": "MOQ 1KGS",
@@ -129,7 +129,7 @@ export const products: {
         "price": 130
     },
     {
-        "title": "Chick Peas",
+        "name": "Chick Peas",
         "category": "cereals",
         "description": "Availability subject to stocks and seasonality",
         "unit": "MOQ 1KGS",
@@ -137,7 +137,7 @@ export const products: {
         "price": 240
     },
     {
-        "title": "White Beans",
+        "name": "White Beans",
         "category": "cereals",
         "description": "Availability subject to stocks and seasonality",
         "unit": "MOQ 1KGS",

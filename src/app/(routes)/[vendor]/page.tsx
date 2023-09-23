@@ -1,6 +1,7 @@
 "use client"
 import { AuthNav, Img, Logo, Select, Typography, VendorHeader } from "@/components";
 import Carousel from "@/components/organisms/Carousel";
+import { ShoppingCartNotification } from "@/components/templates/Products";
 import Products from "@/components/templates/Products/ProductPage";
 import { products as prods } from "@/dummy_data/products";
 import { useFetch } from "@/hooks";
@@ -46,6 +47,7 @@ const handleFilterByCategory =(category:string)=>{
                 <span>Register</span>
             </div> */}
             {/* <AuthNav /> */}
+            <ShoppingCartNotification />
         </VendorHeader>
 
         <p className="mt-20"></p>

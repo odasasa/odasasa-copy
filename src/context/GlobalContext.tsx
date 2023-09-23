@@ -15,7 +15,7 @@ type CartProduct = {
   name: string;
   quantity: number;
   price: number;
-  productId?: string;
+  id?: string;
 };
 
 type Order = null | {
@@ -24,7 +24,6 @@ type Order = null | {
     phone: string;
     pickupPoint: string;
   };
-  date?: Date;
   cart: CartProduct[];
 };
 
@@ -33,6 +32,7 @@ type Data = {
   banners: Banners[];
   shoppingCart: CartProduct[];
   order: Order;
+  isCartOpen: boolean;
 };
 
 interface ContextProps {
@@ -40,11 +40,12 @@ interface ContextProps {
   setData: Dispatch<SetStateAction<Data>>;
 }
 
-const initialData = {
+const initialData: Data = {
   user: null,
   banners: [],
   shoppingCart: [],
   order: null,
+  isCartOpen: false,
 };
 
 const GlobalContext = createContext<ContextProps>({
@@ -64,4 +65,4 @@ export const GlobalContextProvider = ({ children }: { children: any }) => {
   );
 };
 
-export const useGlobalContext = () => useContext(GlobalContext);
+export const useGlobalContext :any = () => useContext(GlobalContext);

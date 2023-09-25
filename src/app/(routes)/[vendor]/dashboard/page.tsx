@@ -6,12 +6,10 @@ import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
 export default  function Page(props: any) {
-  const{data, setData} = useGlobalContext()
-  const router = useRouter();
-  // if (!window.localStorage.getItem("user")) {
-  //   router.replace("/auth/login");
-  // }
-console.log({data, loc:"dash->pg"})
+//   const{data, setData} = useGlobalContext()
+//   const router = useRouter();
+//  if(!data.user) return router.replace("/auth/login")
+// console.log({data, loc:"dash->pg"})
   const colors = [
     'orange',
     'green',

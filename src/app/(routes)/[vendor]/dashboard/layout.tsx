@@ -1,10 +1,13 @@
-import {useRouter} from 'next/navigation'
+"use client";
 import { DashboardWrapper } from "@/components";
+import { useGlobalContext } from "@/context/GlobalContext";
+import LocalStorageManager from "@/utils/localStorage";
 import type { Metadata } from "next";
+import { useRouter } from "next/navigation";
 
 const metadata: Metadata = {
   title: "Odasasa ",
-  description: "Odasasa official website",
+  description: `${"Odasasa"} official website`,
   icons: [
     {
       rel: "icon",
@@ -32,7 +35,6 @@ const metadata: Metadata = {
   ],
 };
 
-
 export default function DashboardLayout({
   params,
   children,
@@ -40,10 +42,11 @@ export default function DashboardLayout({
   params: any;
   children: React.ReactNode;
 }) {
-  // const router = useRouter()
-  // if (!window.localStorage.getItem("user")) {
-  //   router.replace("/auth/login");
-  // }
+  const { data, setData } = useGlobalContext();
+  const router = useRouter();
+  let user = data.user || LocalStorageManager.get("user");
+  // if (!LocalStorageManager.get("user")) return router.replace("/auth/login");
+  if (!user) return router.replace("/auth/login");
 
   return <DashboardWrapper params={params}>{children}</DashboardWrapper>;
 }

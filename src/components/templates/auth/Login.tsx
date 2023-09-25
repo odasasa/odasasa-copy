@@ -3,14 +3,15 @@ import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+
 import { Button, Img, Input, Typography } from "@/components";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { InputFieldProps } from "@/components/Input";
 import { useRouter } from "next/navigation";
 import { useGlobalContext } from "@/context/GlobalContext";
-const MySwal = withReactContent(Swal);
+import LocalStorageManager  from  "@/utils/localStorage";
+
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required("This field  is required"),
@@ -51,7 +52,10 @@ const Login = ({ className = "" }: LoginProps) => {
         ...data,
         user: responseData,
       });
-      // console.log({ data });
+      if(LocalStorageManager.isLocalStorageSupported()){
+        LocalStorageManager.set("user", responseData);
+      }
+      console.log({ loggedUser: responseData });
       Swal.fire("Login success");
       router.push(`/${responseData.vendor}/dashboard`);
     } catch (error: any) {
@@ -59,61 +63,9 @@ const Login = ({ className = "" }: LoginProps) => {
       console.log({ error });
       Swal.fire(error.message);
 
-      // MySwal.fire({
-      //   // title: <p>Hello World</p>,
-      //   didOpen: () => {
-      //     // `MySwal` is a subclass of `Swal` with all the same instance & static methods
-      //     MySwal.showLoading();
-      //   },
-      // }).then(() => {
-      //   return MySwal.fire(<p>Shorthand works too</p>);
-      // });
-      // alert(JSON.stringify({ msg: error.message }))
+      
     }
   };
-
-
-//handle2
- const handleSubmit2 = async (values: any) => {
-    // Handle form submission here
-
-    try {
-      const responseData = await (
-        await fetch("/api/user/login", {
-          body: JSON.stringify(values),
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-        })
-      ).json();
-      setIsLoading(false);
-      if (!responseData.vendor) {
-        throw new Error("Login failed. Check your login details and try again");
-      }
-      setData({
-        ...data,
-        user: responseData,
-      });
-      console.log({ data });
-      Swal.fire("Login success");
-      router.push(`/${responseData.vendor}/dashboard`);
-    } catch (error: any) {
-      setIsLoading(false);
-      console.log({ error });
-      // Swal.fire(error.message);
-
-      // MySwal.fire({
-      //   // title: <p>Hello World</p>,
-      //   didOpen: () => {
-      //     // `MySwal` is a subclass of `Swal` with all the same instance & static methods
-      //     MySwal.showLoading();
-      //   },
-      // }).then(() => {
-      //   return MySwal.fire(<p>Shorthand works too</p>);
-      // });
-      // alert(JSON.stringify({ msg: error.message }))
-    }
-  };
-
 
 
   const loginFields = [

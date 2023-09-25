@@ -153,12 +153,11 @@ export async function deleteRecord(table: string, id: string) {
     }
 
     await model.deleteOne({ _id: id });
-    return "Record deleted successfully";
+    // return "Record deleted successfully";
+    return true;
   } catch (error: any) {
     console.error(`Error deleting record from ${table}:`, error.message);
     throw new Error(`Failed to delete record from ${table}`);
-  } finally {
-    //  closeDbCon()
   }
 }
 

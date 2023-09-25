@@ -29,13 +29,12 @@ const Login = ({ className = "" }: LoginProps) => {
   };
   const router = useRouter();
   const { data, setData } = useGlobalContext();
-  const [isLoading, setIsLoading] = useState(false);
+ 
   
 
   const handleSubmit = async (values: any) => {
     // Handle form submission here
-    setIsLoading(true);
-    // MySwal.showLoading();
+ 
     try {
       const responseData = await (
         await fetch("/api/user/login", {
@@ -44,7 +43,7 @@ const Login = ({ className = "" }: LoginProps) => {
           headers: { "Content-Type": "application/json" },
         })
       ).json();
-      setIsLoading(false);
+      // setIsLoading(false);
       if (!responseData.vendor) {
         throw new Error("Login failed. Check your login details and try again");
       }
@@ -55,11 +54,11 @@ const Login = ({ className = "" }: LoginProps) => {
       if(LocalStorageManager.isLocalStorageSupported()){
         LocalStorageManager.set("user", responseData);
       }
-      console.log({ loggedUser: responseData });
+      // console.log({ loggedUser: responseData });
       Swal.fire("Login success");
       router.push(`/${responseData.vendor}/dashboard`);
     } catch (error: any) {
-      setIsLoading(false);
+     
       console.log({ error });
       Swal.fire(error.message);
 

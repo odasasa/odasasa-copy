@@ -1,28 +1,27 @@
-import { createRecord,  getRecordByFields,  getRecords } from '@/libs/mongoose/mongoseCrud';
-import { getSearchParams } from '@/utils/key_functions';
-import { NextResponse } from 'next/server';
-const table = "categories"
-
+import {
+  createRecord,
+  getRecordByFields,
+  getRecords,
+} from "@/libs/mongoose/mongoseCrud";
+import { getSearchParams } from "@/utils/key_functions";
+import { NextResponse } from "next/server";
+const table = "categories";
 
 export async function GET(request: Request) {
   const vendor = getSearchParams(request.url);
 
   try {
-    let data ;
+    let data;
     if (vendor) {
-     data = await getRecordByFields(table,{vendor})
-     
+      data = await getRecordByFields(table, { vendor });
     } else {
       data = await getRecords(table);
     }
-   
-    return new Response(
-      JSON.stringify( data),
-      {
-        status: 200,
-        statusText: "OK",
-      }
-    );
+
+    return new Response(JSON.stringify(data), {
+      status: 200,
+      statusText: "OK",
+    });
   } catch (error: any) {
     console.log({ error: error.message });
     return new Response(JSON.stringify({ error: error.message }), {
@@ -40,6 +39,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ result }, { status: 201 });
   } catch (error: any) {
     console.log({ error: error.message });
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return new NextResponse(JSON.stringify({ error: error.message }), {
+      status: 500,
+    });
   }
 }

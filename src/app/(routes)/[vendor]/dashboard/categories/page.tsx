@@ -5,20 +5,26 @@ import { Wrapper } from "@/components/templates/dashboard/main";
 import { Category } from "@/types";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { strCapitalize } from "@/utils/str_functions";
-import { DeleteButton } from "@/components";
+import { DeleteButton, Typography } from "@/components";
 import { categories } from "@/dummy_data/categories";
+import { useGlobalContext } from "@/context/GlobalContext";
+import Modal from "@/components/molecules/Modal";
+import AddButton from "@/components/templates/dashboard/AddButton";
 // import { useModal } from "@/hooks";
 
 export default function CategoriesPage() {
   // let data = use(fetchData("/api/dummy/category"));
   // let { myModal } = useModal();
-//   console.log(data);
-let  data=categories
+  //   console.log(data);
+  const { data: globalData, setData } = useGlobalContext(),
+    { isModalOpen } = globalData;
+
+  let data = categories;
 
   if (!data) return <div>No data</div>;
   return (
     <Wrapper
-      handleAddBtn={() => console.log("Helo Mwero")}
+      handleAddBtn={() => setData({ ...globalData, isModalOpen: !isModalOpen })}
       shouldAddBtn={true}
       addBtnLabel="Add Category"
     >
@@ -70,11 +76,53 @@ let  data=categories
               {" "}
               <FaTrashAlt className="text-lg text-red-400" />
             </button> */}
-            <DeleteButton id={'1'}/>
+            <DeleteButton id={"1"} />
           </div>
         </div>
       ))}
       {/* {myModal} */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setData({ ...globalData, isModalOpen: !isModalOpen })}
+      >
+        <div className=" flex flex-col w-[500px] ">
+          <input
+            type="text"
+            name="category"
+            placeholder="Max 20 Characters"
+            maxLength={20}
+            className="px-6 py-3 outline block my-2"
+          />
+          <div className="flex flex-row">
+            <div className="w-1/2 ">
+              <label>CATEGORIES UNIT </label>
+              <select
+                name="units"
+                placeholder="select units"
+                className=" outline block"
+              >
+                {["kilograms ", "Gram", "Per pcs"].map((op) => (
+                  <option value={op}>{op}</option>
+                ))}
+              </select>
+            </div>
+            <div className="w-1/2  flex flex-col">
+              <label>CATEGORIES STATUS </label>
+              <div className="w-full flex space-x-2 outline px-6">
+                <label className="text-green-600">
+                  <input type="radio" name="status" value={"active"} /> Active
+                </label>
+                <label className="text-red-600">
+                  <input type="radio" name="status" value={"pause"} /> Pause
+                </label>
+              </div>
+            </div>
+          </div>
+          <button className="px-8 py-4 rounded-3xl bg-product-blue text-white my-4">
+            + Add Category
+          </button>
+        </div>
+      </Modal>
     </Wrapper>
   );
 }

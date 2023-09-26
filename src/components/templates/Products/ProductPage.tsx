@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ShoppingCart from "./ShoppingCart";
 
-import {  Select } from "@/components";
+import { Select } from "@/components";
 import { extraProductCategories } from "@/utils/key_functions";
 import Modal from "@/components/molecules/Modal";
 import ProductCard from "./ProductCard";
@@ -20,7 +20,7 @@ export default function Products({
   activeCategory,
 }: any) {
   const { data, setData } = useGlobalContext(),
-    { shoppingCart: cartItems, isCartOpen } = data;
+    { shoppingCart: cartItems, isModalOpen } = data;
 
   const [formData, setFormData] = useState<{
     name: string;
@@ -36,11 +36,9 @@ export default function Products({
   const handleToggleCartVisibility = () => {
     setData({
       ...data,
-      isCartOpen: !isCartOpen,
+      isModalOpen: !isModalOpen,
     });
   };
-
-
 
   const handleAddToCart = (item: {
     name: string;
@@ -136,7 +134,7 @@ export default function Products({
       </div>
 
       {/* Shopping cart here */}
-      <Modal isOpen={isCartOpen} onClose={() => handleToggleCartVisibility()}>
+      <Modal isOpen={isModalOpen} onClose={() => handleToggleCartVisibility()}>
         <div className="px-6 w-full">
           {cartItems.length > 0 &&
             customerFields.map((field) => (
@@ -148,7 +146,7 @@ export default function Products({
                   type={field.type}
                   name={field.name}
                   onChange={handleChange}
-                  required ={true}
+                  required={true}
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 />
               </div>

@@ -6,13 +6,13 @@ interface ShoppingCartNotification {}
 
 export default function ShoppingCartNotification({}: ShoppingCartNotification) {
   const { data, setData } = useGlobalContext(),
-    { shoppingCart: cart, isCartOpen } = data;
+    { shoppingCart: cart, isModalOpen } = data;
 
   //close Cart
   const handleToggleCartVisibility = () => {
     setData({
       ...data,
-      isCartOpen: !isCartOpen,
+      isModalOpen: !isModalOpen,
     });
   };
 

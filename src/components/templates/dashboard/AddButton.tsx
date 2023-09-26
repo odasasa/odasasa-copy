@@ -13,7 +13,7 @@ interface AddButtonProps {
 
 const AddButton = ({ label, className = "", onClick = () => '' }: AddButtonProps) => {
   return (
-    <button className={twMerge("flex ", className)} onClick={() => onClick}>
+    <button className={twMerge("flex ", className)} onClick={() => onClick()}>
       +{" " + label}
     </button>
   )

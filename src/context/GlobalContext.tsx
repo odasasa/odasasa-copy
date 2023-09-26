@@ -32,7 +32,7 @@ type Data = {
   banners: Banners[];
   shoppingCart: CartProduct[];
   order: Order;
-  isCartOpen: boolean;
+  isModalOpen: boolean;
 };
 
 interface ContextProps {
@@ -45,7 +45,7 @@ const initialData: Data = {
   banners: [],
   shoppingCart: [],
   order: null,
-  isCartOpen: false,
+  isModalOpen: false,
 };
 
 const GlobalContext = createContext<ContextProps>({
@@ -65,4 +65,4 @@ export const GlobalContextProvider = ({ children }: { children: any }) => {
   );
 };
 
-export const useGlobalContext :any = () => useContext(GlobalContext);
+export const useGlobalContext: any = () => useContext(GlobalContext);

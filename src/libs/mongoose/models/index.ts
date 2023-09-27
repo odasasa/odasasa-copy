@@ -8,3 +8,4 @@ export { PackageModel as PackageModel } from "./package";
 export { ProductModel as ProductModel } from "./product";
 export { PaymentModel as PaymentModel } from "./payment";
 export { PasswordResetModel as PasswordResetModel } from "./PasswordReset";
+export {OrderModel as OrderModel} from './order'

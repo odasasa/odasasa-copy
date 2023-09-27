@@ -1,7 +1,6 @@
 "use client";
 
-import { banners } from "@/dummy_data/banners";
-import { Banners } from "@/types";
+import { Banners, Category } from "@/types";
 import { User } from "@/types/core";
 import {
   Dispatch,
@@ -22,13 +21,14 @@ type Order = null | {
   customer: {
     name: string;
     phone: string;
-    pickupPoint: string;
+    location: string;
   };
   cart: CartProduct[];
 };
 
 type Data = {
   user: User | null;
+  categories: Category[];
   banners: Banners[];
   shoppingCart: CartProduct[];
   order: Order;
@@ -42,6 +42,7 @@ interface ContextProps {
 
 const initialData: Data = {
   user: null,
+  categories: [],
   banners: [],
   shoppingCart: [],
   order: null,

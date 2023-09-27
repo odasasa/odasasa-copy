@@ -29,13 +29,14 @@ export default function CategoriesPage() {
   let user = globalData.user || LocalStorageManager.get("user");
   const router = useRouter();
   if (!user) router.push("/auth/login");
-const [selectedCategory, setSelectedCategory] = useState<Category|null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+    null
+  );
+  let { data: categories, error } = useFetch(
+    "/api/category?vendor=" + user.vendor
+  );
 
-  let {data:categories,error} = useFetch("/api/category?vendor="+user.vendor)
-  // const[categories, setCategories] = useState<any[]>(data!)
-  useEffect(()=>{
-    
-  },[categories, selectedCategory])
+  useEffect(() => {}, [categories, selectedCategory]);
 
   if (!Array.isArray(categories)) return <div>No data</div>;
 
@@ -49,7 +50,7 @@ const [selectedCategory, setSelectedCategory] = useState<Category|null>(null)
 
       <div className="w-full grid grid-cols-7 border-b-2 border-solid bg-[#f9f9ff] font-bold py-3 mx-1 text-sm">
         <span className="overflow-hidden">#</span>
-       
+
         <span className="overflow-hidden">Name</span>
 
         <span className="overflow-hidden col-span-2">Description</span>
@@ -65,7 +66,7 @@ const [selectedCategory, setSelectedCategory] = useState<Category|null>(null)
           className="w-full overflow-x-hidden grid grid-cols-7 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"
         >
           <span className="overflow-hidden">{indx + 1}</span>
-         
+
           <span className="overflow-hidden">{p.name}</span>
 
           <span className="overflow-hidden col-span-2 text-clip ">
@@ -85,10 +86,11 @@ const [selectedCategory, setSelectedCategory] = useState<Category|null>(null)
             {" " + strCapitalize(p.status)}
           </span>
           <div className="flex justify-between items-center ">
-            <button className="border-2 border-solid border-orange-400 px-2 py-2 rounded-md"
-            onClick={
-              ()=>{setSelectedCategory(p)
-              setData({ ...globalData, isModalOpen: !isModalOpen })
+            <button
+              className="border-2 border-solid border-orange-400 px-2 py-2 rounded-md"
+              onClick={() => {
+                setSelectedCategory(p);
+                setData({ ...globalData, isModalOpen: !isModalOpen });
               }}
             >
               {" "}
@@ -106,9 +108,15 @@ const [selectedCategory, setSelectedCategory] = useState<Category|null>(null)
       >
         <UniversalFormikForm
           handleSubmit={(values, { resetForm }) => {
-          !selectedCategory?  postCategory({ ...values, vendor: user.vendor }) : updateCategory(values), resetForm();setSelectedCategory(null)
+            !selectedCategory
+              ? postCategory({ ...values, vendor: user.vendor })
+              : updateCategory(values),
+              resetForm();
+            setSelectedCategory(null);
           }}
-          initialValues={selectedCategory??{ name: "", status: true, units: "" }}
+          initialValues={
+            selectedCategory ?? { name: "", status: true, units: "" }
+          }
           validationSchema={Yup.object().shape({
             name: Yup.string()
               .required("Category name is required")
@@ -120,7 +128,7 @@ const [selectedCategory, setSelectedCategory] = useState<Category|null>(null)
             ),
           })}
         >
-         { !selectedCategory? <AddCategoryForm /> : <EditCategoryForm />}
+          {!selectedCategory ? <AddCategoryForm /> : <EditCategoryForm />}
         </UniversalFormikForm>
       </Modal>
     </Wrapper>

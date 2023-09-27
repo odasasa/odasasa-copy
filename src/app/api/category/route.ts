@@ -35,8 +35,14 @@ export async function POST(request: Request) {
     let body = await request.json();
 
     const result = await createRecord(table, body);
+    if (!result)
+      return new NextResponse(JSON.stringify({ success: false }), {
+        status: 201,
+      });
 
-    return NextResponse.json({ result }, { status: 201 });
+    return new NextResponse(JSON.stringify({ success: true, result }), {
+      status: 201,
+    });
   } catch (error: any) {
     console.log({ error: error.message });
     return new NextResponse(JSON.stringify({ error: error.message }), {

@@ -1,27 +1,44 @@
 "use client";
-// import { use } from "react";
+
 import { fetchData } from "@/utils";
 import { Wrapper } from "@/components/templates/dashboard/main";
 import { Category } from "@/types";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { strCapitalize } from "@/utils/str_functions";
-import { DeleteButton, Typography } from "@/components";
-import { categories } from "@/dummy_data/categories";
+import { DeleteButton, Input, Typography } from "@/components";
 import { useGlobalContext } from "@/context/GlobalContext";
 import Modal from "@/components/molecules/Modal";
 import AddButton from "@/components/templates/dashboard/AddButton";
+
+import { UniversalFormikForm } from "@/components/templates/form";
+import * as Yup from "yup";
+import { ErrorMessage, Field } from "formik";
+import { postCategory, updateCategory } from "./handleSubmit";
+import LocalStorageManager from "@/utils/localStorage";
+import { useRouter } from "next/navigation";
+import { useFetch } from "@/hooks";
+import { useEffect, useState } from "react";
+import AddCategoryForm from "./AddCategoryForm";
+import EditCategoryForm from "./edtiCategoryForm";
+
 // import { useModal } from "@/hooks";
 
 export default function CategoriesPage() {
-  // let data = use(fetchData("/api/dummy/category"));
-  // let { myModal } = useModal();
-  //   console.log(data);
   const { data: globalData, setData } = useGlobalContext(),
     { isModalOpen } = globalData;
+  let user = globalData.user || LocalStorageManager.get("user");
+  const router = useRouter();
+  if (!user) router.push("/auth/login");
+const [selectedCategory, setSelectedCategory] = useState<Category|null>(null)
 
-  let data = categories;
+  let {data:categories,error} = useFetch("/api/category?vendor="+user.vendor)
+  // const[categories, setCategories] = useState<any[]>(data!)
+  useEffect(()=>{
+    
+  },[categories, selectedCategory])
 
-  if (!data) return <div>No data</div>;
+  if (!Array.isArray(categories)) return <div>No data</div>;
+
   return (
     <Wrapper
       handleAddBtn={() => setData({ ...globalData, isModalOpen: !isModalOpen })}
@@ -30,9 +47,9 @@ export default function CategoriesPage() {
     >
       {/* Headers */}
 
-      <div className="w-full grid grid-cols-8 border-b-2 border-solid bg-[#f9f9ff] font-bold py-3 mx-1 text-sm">
+      <div className="w-full grid grid-cols-7 border-b-2 border-solid bg-[#f9f9ff] font-bold py-3 mx-1 text-sm">
         <span className="overflow-hidden">#</span>
-        <span className="overflow-hidden">Image</span>
+       
         <span className="overflow-hidden">Name</span>
 
         <span className="overflow-hidden col-span-2">Description</span>
@@ -42,19 +59,19 @@ export default function CategoriesPage() {
         <span className="overflow-hidden">Edit</span>
       </div>
 
-      {data.map((p: Category, indx: number) => (
+      {categories.map((p: Category, indx: number) => (
         <div
-          key={`${p.id}-${indx}`}
-          className="w-full overflow-x-hidden grid grid-cols-8 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"
+          key={`${p._id}-${indx}`}
+          className="w-full overflow-x-hidden grid grid-cols-7 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"
         >
           <span className="overflow-hidden">{indx + 1}</span>
-          <span className="overflow-hidden">Image Here</span>
+         
           <span className="overflow-hidden">{p.name}</span>
 
           <span className="overflow-hidden col-span-2 text-clip ">
             {p.description}
           </span>
-          <span className="overflow-hidden">{p.unit}</span>
+          <span className="overflow-hidden">{p.units}</span>
 
           <span className={`overflow-hidden flex justify-center items-center`}>
             {" "}
@@ -68,15 +85,16 @@ export default function CategoriesPage() {
             {" " + strCapitalize(p.status)}
           </span>
           <div className="flex justify-between items-center ">
-            <button className="border-2 border-solid border-orange-400 px-2 py-2 rounded-md">
+            <button className="border-2 border-solid border-orange-400 px-2 py-2 rounded-md"
+            onClick={
+              ()=>{setSelectedCategory(p)
+              setData({ ...globalData, isModalOpen: !isModalOpen })
+              }}
+            >
               {" "}
               <FaEdit className="text-lg text-orange-400" />
             </button>
-            {/* <button className="border-2 border-solid border-red-400 px-2 py-2 rounded-md">
-              {" "}
-              <FaTrashAlt className="text-lg text-red-400" />
-            </button> */}
-            <DeleteButton id={"1"} />
+            <DeleteButton id={p._id!} />
           </div>
         </div>
       ))}
@@ -84,44 +102,26 @@ export default function CategoriesPage() {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setData({ ...globalData, isModalOpen: !isModalOpen })}
+        className=" rounded-none"
       >
-        <div className=" flex flex-col w-[500px] ">
-          <input
-            type="text"
-            name="category"
-            placeholder="Max 20 Characters"
-            maxLength={20}
-            className="px-6 py-3 outline block my-2"
-          />
-          <div className="flex flex-row">
-            <div className="w-1/2 ">
-              <label>CATEGORIES UNIT </label>
-              <select
-                name="units"
-                placeholder="select units"
-                className=" outline block"
-              >
-                {["kilograms ", "Gram", "Per pcs"].map((op) => (
-                  <option value={op}>{op}</option>
-                ))}
-              </select>
-            </div>
-            <div className="w-1/2  flex flex-col">
-              <label>CATEGORIES STATUS </label>
-              <div className="w-full flex space-x-2 outline px-6">
-                <label className="text-green-600">
-                  <input type="radio" name="status" value={"active"} /> Active
-                </label>
-                <label className="text-red-600">
-                  <input type="radio" name="status" value={"pause"} /> Pause
-                </label>
-              </div>
-            </div>
-          </div>
-          <button className="px-8 py-4 rounded-3xl bg-product-blue text-white my-4">
-            + Add Category
-          </button>
-        </div>
+        <UniversalFormikForm
+          handleSubmit={(values, { resetForm }) => {
+          !selectedCategory?  postCategory({ ...values, vendor: user.vendor }) : updateCategory(values), resetForm();setSelectedCategory(null)
+          }}
+          initialValues={selectedCategory??{ name: "", status: true, units: "" }}
+          validationSchema={Yup.object().shape({
+            name: Yup.string()
+              .required("Category name is required")
+              .max(20, "Category name must be at most 20 characters"),
+            units: Yup.string().required("Category unit is required"),
+            status: Yup.string().oneOf(
+              ["active", "pause"],
+              "Invalid status selection"
+            ),
+          })}
+        >
+         { !selectedCategory? <AddCategoryForm /> : <EditCategoryForm />}
+        </UniversalFormikForm>
       </Modal>
     </Wrapper>
   );

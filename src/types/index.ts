@@ -11,10 +11,11 @@ export interface Product {
 }
 
 export interface Category {
-    id: string
+    _id?: string | number
     name: string,
+    vendor?:string,
     description: string,
-    unit: string
+    units: string
     status: string
     createdAt: Date
 }

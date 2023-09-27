@@ -2,7 +2,8 @@ import { deleteById, fetchData, postData, updateById } from "@/utils"
 import { useState, useEffect } from "react"
 
 export default function useFetch(endipont: string, method: string = "GET", _data: any = null) {
-    const [data, setData] = useState(null)
+    
+    const [data, setData] = useState<null|any[]>(null)
     const [error, setError] = useState(null)
 
     useEffect(() => {

@@ -1,23 +1,24 @@
 import mongoose from "mongoose";
 
-  
-  interface Category {
-    _id: string;
-    vendorId: string;
-    name: string;
-    description: string;
-    unit: string;
-    status: string;
-    createdAt: Date;
-  }
+interface Category {
+  _id: string;
+  vendor: string;
+  name: string;
+  units: string;
+  status: string;
+  createdAt: Date;
+}
 
-const categorySchema = new mongoose.Schema<Category>({
-    vendorId: String,
+const categorySchema = new mongoose.Schema<Category>(
+  {
+    vendor: String,
     name: String,
-    description: String,
-    unit: String,
+    units: String,
     status: String,
-  },{ timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' } });
-  
+  },
+  { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
+);
 
-export const CategoryModel = mongoose.models.Category ||  mongoose.model<Category>('Category', categorySchema);
+export const CategoryModel =
+  mongoose.models.Category ||
+  mongoose.model<Category>("Category", categorySchema);

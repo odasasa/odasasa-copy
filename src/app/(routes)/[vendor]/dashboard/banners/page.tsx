@@ -41,7 +41,7 @@ console.log({params})
             setActiveIndx(null)
 
         }
-    }, [filepath,success])
+    }, [filepath,success, activeIndx])
 
     // // let data = use(fetchData('/api/banner'));
     // useEffect(() => {

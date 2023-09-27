@@ -1,4 +1,4 @@
-export default  {
+const images =  {
     HOME_PAGE:{
         hero_banner:"/vendors/vendor/hero_default_img.png",
         save_time:"/vendors/vendor/hero_default_img.png",
@@ -10,3 +10,5 @@ export default  {
         create_store:"/vendors/vendor/hero_default_img.png",
     }
 }
+
+export default images

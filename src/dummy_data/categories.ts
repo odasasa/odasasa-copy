@@ -1,28 +1,28 @@
 import { Category } from "@/types";
 
 const vegetableCategory: Category = {
-    id: '1',
+    _id: '1',
     name: 'Vegetables',
     description: 'Fresh and healthy vegetables',
-    unit: 'kg',
+    units: 'kg',
     status: 'Active',
     createdAt: new Date(),
 };
 
 const fruitCategory: Category = {
-    id: '2',
+    _id: '2',
     name: 'Fruits',
     description: 'Delicious and nutritious fruits',
-    unit: 'Each',
+    units: 'Each',
     status: 'paused',
     createdAt: new Date(),
 };
 
 const cerealCategory: Category = {
-    id: '3',
+    _id: '3',
     name: 'Cereals',
     description: 'Various cereals and grains',
-    unit: 'kg',
+    units: 'kg',
     status: 'Active',
     createdAt: new Date(),
 };

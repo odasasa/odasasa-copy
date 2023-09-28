@@ -1,41 +1,57 @@
 "use client";
 
+import { Typography } from "@/components";
 import { Wrapper } from "@/components/templates/dashboard/main";
 import { useGlobalContext } from "@/context/GlobalContext";
+import { useFetch } from "@/hooks";
 import LocalStorageManager from "@/utils/localStorage";
 import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
 export default function Page(props: any) {
   const { data, setData } = useGlobalContext();
-  let user =data.user || LocalStorageManager.get('user')
+  let user = data.user || LocalStorageManager.get("user");
+  const {data:fetchedData} = useFetch('/api/dashboard?vendor='+user.vendor)
+
 
   const colors = ["orange", "green", "red", "blue"];
-  const colors1 = [
-    "bg-orange-500",
-    "bg-green-500",
-    "bg-red-500",
-    "bg-blue-500",
-  ];
+    
+
+  let panels = fetchedData as {
+    [key: string]: string;
+  };
+if(!Object.keys(panels)) return <div>Loading ....</div>
+
+if(!["su", "admin"].includes(user.role)) {
+  let { fetchedVendors, ...others } = panels;
+  panels = others
+}
+ 
 
   return (
     <Wrapper>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 mid:6 ">
-        {["vendors", "products", "categories", "orders"]
-          .filter(
-            (item) =>
-              ["admin", "su"].includes(user?.role) && item === "vendors"
-          )
-          .map((item, indx) => (
-            <div
-              key={indx}
-              className={twMerge(
-                `flex flex-col justify-center items-center text-white shadow-lg rounded-lg bg-${colors[indx]}-500 px-8 py-4 `
-              )}
-            >
-              {item}
-            </div>
-          ))}
+      <div
+        className={`grid grid-cols-1 sm:grid-cols-2 ${
+          Object.keys(panels).length > 3 ? "md:grid-cols-4" : "md:grid-cols-3"
+        } gap-2 mid:gap-6 `}
+      >
+        {Object.entries(panels).map((item, indx) => (
+          <div
+            key={indx}
+            className={twMerge(
+              `flex flex-col justify-center items-center text-white shadow-lg rounded-lg bg-${colors[indx]}-500 px-8 py-4 `
+            )}
+          >
+            <Typography variant="p" className="mb-1 pb-0">
+              {" "}
+              {item[0].substring(7)}
+            </Typography>
+            <Typography variant="h4" className="my-0 py-0">
+              {" "}
+              {item[1]}
+            </Typography>
+          </div>
+        ))}
       </div>
     </Wrapper>
   );

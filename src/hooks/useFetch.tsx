@@ -1,9 +1,17 @@
 import { deleteById, fetchData, postData, updateById } from "@/utils"
 import { useState, useEffect } from "react"
 
+// Define a type for a single item with dynamic properties
+interface DynamicItem {
+  [key: string]: any;
+}
+
+// Create a union type that represents either an array of objects or an object with key-value pairs
+type ServerData = DynamicItem[] | DynamicItem | null;
+
 export default function useFetch(endipont: string, method: string = "GET", _data: any = null) {
     
-    const [data, setData] = useState<null|any[]>(null)
+    const [data, setData] = useState<ServerData>({})
     const [error, setError] = useState(null)
 
     useEffect(() => {

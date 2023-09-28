@@ -2,17 +2,17 @@
 
 import { fetchData } from "@/utils";
 import { Wrapper } from "@/components/templates/dashboard/main";
-import { Category } from "@/types";
-import { FaEdit, FaTrashAlt } from "react-icons/fa";
+
+import { FaEdit } from "react-icons/fa";
 import { strCapitalize } from "@/utils/str_functions";
-import { DeleteButton, Input, Typography } from "@/components";
+import { DeleteButton } from "@/components";
 import { useGlobalContext } from "@/context/GlobalContext";
 import Modal from "@/components/molecules/Modal";
-import AddButton from "@/components/templates/dashboard/AddButton";
+
 
 import { UniversalFormikForm } from "@/components/templates/form";
 import * as Yup from "yup";
-import { ErrorMessage, Field } from "formik";
+
 import { postCategory, updateCategory } from "./handleSubmit";
 import LocalStorageManager from "@/utils/localStorage";
 import { useRouter } from "next/navigation";
@@ -21,7 +21,7 @@ import { useEffect, useState } from "react";
 import AddCategoryForm from "./AddCategoryForm";
 import EditCategoryForm from "./edtiCategoryForm";
 
-// import { useModal } from "@/hooks";
+
 
 export default function CategoriesPage() {
   const { data: globalData, setData } = useGlobalContext(),

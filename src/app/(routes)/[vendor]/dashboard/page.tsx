@@ -38,7 +38,7 @@ if(!["su", "admin"].includes(user.role)) {
         {Object.entries(panels).map((item, indx) => (
           <div
             key={indx}
-            className={twMerge(
+            className={twMerge("bg-orange-500 ",
               `flex flex-col justify-center items-center text-white shadow-lg rounded-lg bg-${colors[indx]}-500 px-8 py-4 `
             )}
           >

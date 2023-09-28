@@ -1,24 +1,11 @@
 import React from "react";
-import * as Yup from "yup";
 import { Field, ErrorMessage } from "formik";
 import AddButton from "@/components/templates/dashboard/AddButton";
 import { Typography } from "@/components";
 
-// const validationSchema = Yup.object().shape({
-//   name: Yup.string()
-//     .required("Category name is required")
-//     .max(20, "Category name must be at most 20 characters"),
-//   units: Yup.string().required("Category unit is required"),
-//   status: Yup.string().oneOf(["active", "pause"], "Invalid status selection"),
-// });
 
-// const initialValues = {
-//   name: "",
-//   status: "active", // Assuming 'active' is the default value
-//   units: "",
-// };
 
-const EditCategoryForm: React.FC = ({ handleSubmit }:any) => {
+const EditCategoryForm: React.FC<any> = ({ handleSubmit }) => {
   return (
     <div className="flex flex-col w-[500px] text-gray-600">
         <Typography variant="h2">Edit Category</Typography>
@@ -80,7 +67,7 @@ const EditCategoryForm: React.FC = ({ handleSubmit }:any) => {
         label="Update Category"
         className="my-6 mx-12"
         type="submit"
-        onClick={() => {}}
+        onClick={() =>console.log("")}
       />
     </div>
   );

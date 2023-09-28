@@ -9,7 +9,6 @@ import { DeleteButton } from "@/components";
 import { useGlobalContext } from "@/context/GlobalContext";
 import Modal from "@/components/molecules/Modal";
 
-
 import { UniversalFormikForm } from "@/components/templates/form";
 import * as Yup from "yup";
 
@@ -20,8 +19,7 @@ import { useFetch } from "@/hooks";
 import { useEffect, useState } from "react";
 import AddCategoryForm from "./AddCategoryForm";
 import EditCategoryForm from "./edtiCategoryForm";
-
-
+import { Category } from "@/types";
 
 export default function CategoriesPage() {
   const { data: globalData, setData } = useGlobalContext(),
@@ -29,14 +27,28 @@ export default function CategoriesPage() {
   let user = globalData.user || LocalStorageManager.get("user");
   const router = useRouter();
   if (!user) router.push("/auth/login");
-  const [selectedCategory, setSelectedCategory] = useState(
+  // let { data: apiCategories, error } = useFetch(
+  //   "/api/category?vendor=" + user.vendor
+  // );
+  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
   );
-  let { data: categories, error } = useFetch(
-    "/api/category?vendor=" + user.vendor
-  );
+  const [categories, setCategories] = useState<Category[]>([]);
 
-  useEffect(() => {}, [categories, selectedCategory]);
+  useEffect(() => {
+    (async () => {
+      try {
+        let fetchedCategories = await fetchData(
+          "/api/category?vendor=" + user.vendor
+        );
+        setCategories(fetchedCategories);
+      } catch (error) {
+        console.log({ error });
+      }
+    })();
+  }, [categories]);
+
+  // useEffect(() => {}, [selectedCategory]);
 
   if (!Array.isArray(categories)) return <div>No data</div>;
 
@@ -48,30 +60,26 @@ export default function CategoriesPage() {
     >
       {/* Headers */}
 
-      <div className="w-full grid grid-cols-7 border-b-2 border-solid bg-[#f9f9ff] font-bold py-3 mx-1 text-sm">
+      <div className="w-full grid grid-cols-5 border-b-2 border-solid bg-[#f9f9ff] font-bold py-3 mx-1 text-sm">
         <span className="overflow-hidden">#</span>
 
         <span className="overflow-hidden">Name</span>
 
-        <span className="overflow-hidden col-span-2">Description</span>
         <span className="overflow-hidden">Unit</span>
 
         <span className={`overflow-hidden `}>Status</span>
         <span className="overflow-hidden">Edit</span>
       </div>
 
-      {categories.map((p, indx: number) => (
+      {categories.map((p: Category, indx: number) => (
         <div
           key={`${p._id}-${indx}`}
-          className="w-full overflow-x-hidden grid grid-cols-7 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"
+          className="w-full overflow-x-hidden grid grid-cols-5 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"
         >
           <span className="overflow-hidden">{indx + 1}</span>
 
           <span className="overflow-hidden">{p.name}</span>
 
-          <span className="overflow-hidden col-span-2 text-clip ">
-            {p.description}
-          </span>
           <span className="overflow-hidden">{p.units}</span>
 
           <span className={`overflow-hidden flex justify-center items-center`}>
@@ -108,11 +116,13 @@ export default function CategoriesPage() {
       >
         <UniversalFormikForm
           handleSubmit={(values, { resetForm }) => {
+           
             !selectedCategory
               ? postCategory({ ...values, vendor: user.vendor })
-              : updateCategory(values),
-              resetForm();
-            setSelectedCategory(null);
+              : updateCategory(values, ()=>{ setSelectedCategory(null); resetForm(); setData({
+                ...globalData, isModalOpen:!isModalOpen
+              })});
+           resetForm();
           }}
           initialValues={
             selectedCategory ?? { name: "", status: true, units: "" }
@@ -128,7 +138,11 @@ export default function CategoriesPage() {
             ),
           })}
         >
-          {!selectedCategory ? <AddCategoryForm /> : <EditCategoryForm />}
+          {!selectedCategory ? (
+            <AddCategoryForm />
+          ) : (
+            <EditCategoryForm handleSubmit={() => setSelectedCategory(null)} />
+          )}
         </UniversalFormikForm>
       </Modal>
     </Wrapper>

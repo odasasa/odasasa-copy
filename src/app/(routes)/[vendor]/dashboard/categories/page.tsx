@@ -29,7 +29,7 @@ export default function CategoriesPage() {
   let user = globalData.user || LocalStorageManager.get("user");
   const router = useRouter();
   if (!user) router.push("/auth/login");
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+  const [selectedCategory, setSelectedCategory] = useState(
     null
   );
   let { data: categories, error } = useFetch(
@@ -60,7 +60,7 @@ export default function CategoriesPage() {
         <span className="overflow-hidden">Edit</span>
       </div>
 
-      {categories.map((p: Category, indx: number) => (
+      {categories.map((p, indx: number) => (
         <div
           key={`${p._id}-${indx}`}
           className="w-full overflow-x-hidden grid grid-cols-7 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"

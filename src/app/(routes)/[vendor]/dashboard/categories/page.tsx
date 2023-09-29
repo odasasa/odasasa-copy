@@ -27,9 +27,7 @@ export default function CategoriesPage() {
   let user = globalData.user || LocalStorageManager.get("user");
   const router = useRouter();
   if (!user) router.push("/auth/login");
-  // let { data: apiCategories, error } = useFetch(
-  //   "/api/category?vendor=" + user.vendor
-  // );
+
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
   );
@@ -48,7 +46,7 @@ export default function CategoriesPage() {
     })();
   }, [categories]);
 
-  // useEffect(() => {}, [selectedCategory]);
+
 
   if (!Array.isArray(categories)) return <div>No data</div>;
 
@@ -104,7 +102,7 @@ export default function CategoriesPage() {
               {" "}
               <FaEdit className="text-lg text-orange-400" />
             </button>
-            <DeleteButton id={p._id!} />
+            <DeleteButton id={p._id!} table="category" />
           </div>
         </div>
       ))}
@@ -116,13 +114,17 @@ export default function CategoriesPage() {
       >
         <UniversalFormikForm
           handleSubmit={(values, { resetForm }) => {
-           
             !selectedCategory
               ? postCategory({ ...values, vendor: user.vendor })
-              : updateCategory(values, ()=>{ setSelectedCategory(null); resetForm(); setData({
-                ...globalData, isModalOpen:!isModalOpen
-              })});
-           resetForm();
+              : updateCategory(values, () => {
+                  setSelectedCategory(null);
+                  resetForm();
+                  setData({
+                    ...globalData,
+                    isModalOpen: !isModalOpen,
+                  });
+                });
+            resetForm();
           }}
           initialValues={
             selectedCategory ?? { name: "", status: true, units: "" }

@@ -1,5 +1,6 @@
 "use client";
 import { deleteById } from "@/utils";
+import { useRouter } from "next/navigation";
 import { FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { twMerge } from "tailwind-merge";
@@ -7,6 +8,7 @@ import { twMerge } from "tailwind-merge";
 interface DeleteButtonProps {
   className?: string;
   id: string | number;
+  table: string;
   iconClasses?: string;
   title?: string;
 }
@@ -14,8 +16,10 @@ interface DeleteButtonProps {
 const DeleteButton = ({
   className = "",
   id,
+  table,
   title = "",
 }: DeleteButtonProps) => {
+  const router = useRouter();
   const handleDelete = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -28,15 +32,19 @@ const DeleteButton = ({
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          let res = await deleteById("/api/category/" + id);
-          if (res.success)
-            return Swal.fire("Deleted!", `${title} Successfully deleted.`, "success");
-          throw new Error(`Delete operation failed. Try gain`);
-        } catch (error: any) {         
+          let res = await deleteById(`/api/${table}/${id}`);
+          if (!res.success)
+            throw new Error(`Delete operation failed. Try gain`);
+
+          Swal.fire("Deleted!", `${title} Successfully deleted.`, "success");
+          router.refresh();
+        } catch (error: any) {
           Swal.fire("Error", error.message, "error");
+          console.log({ error: error.message });
         }
       }
     });
+    router.refresh();
   };
   return (
     <button

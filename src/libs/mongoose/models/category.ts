@@ -1,13 +1,6 @@
+import { Category } from "@/types";
 import mongoose from "mongoose";
 
-interface Category {
-  _id: string;
-  vendor: string;
-  name: string;
-  units: string;
-  status: string;
-  createdAt: Date;
-}
 
 const categorySchema = new mongoose.Schema<Category>(
   {

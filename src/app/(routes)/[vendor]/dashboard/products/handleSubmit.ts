@@ -2,7 +2,7 @@ import { Product } from "@/types";
 import { postData, updateById } from "@/utils";
 import Swal from "sweetalert2";
 
-export const postProduct = async (data: Product) => {
+export const postProduct = async (data: Product, cb:any=null) => {
   try {
     let res = await postData(`/api/product/?vendor=${data?.vendor}`, data);
     console.log({ res });
@@ -13,6 +13,8 @@ export const postProduct = async (data: Product) => {
     console.log({ error });
     Swal.fire("Error", error.message);
   }
+  // Refresh callback
+  cb()
 };
 
 export const updateProduct = async (

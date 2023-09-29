@@ -15,7 +15,7 @@ export default function AddProductModal({
   selectedProduct,
   categories,
 }: any) {
-  const router = useRouter()
+  const router = useRouter();
   const { data: globalData, setData } = useGlobalContext(),
     { isModalOpen } = globalData;
   const user = globalData.user || LocalStorageManager?.get("user");
@@ -28,7 +28,10 @@ export default function AddProductModal({
       <UniversalFormikForm
         handleSubmit={(values, { resetForm }) => {
           !selectedProduct
-            ? postProduct({ ...values, vendor: user.vendor })
+            ? postProduct({ ...values, vendor: user.vendor }, () => {
+                resetForm();
+                router.refresh();
+              })
             : updateProduct(values, () => {
                 resetForm();
                 setData({

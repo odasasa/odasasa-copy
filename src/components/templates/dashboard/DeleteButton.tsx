@@ -37,7 +37,6 @@ const DeleteButton = ({
             throw new Error(`Delete operation failed. Try gain`);
 
           Swal.fire("Deleted!", `${title} Successfully deleted.`, "success");
-          router.refresh();
         } catch (error: any) {
           Swal.fire("Error", error.message, "error");
           console.log({ error: error.message });

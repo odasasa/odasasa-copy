@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
 interface AddButtonProps {
@@ -17,6 +18,7 @@ const AddButton = ({
   type ="button",
   onClick = () => "",
 }: AddButtonProps) => {
+  const router = useRouter()
   return (
     <button
     type={type}
@@ -27,7 +29,7 @@ const AddButton = ({
                 text-white font-bold text-lg`,
         className
       )}
-      onClick={() => onClick()}
+      onClick={() => {onClick();router.refresh()}}
     >
       +{" " + label}
     </button>

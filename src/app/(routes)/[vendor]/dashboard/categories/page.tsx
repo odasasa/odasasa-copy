@@ -44,7 +44,7 @@ export default function CategoriesPage() {
         console.log({ error });
       }
     })();
-  }, [categories]);
+  }, [categories, user.vendor]);
 
 
 

@@ -3,7 +3,7 @@ import { Category } from "@/types";
 const vegetableCategory: Category = {
     _id: '1',
     name: 'Vegetables',
-    description: 'Fresh and healthy vegetables',
+  
     units: 'kg',
     status: 'Active',
     createdAt: new Date(),
@@ -12,7 +12,7 @@ const vegetableCategory: Category = {
 const fruitCategory: Category = {
     _id: '2',
     name: 'Fruits',
-    description: 'Delicious and nutritious fruits',
+   
     units: 'Each',
     status: 'paused',
     createdAt: new Date(),
@@ -21,7 +21,7 @@ const fruitCategory: Category = {
 const cerealCategory: Category = {
     _id: '3',
     name: 'Cereals',
-    description: 'Various cereals and grains',
+    
     units: 'kg',
     status: 'Active',
     createdAt: new Date(),

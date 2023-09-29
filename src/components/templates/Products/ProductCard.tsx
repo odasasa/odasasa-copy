@@ -16,10 +16,10 @@ export default function ProductCard({product, handleAddToCart}:ProductCardProps)
                 <Img src={`/vendors/vendor/${product.img}`} alt={`${product.img?.split('.')[0]} Image`} />
             </div>
             <div className="w-1/2 flex flex-col px-2 gap-2">
-                <Typography variant="h2" className="text-product-gold font-bold text-2xl">{product.title}</Typography>
+                <Typography variant="h2" className="text-product-gold font-bold text-2xl">{product.name}</Typography>
                 <span className="text-black font-bold">Ksh. {product.price}</span>
                 <hr className="w-full  border border-t-2" />
-                <Typography variant ='p' className="text-gray-600 font-light">{product.unit}</Typography>
+                <Typography variant ='p' className="text-gray-600 font-light">{product.units}</Typography>
                 <Typography variant ='p' className="text-gray-600 font-light">{product.description}</Typography>
             </div>
         </div>

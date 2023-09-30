@@ -14,7 +14,7 @@ export default function AddProductForm({
 }) {
   const[showImagePrev, setShowImagePrev] = useState(false)
   const { filepath, success, uploadField } = useDzUpload();
-  if (filepath && success) {
+  if (filepath ) {
     setImgPath(filepath);
   }
 

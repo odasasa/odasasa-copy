@@ -19,10 +19,10 @@ export const updateCategory = async (
   data: Category,
   handleReset: any = null
 ) => {
-  const { _id, name, units, status, ...formData } = data;
+  const { _id, name,  status, ...formData } = data;
  
   try {
-    let res = await updateById(`/api/category/${_id}`, { name, units, status });
+    let res = await updateById(`/api/category/${_id}`, { name, status });
     console.log({ res });
     if (!res.success) throw new Error("Could not update category. Try again");
 

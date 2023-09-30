@@ -4,7 +4,7 @@ const vegetableCategory: Category = {
     _id: '1',
     name: 'Vegetables',
   
-    units: 'kg',
+    // units: 'kg',
     status: 'Active',
     createdAt: new Date(),
 };
@@ -13,7 +13,7 @@ const fruitCategory: Category = {
     _id: '2',
     name: 'Fruits',
    
-    units: 'Each',
+    // units: 'Each',
     status: 'paused',
     createdAt: new Date(),
 };
@@ -22,7 +22,7 @@ const cerealCategory: Category = {
     _id: '3',
     name: 'Cereals',
     
-    units: 'kg',
+    // units: 'kg',
     status: 'Active',
     createdAt: new Date(),
 };

@@ -33,6 +33,7 @@ type Data = {
   shoppingCart: CartProduct[];
   order: Order;
   isModalOpen: boolean;
+  uploadedImgPath?:string
 };
 
 interface ContextProps {
@@ -47,6 +48,7 @@ const initialData: Data = {
   shoppingCart: [],
   order: null,
   isModalOpen: false,
+  uploadedImgPath:""
 };
 
 const GlobalContext = createContext<ContextProps>({

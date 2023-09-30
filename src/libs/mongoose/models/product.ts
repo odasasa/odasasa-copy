@@ -11,7 +11,9 @@ const productSchema = new mongoose.Schema<Product>(
     vendor: String,
     units: String,
     img: String,
+    images:[],
     price: Number,
+    minOrderQuantity:String,
     status: String,
   },
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }

@@ -33,12 +33,12 @@ const userSchema = new mongoose.Schema<User>(
         message: "Invalid email address",
       },
     },
-    idNumber: {
-      type: String,
-      unique: true,
-      index: true,
-      required: [true, "ID Number is required"],
-    },
+    // idNumber: {
+    //   type: String,
+    //   unique: true,
+    //   index: true,
+    //   required: [true, "ID Number is required"],
+    // },
     password: {
       type: String,
       required: [true, "Password is required"],

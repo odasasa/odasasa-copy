@@ -9,26 +9,24 @@ import EditProductForm from "./edtiCategoryForm";
 import { postProduct, updateProduct } from "./handleSubmit";
 import LocalStorageManager from "@/utils/localStorage";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-export default function AddProductModal({
-  params,
-  selectedProduct,
-  categories,
-}: any) {
+export default function AddProductModal({ selectedProduct, categories }: any) {
   const router = useRouter();
   const { data: globalData, setData } = useGlobalContext(),
     { isModalOpen } = globalData;
   const user = globalData.user || LocalStorageManager?.get("user");
+  const[imgPath, setImgPath] = useState("")
   return (
     <Modal
       isOpen={isModalOpen}
       onClose={() => setData({ ...globalData, isModalOpen: false })}
-      className=" rounded-none"
+      className=" rounded-none overflow-y-scroll"
     >
       <UniversalFormikForm
         handleSubmit={(values, { resetForm }) => {
           !selectedProduct
-            ? postProduct({ ...values, vendor: user.vendor }, () => {
+            ? postProduct({ ...values, vendor: user.vendor,img:imgPath }, () => {
                 resetForm();
                 router.refresh();
               })
@@ -45,10 +43,13 @@ export default function AddProductModal({
         initialValues={
           selectedProduct ?? {
             name: "",
+            img: "",
             status: "active",
             units: "",
             category: "",
             price: 0,
+            minOrderQuantity: "",
+            description: "",
           }
         }
         validationSchema={Yup.object().shape({
@@ -56,6 +57,11 @@ export default function AddProductModal({
             .required("Product name is required")
             .max(20, "Product name must be at most 20 characters"),
           units: Yup.string().required("Product unit is required"),
+          img: Yup.string(),
+          minOrderQuantity: Yup.string().required("This field is required"),
+          description: Yup.string()
+            .min(20, "Description should be at least 20 characters long")
+            .max(20, "Description should have max 100 characters "),
           status: Yup.string().oneOf(
             ["active", "pause"],
             "Invalid status selection"
@@ -65,7 +71,7 @@ export default function AddProductModal({
         })}
       >
         {!selectedProduct ? (
-          <AddProductForm categories={categories} />
+          <AddProductForm categories={categories} setImgPath ={setImgPath} />
         ) : (
           <EditProductForm handleSubmit={() => console.log("")} />
         )}

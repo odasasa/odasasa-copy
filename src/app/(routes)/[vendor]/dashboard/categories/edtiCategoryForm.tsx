@@ -21,8 +21,8 @@ const EditCategoryForm: React.FC<any> = ({ handleSubmit }) => {
       />
       <ErrorMessage name="name" component="div" className="text-red-600" />
 
-      <div className="flex flex-row">
-        <div className="w-1/2">
+      {/* <div className="flex flex-row"> */}
+        {/* <div className="w-1/2">
           <Typography variant="p" className="my-2">
             CATEGORIES UNIT
           </Typography>
@@ -40,9 +40,9 @@ const EditCategoryForm: React.FC<any> = ({ handleSubmit }) => {
             ))}
           </Field>
           <ErrorMessage name="units" component="div" className="text-red-600" />
-        </div>
+        </div> */}
 
-        <div className="w-1/2 flex flex-col">
+        <div className="w-full flex flex-col">
           <Typography variant="p" className="my-2">
             CATEGORY STATUS
           </Typography>
@@ -62,7 +62,7 @@ const EditCategoryForm: React.FC<any> = ({ handleSubmit }) => {
             className="text-red-600"
           />
         </div>
-      </div>
+      {/* </div> */}
       <AddButton
         label="Update Category"
         className="my-6 mx-12"

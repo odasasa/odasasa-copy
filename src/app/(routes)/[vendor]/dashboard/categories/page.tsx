@@ -58,12 +58,12 @@ export default function CategoriesPage() {
     >
       {/* Headers */}
 
-      <div className="w-full grid grid-cols-5 border-b-2 border-solid bg-[#f9f9ff] font-bold py-3 mx-1 text-sm">
+      <div className="w-full grid grid-cols-4 border-b-2 border-solid bg-[#f9f9ff] font-bold py-3 mx-1 text-sm">
         <span className="overflow-hidden">#</span>
 
         <span className="overflow-hidden">Name</span>
 
-        <span className="overflow-hidden">Unit</span>
+        {/* <span className="overflow-hidden">Unit</span> */}
 
         <span className={`overflow-hidden `}>Status</span>
         <span className="overflow-hidden">Edit</span>
@@ -72,13 +72,13 @@ export default function CategoriesPage() {
       {categories.map((p: Category, indx: number) => (
         <div
           key={`${p._id}-${indx}`}
-          className="w-full overflow-x-hidden grid grid-cols-5 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"
+          className="w-full overflow-x-hidden grid grid-cols-4 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"
         >
           <span className="overflow-hidden">{indx + 1}</span>
 
           <span className="overflow-hidden">{p.name}</span>
 
-          <span className="overflow-hidden">{p.units}</span>
+          {/* <span className="overflow-hidden">{p.units}</span> */}
 
           <span className={`overflow-hidden flex justify-center items-center`}>
             {" "}
@@ -127,13 +127,13 @@ export default function CategoriesPage() {
             resetForm();
           }}
           initialValues={
-            selectedCategory ?? { name: "", status: true, units: "" }
+            selectedCategory ?? { name: "", status: "active" }
           }
           validationSchema={Yup.object().shape({
             name: Yup.string()
               .required("Category name is required")
               .max(20, "Category name must be at most 20 characters"),
-            units: Yup.string().required("Category unit is required"),
+            // units: Yup.string().required("Category unit is required"),
             status: Yup.string().oneOf(
               ["active", "pause"],
               "Invalid status selection"

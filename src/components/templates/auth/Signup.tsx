@@ -30,15 +30,15 @@ const validationSchema = Yup.object().shape({
     })
     .email("Invalid email address")
     .required("Email is required"),
-  idNumber: Yup.string()
-    .required("ID Number is required")
-    .test(
-      "checkIfExists",
-      "ID Number already exists",
-      async function (value: any) {
-        return await checkFieldExistance(["idNumber", value], "users");
-      }
-    ),
+  // idNumber: Yup.string()
+  //   .required("ID Number is required")
+  //   .test(
+  //     "checkIfExists",
+  //     "ID Number already exists",
+  //     async function (value: any) {
+  //       return await checkFieldExistance(["idNumber", value], "users");
+  //     }
+  //   ),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters long")
     .required("Password is required"),
@@ -70,8 +70,7 @@ interface SignupProps {
 const Signup = ({ setOp, className = "" }: SignupProps) => {
   const initialValues = {
     email: "",
-    idNumber: "",
-    password: "",
+   password: "",
     name: "",
     confirmPassword: "",
     phone: "",
@@ -107,11 +106,11 @@ const Signup = ({ setOp, className = "" }: SignupProps) => {
       label: "Full Name",
       type: "text",
     },
-    {
-      name: "idNumber",
-      label: "ID Number",
-      type: "string",
-    },
+    // {
+    //   name: "idNumber",
+    //   label: "ID Number",
+    //   type: "string",
+    // },
 
     {
       name: "phone",

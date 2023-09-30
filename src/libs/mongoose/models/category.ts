@@ -6,7 +6,6 @@ const categorySchema = new mongoose.Schema<Category>(
   {
     vendor: String,
     name: String,
-    units: String,
     status: String,
   },
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }

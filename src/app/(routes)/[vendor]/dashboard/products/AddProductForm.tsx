@@ -1,16 +1,26 @@
-import { Input, Typography } from "@/components";
+// "use client"
+import { Img, Input, Typography, useDzUpload } from "@/components";
 import AddButton from "@/components/templates/dashboard/AddButton";
 import { Category } from "@/types";
 import { ErrorMessage, Field } from "formik";
+import { useState } from "react";
 
 export default function AddProductForm({
   categories,
+  setImgPath,
 }: {
   categories: Category[];
+  setImgPath: any;
 }) {
+  const[showImagePrev, setShowImagePrev] = useState(false)
+  const { filepath, success, uploadField } = useDzUpload();
+  if (filepath && success) {
+    setImgPath(filepath);
+  }
+
   return (
-    <div className=" flex flex-col w-[500px]  text-gray-600">
-      <Typography variant="p" className="my-2">
+    <div className=" flex flex-col w-full  mid:w-[500px] py-5  text-gray-600 ">
+      <Typography variant="p" className="my-2 pl-3">
         CATEGORIES
       </Typography>
       <Input
@@ -20,29 +30,62 @@ export default function AddProductForm({
         options={categories.map((c) => c.name)}
       />
 
-      <Typography variant="p" className="my-2">
+      <Typography variant="p" className="my-2 pl-3">
         PRODUCT NAME
       </Typography>
       <Input type="text" name="name" label="" />
-
+      <div className="px-3 pb-2  overflow-hidden">
+        <Typography variant="p" className="mb-1">
+          UPLOAD IMAGE
+        </Typography>
+        <div className="">
+          {filepath ? (
+           <span onClick={()=>setShowImagePrev(!showImagePrev)}> <Img alt="img" src={`/uploads/${filepath}`} className="h-[100px]" />
+           </span>
+          ) : (
+            uploadField
+          )}
+        </div>
+      </div>
+      <Typography variant="p" className="my-2 pl-3">
+        UNITS
+      </Typography>
+      <Input
+        label="Units"
+        type="select"
+        name="units"
+        placeholder="select units"
+        className="outline block outline-1"
+        options={["kilograms", "Gram", "Per pcs"]}
+      />
       <div className="flex flex-row">
         <div className="w-1/2 ">
-          <Typography variant="p" className="my-2">
-            UNIT
+          <Typography variant="p" className="my-2 pl-3">
+            MIN ORDER QUANTITY
           </Typography>
-          <Input type="text" name="units" label="" />
+          <Input
+            label=""
+            name="minOrderQuantity"
+            placeholder="Min Order Quantity"
+            className="outline block outline-1"
+            options={["kilograms", "Gram", "Per pcs"]}
+          />
         </div>
 
         <div className="w-1/2 flex flex-col">
-          <Typography variant="p" className="my-2">
+          <Typography variant="p" className="my-2 pl-3">
             PRICE IN KSH
           </Typography>
 
           <Input type="text" name="price" label="" />
         </div>
       </div>
+      <Typography variant="p" className="my-2 pl-3">
+        DESCRIPTION
+      </Typography>
+      <Input type="text" name="description" label="" />
       <div className="w-full flex flex-col">
-        <Typography variant="p" className="my-2">
+        <Typography variant="p" className="my-2 pl-3">
           PRODUCT STATUS
         </Typography>
         <div className="w-full flex space-x-2 outline outline-1 px-6 py-3  my-3">
@@ -61,7 +104,9 @@ export default function AddProductForm({
         label="Add Product"
         className="my-6 mx-12"
         type={"submit"}
-        onClick={() => {}}
+        onClick={() => {
+          setShowImagePrev(!showImagePrev);
+        }}
       />
     </div>
   );

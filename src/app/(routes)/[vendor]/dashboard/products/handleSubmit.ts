@@ -3,6 +3,7 @@ import { postData, updateById } from "@/utils";
 import Swal from "sweetalert2";
 
 export const postProduct = async (data: Product, cb:any=null) => {
+  console.log({data})
   try {
     let res = await postData(`/api/product/?vendor=${data?.vendor}`, data);
     console.log({ res });

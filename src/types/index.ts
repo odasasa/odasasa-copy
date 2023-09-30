@@ -6,6 +6,8 @@ export interface Product {
   units: string;
   img?: string;
   vendor: string;
+  images?:string[],
+  minOrderQuantity:string|number
   price: number;
   status: string;
   createdAt: Date;
@@ -15,14 +17,13 @@ export interface Category {
   _id?: string | number;
   name: string;
   vendor?: string;
-  units: string;
   status: string;
   createdAt: Date;
 }
 
 export interface Banners {
   name: string;
-  id: string;
+  _id: string;
   status: string;
   createdAt: Date;
 }
@@ -39,7 +40,7 @@ export interface Payments {
 
 export interface Packages {
   name: string;
-  id: string;
+  _id: string;
   price: number;
   createdAt: Date;
   staus?: string;
@@ -47,7 +48,7 @@ export interface Packages {
 
 export interface Users {
   name: string;
-  id: string;
+  _id: string;
   email: string;
   role: "user" | "vendor" | "su" | "admin";
   createdAt: Date;
@@ -57,7 +58,7 @@ export interface Users {
 }
 
 export interface Activation {
-  id: string;
+  _id: string;
   accountId: string;
   createdAt: Date;
 }

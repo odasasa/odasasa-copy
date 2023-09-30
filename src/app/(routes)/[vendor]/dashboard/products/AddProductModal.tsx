@@ -61,7 +61,7 @@ export default function AddProductModal({ selectedProduct, categories }: any) {
           minOrderQuantity: Yup.string().required("This field is required"),
           description: Yup.string()
             .min(20, "Description should be at least 20 characters long")
-            .max(20, "Description should have max 100 characters "),
+            .max(200, "Description should have max 200 characters "),
           status: Yup.string().oneOf(
             ["active", "pause"],
             "Invalid status selection"

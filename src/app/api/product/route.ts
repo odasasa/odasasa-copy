@@ -19,8 +19,8 @@ export async function GET(request: Request) {
     }
 
     return new Response(JSON.stringify(data), {
-      status: 200,
-      statusText: "OK",
+      status: 200
+
     });
   } catch (error: any) {
     console.log({ error: error.message });
@@ -36,7 +36,7 @@ export async function POST(request: Request) {
 
     const result = await createRecord(table, body);
 
-    return new NextResponse(JSON.stringify({success:true, result }), { status: 201 });
+    return new NextResponse(JSON.stringify({ success: true, result }), { status: 201 });
   } catch (error: any) {
     console.log({ error: error.message });
     return new NextResponse(JSON.stringify({ error: error.message }), {

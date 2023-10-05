@@ -1,22 +1,39 @@
+"use client"
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 
 import { Wrapper } from "@/components/templates/dashboard/main";
-import { Product } from "@/types";
+import { Category, Product } from "@/types";
 import { fetchData } from "@/utils";
 import { strCapitalize } from "@/utils/str_functions";
 import AddProductModal from "./AddProductModal";
 import { ProductPageWrapper } from "./ProductPageWrapper";
 import { DeleteButton } from "@/components";
+import { useEffect, useState } from "react";
 
-export default async function ProductPage({ params }: any) {
-  const data = await fetchData(`/api/product?vendor=${params?.vendor}`, {
-    revalidate: 3,
-  });
-  const categories = await fetchData(`/api/category?vendor=${params?.vendor}`, {
-    revalidate: 3,
-  });
-  console.log({ products:data });
-  if (!data) return <div>No data</div>;
+export default  function ProductPage({ params }: any) {
+  const [categories, setCategories] = useState<Category[]>([])
+  const [products, setProducts] = useState<Product[]>([])
+
+
+  useEffect(() => {
+
+    (async () => {
+      try {
+        const [fectchedCategories, fetchProducts] = await Promise.all([
+          fetchData(`/api/category?vendor=${params?.vendor}`),
+          fetchData(`/api/product?vendor=${params?.vendor}`)
+        ]);
+
+        setCategories(fectchedCategories)
+        setProducts(fetchProducts)
+      } catch (error: any) {
+        console.log({ error: error.message })
+      }
+
+    })()
+  })
+
+  if (!products) return <div>No products</div>;
   return (
     <ProductPageWrapper>
       <Wrapper shouldAddBtn={true}>
@@ -34,7 +51,7 @@ export default async function ProductPage({ params }: any) {
           <span className="overflow-hidden">Edit</span>
         </div>
 
-        {data.map((p: Product, indx: number) => (
+        {products.map((p: Product, indx: number) => (
           <div
             key={`${p._id}-${indx}`}
             className="w-full overflow-x-hidden grid grid-cols-10 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"
@@ -53,11 +70,10 @@ export default async function ProductPage({ params }: any) {
             >
               {" "}
               <span
-                className={`p-1 rounded-full mx-1 ${
-                  p.status.toLowerCase().includes("active")
-                    ? "bg-green-300"
-                    : "bg-red-400"
-                }`}
+                className={`p-1 rounded-full mx-1 ${p.status.toLowerCase().includes("active")
+                  ? "bg-green-300"
+                  : "bg-red-400"
+                  }`}
               ></span>
               {" " + strCapitalize(p.status)}
             </span>
@@ -70,7 +86,7 @@ export default async function ProductPage({ params }: any) {
                 {" "}
                 <FaTrashAlt className="text-lg text-red-400" />
               </button> */}
-              <DeleteButton id={p._id!}  table="product"/>
+              <DeleteButton id={p._id!} table="product" />
             </div>
           </div>
         ))}

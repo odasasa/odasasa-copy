@@ -11,7 +11,7 @@ import { useGlobalContext } from "@/context/GlobalContext";
 const customerFields = [
   { label: "Name", name: "name", type: "text" },
   { label: "Phone", name: "phone", type: "text" },
-  { label: "PickUp Point", name: "location", type: "text" },
+  { label: "Location", name: "location", type: "text" },
 ];
 
 export default function Products({
@@ -19,8 +19,8 @@ export default function Products({
   handleFilterByCategory,
   activeCategory,
 }: any) {
-  const { data, setData } = useGlobalContext(),
-    { shoppingCart: cartItems, isModalOpen } = data;
+  const { data:globalData, setData } = useGlobalContext(),
+    { shoppingCart: cartItems, isModalOpen } = globalData;
 
   const [formData, setFormData] = useState<{
     name: string;
@@ -35,7 +35,7 @@ export default function Products({
 
   const handleToggleCartVisibility = () => {
     setData({
-      ...data,
+      ...globalData,
       isModalOpen: !isModalOpen,
     });
   };
@@ -48,7 +48,7 @@ export default function Products({
     const productIndex = cartItems.findIndex((p: any) => p.name == item.name);
     if (productIndex === -1) {
       return setData({
-        ...data,
+        ...globalData,
         shoppingCart: [
           ...cartItems,
           { name: item.name, quantity: 1, price: item.price },
@@ -61,7 +61,7 @@ export default function Products({
     updatedItems[productIndex].quantity += 1;
 
     setData({
-      ...data,
+      ...globalData,
       shoppingCart: updatedItems,
     });
   };
@@ -70,7 +70,7 @@ export default function Products({
     const updatedCart = [...cartItems];
     updatedCart.splice(index, 1);
     setData({
-      ...data,
+      ...globalData,
       shoppingCart: updatedCart,
     });
   };
@@ -79,7 +79,7 @@ export default function Products({
     const updatedCart = [...cartItems];
     updatedCart[index].quantity += 1;
     setData({
-      ...data,
+      ...globalData,
       shoppingCart: updatedCart,
     });
   };
@@ -91,7 +91,7 @@ export default function Products({
       if (updatedCart[index].quantity < 1) updatedCart.splice(index, 1);
 
       setData({
-        ...data,
+        ...globalData,
         shoppingCart: updatedCart,
       });
     }
@@ -100,6 +100,8 @@ export default function Products({
   useEffect(() => {
     console.log({ cartItems });
   }, [cartItems]);
+
+if(!Array.isArray(products)) return <div> The shop is empty </div>
 
   return (
     <>

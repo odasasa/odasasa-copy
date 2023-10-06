@@ -1,10 +1,6 @@
 "use client";
 import {
-  AuthNav,
-  Img,
-  Logo,
-  Select,
-  Typography,
+
   VendorHeader,
 } from "@/components";
 import Carousel from "@/components/organisms/Carousel";
@@ -12,21 +8,18 @@ import { ShoppingCartNotification } from "@/components/templates/Products";
 import Products from "@/components/templates/Products/ProductPage";
 import { products as prods } from "@/dummy_data/products";
 import { useFetch } from "@/hooks";
-import { extraProductCategories } from "@/utils/key_functions";
 import { useEffect, useState } from "react";
 
-// const image = "http://127.0.0.1:3000/assets/vendors/vendor/avocado.jpg"
-
 export default function VendorHome({ params: { vendor } }: any) {
-  const [products, setProducts] = useState(prods);
+
   const [activeCategory, setActiveCategory] = useState<string>("");
-  const { data, error } = useFetch(`/api/product/?vendor=${vendor}`);
-  console.log({ error, data });
+  const { data:products, error } = useFetch(`/api/product/?vendor=${vendor}`);
+  console.log({ error, products });
 
   const handleFilterByCategory = (category: string) => {
     setActiveCategory(category);
   };
-  useEffect(() => {}, [products]);
+ 
 
   return (
     <div className="w-full flex flex-col  shadow-xl relative">
@@ -56,7 +49,7 @@ export default function VendorHome({ params: { vendor } }: any) {
       />
 
       <Products
-        products={products}
+        products={Array.isArray(products)? products: []}
         handleFilterByCategory={handleFilterByCategory}
         activeCategory={activeCategory}
       />

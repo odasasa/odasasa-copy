@@ -8,14 +8,19 @@ import { useState } from "react";
 export default function AddProductForm({
   categories,
   setImgPath,
+  initialImgPath
 }: {
   categories: Category[];
   setImgPath: any;
+  initialImgPath?: string
 }) {
-  const[showImagePrev, setShowImagePrev] = useState(false)
+  const [showImagePrev, setShowImagePrev] = useState(false)
   const { filepath, success, uploadField } = useDzUpload();
-  if (filepath ) {
+  if (success || filepath) {
     setImgPath(filepath);
+  }
+  if (initialImgPath) {
+    setImgPath(initialImgPath)
   }
 
   return (
@@ -39,9 +44,9 @@ export default function AddProductForm({
           UPLOAD IMAGE
         </Typography>
         <div className="">
-          {filepath ? (
-           <span onClick={()=>setShowImagePrev(!showImagePrev)}> <Img alt="img" src={`/uploads/${filepath}`} className="h-[100px]" />
-           </span>
+          {(filepath) ||(initialImgPath && !showImagePrev)? (
+            <span onClick={() => setShowImagePrev(!showImagePrev)}> <Img alt="img" src={`/uploads/${filepath || initialImgPath}`} className="h-[100px]" />
+            </span>
           ) : (
             uploadField
           )}
@@ -100,14 +105,18 @@ export default function AddProductForm({
         </div>
         <ErrorMessage name="status" component="div" className="text-red-600" />
       </div>
-      <AddButton
-        label="Add Product"
-        className="my-6 mx-12"
-        type={"submit"}
-        onClick={() => {
-          setShowImagePrev(!showImagePrev);
-        }}
-      />
+      {
+
+         <AddButton
+         label={initialImgPath? 'Update Product':'Add Product'}
+         className="my-6 mx-12"
+         type={"submit"}
+         onClick={() => {
+           setShowImagePrev(!showImagePrev);
+         }}
+       />
+      }
+     
     </div>
   );
 }

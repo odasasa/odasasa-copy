@@ -73,7 +73,8 @@ export default function AddProductModal({ selectedProduct, categories }: any) {
         {!selectedProduct ? (
           <AddProductForm categories={categories} setImgPath ={setImgPath} />
         ) : (
-          <EditProductForm handleSubmit={() => console.log("")} />
+          // <EditProductForm handleSubmit={() => console.log("")}  />
+          <AddProductForm categories={categories} setImgPath ={setImgPath} initialImgPath={selectedProduct.img || ''} />
         )}
       </UniversalFormikForm>
     </Modal>

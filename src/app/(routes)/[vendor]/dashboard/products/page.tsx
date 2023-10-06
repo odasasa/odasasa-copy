@@ -7,12 +7,15 @@ import { fetchData } from "@/utils";
 import { strCapitalize } from "@/utils/str_functions";
 import AddProductModal from "./AddProductModal";
 import { ProductPageWrapper } from "./ProductPageWrapper";
-import { DeleteButton } from "@/components";
+import { DeleteButton, Img } from "@/components";
 import { useEffect, useState } from "react";
+import { useGlobalContext } from "@/context/GlobalContext";
 
-export default  function ProductPage({ params }: any) {
+export default function ProductPage({ params }: any) {
   const [categories, setCategories] = useState<Category[]>([])
   const [products, setProducts] = useState<Product[]>([])
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
+  const { data: globalData, setData } = useGlobalContext()
 
 
   useEffect(() => {
@@ -39,13 +42,13 @@ export default  function ProductPage({ params }: any) {
       <Wrapper shouldAddBtn={true}>
         {/* Headers */}
 
-        <div className="w-full grid grid-cols-10 border-b-2 border-solid bg-[#f9f9ff] font-bold py-3 mx-1 text-sm">
+        <div className="w-full overflow-x-hidden grid grid-cols-6 md:grid-cols-10 border-b-2 border-solid bg-[#f9f9ff] font-bold py-3 mx-1 text-sm">
           <span className="overflow-hidden">#</span>
           <span className="overflow-hidden">Image</span>
-          <span className="overflow-hidden">Name</span>
-          <span className="overflow-hidden ">Category</span>
-          <span className="overflow-hidden col-span-2">Description</span>
-          <span className="overflow-hidden">Unit</span>
+          <span className="overflow-hidden hidden md:flex">Name</span>
+          <span className="overflow-hidden hidden md:flex ">Category</span>
+          <span className="overflow-hidden col-span-2 hidden md:flex">Description</span>
+          <span className="overflow-hidden hidden md:flex">Unit</span>
           <span className="overflow-hidden">Price</span>
           <span className="overflow-hidden">Status</span>
           <span className="overflow-hidden">Edit</span>
@@ -54,16 +57,16 @@ export default  function ProductPage({ params }: any) {
         {products.map((p: Product, indx: number) => (
           <div
             key={`${p._id}-${indx}`}
-            className="w-full overflow-x-hidden grid grid-cols-10 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"
+            className="w-full overflow-x-hidden grid  grid-cols-6 md:grid-cols-10  border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm place-content-center"
           >
             <span className="overflow-hidden">{indx + 1}</span>
-            <span className="overflow-hidden">Image Here</span>
-            <span className="overflow-hidden">{p.name}</span>
-            <span className="overflow-hidden">{p.category}</span>
-            <span className="overflow-hidden col-span-2 text-clip ">
+            <span className="overflow-hidden "><Img src={`/uploads/${p.img!}`} alt={p.name} className={'w-10'} /></span>
+            <span className="overflow-hidden ">{p.name}</span>
+            <span className="overflow-hidden hidden md:flex">{p.category}</span>
+            <span className="overflow-hidden col-span-2 text-clip hidden md:flex">
               {p.description}
             </span>
-            <span className="overflow-hidden">{p.units}</span>
+            <span className="overflow-hidden hidden md:flex">{p.units}</span>
             <span className="overflow-hidden">{p.price}</span>
             <span
               className={`overflow-hidden flex justify-center items-center`}
@@ -78,19 +81,23 @@ export default  function ProductPage({ params }: any) {
               {" " + strCapitalize(p.status)}
             </span>
             <div className="flex justify-between items-center ">
-              <button className="border-2 border-solid border-orange-400 px-2 py-2 rounded-md">
+              <button
+                onClick={
+                  () => {
+                    setSelectedProduct(p);
+                    setData({ ...globalData, isModalOpen: !globalData.isModalOpen });
+                  }
+                }
+                className="border-2 border-solid border-orange-400 px-2 py-2 rounded-md">
                 {" "}
                 <FaEdit className="text-lg text-orange-400" />
               </button>
-              {/* <button className="border-2 border-solid border-red-400 px-2 py-2 rounded-md">
-                {" "}
-                <FaTrashAlt className="text-lg text-red-400" />
-              </button> */}
+
               <DeleteButton id={p._id!} table="product" />
             </div>
           </div>
         ))}
-        <AddProductModal categories={categories} />
+        <AddProductModal categories={categories} selectedProduct={selectedProduct} />
       </Wrapper>
     </ProductPageWrapper>
   );

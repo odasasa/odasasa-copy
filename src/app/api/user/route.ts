@@ -1,21 +1,26 @@
 import mongoose from "mongoose";
 import { pwdHasher } from "@/libs/bcrypt/passord";
 import { UserModel } from "@/libs/mongoose/models";
-import { createRecord, getRecords } from "@/libs/mongoose/mongoseCrud";
+import { getRecordByFields, getRecords } from "@/libs/mongoose/mongoseCrud";
 
 import { NextResponse } from "next/server";
 import { dbCon } from "@/libs/mongoose/dbCon";
 import { sendTestEmail } from "@/libs/nodemailer/gmail";
 import { strCapitalize } from "@/utils";
 import { BASE_PATH } from "@/utils/next_host";
+import { getSearchParams } from "@/utils/key_functions";
 const table = "users";
 const headers: any = {
   "Content-Type": "application/json",
 };
 export async function GET(request: Request) {
+  const vendor = getSearchParams(request.url);
   try {
-    const data = await getRecords(table);
-    // console.log({ data })
+    let data;
+    if (vendor) data = await getRecordByFields(table, { vendor })
+    else data = await getRecords(table);
+
+
 
     return new Response(JSON.stringify(data || []), {
       status: 200,
@@ -79,8 +84,7 @@ export async function POST(request: Request) {
       "Confirmation Email",
       `Drear ${strCapitalize(user.name.split("").at(0))}, \n\n
         Congratulations ! Your account has been successfully created.\n\n
-        Go to this link ${BASE_PATH}/auth/activate/${user.phone}-${
-        user.idNumber
+        Go to this link ${BASE_PATH}/auth/activate/${user.phone}-${user.idNumber
       }
         You have 24hrs to activate your account. Hurry up to avoid inconviences.
 

@@ -23,6 +23,7 @@ type Order = null | {
     phone: string;
     location: string;
   };
+  vendor?: string
   cart: CartProduct[];
 };
 
@@ -33,7 +34,7 @@ type Data = {
   shoppingCart: CartProduct[];
   order: Order;
   isModalOpen: boolean;
-  uploadedImgPath?:string
+  uploadedImgPath?: string
 };
 
 interface ContextProps {
@@ -48,7 +49,7 @@ const initialData: Data = {
   shoppingCart: [],
   order: null,
   isModalOpen: false,
-  uploadedImgPath:""
+  uploadedImgPath: ""
 };
 
 const GlobalContext = createContext<ContextProps>({

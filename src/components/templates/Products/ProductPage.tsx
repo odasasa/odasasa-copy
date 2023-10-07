@@ -19,7 +19,7 @@ export default function Products({
   handleFilterByCategory,
   activeCategory,
 }: any) {
-  const { data:globalData, setData } = useGlobalContext(),
+  const { data: globalData, setData } = useGlobalContext(),
     { shoppingCart: cartItems, isModalOpen } = globalData;
 
   const [formData, setFormData] = useState<{
@@ -101,7 +101,7 @@ export default function Products({
     console.log({ cartItems });
   }, [cartItems]);
 
-if(!Array.isArray(products)) return <div> The shop is empty </div>
+  if (!Array.isArray(products)) return <div> The shop is empty </div>
 
   return (
     <>

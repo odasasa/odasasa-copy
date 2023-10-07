@@ -22,14 +22,14 @@ async function getData(cb: any, vendor: string) {
 import { banners as defBanners } from "@/dummy_data/banners";
 
 const BannersPage = ({ params }: any) => {
-  // let data = use(fetchData('/api/banner'));
-  // console.log({ data })
+
   const [banners, setBanners] = useState<BannerProp[] | null>(defBanners);
   const [activeIndx, setActiveIndx] = useState<number | null>(null);
   const { success, uploadField, error, filepath } = useDzUpload([
     "jpg",
     "png",
     "jpeg",
+    "gif"
   ]);
 
   console.log({ params });

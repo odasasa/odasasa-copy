@@ -6,27 +6,27 @@ import { useGlobalContext } from "@/context/GlobalContext";
 import { useFetch } from "@/hooks";
 import LocalStorageManager from "@/utils/localStorage";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
 export default function Page(props: any) {
   const { data, setData } = useGlobalContext();
   let user = data.user || LocalStorageManager.get("user");
-  const {data:fetchedData} = useFetch('/api/dashboard?vendor='+user.vendor)
-
+  const { data: fetchedData } = useFetch(
+    "/api/dashboard?vendor=" + user.vendor
+  );
 
   const colors = ["orange", "green", "red", "blue"];
-    
 
   let panels = fetchedData as {
     [key: string]: string;
   };
-if(!Object.keys(panels)) return <div>Loading ....</div>
+  if (!Object.keys(panels)) return <div>Loading ....</div>;
 
-if(!["su", "admin"].includes(user.role)) {
-  let { fetchedVendors, ...others } = panels;
-  panels = others
-}
- 
+  if (!["su", "admin"].includes(user.role)) {
+    let { fetchedVendors, ...others } = panels;
+    panels = others;
+  }
 
   return (
     <Wrapper>
@@ -36,9 +36,11 @@ if(!["su", "admin"].includes(user.role)) {
         } gap-2 mid:gap-6 `}
       >
         {Object.entries(panels).map((item, indx) => (
-          <div
+          <Link
+            href={`/${user.vendor}/dashboard/${item[0].substring(7).toLowerCase()}`}
             key={indx}
-            className={twMerge("bg-orange-500 ",
+            className={twMerge(
+              "bg-orange-500 ",
               `flex flex-col justify-center items-center text-white shadow-lg rounded-lg bg-${colors[indx]}-500 px-8 py-4 `
             )}
           >
@@ -50,7 +52,7 @@ if(!["su", "admin"].includes(user.role)) {
               {" "}
               {item[1]}
             </Typography>
-          </div>
+          </Link>
         ))}
       </div>
     </Wrapper>

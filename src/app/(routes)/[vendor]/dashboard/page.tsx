@@ -37,7 +37,9 @@ export default function Page(props: any) {
       >
         {Object.entries(panels).map((item, indx) => (
           <Link
-            href={`/${user.vendor}/dashboard/${item[0].substring(7).toLowerCase()}`}
+            href={`/${user.vendor}/dashboard/${item[0]
+              .substring(7)
+              .toLowerCase()}`}
             key={indx}
             className={twMerge(
               "bg-orange-500 ",

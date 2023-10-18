@@ -17,10 +17,12 @@ export async function GET(request: Request) {
   const vendor = getSearchParams(request.url);
   try {
     let data;
-    if (vendor) data = await getRecordByFields(table, { vendor })
+    await dbCon();
+    data = await UserModel.find({
+      $nor: [ { role: "su" }, { role: "admin" }],
+    });
+    if (vendor) data = await getRecordByFields(table, { vendor });
     else data = await getRecords(table);
-
-
 
     return new Response(JSON.stringify(data || []), {
       status: 200,
@@ -84,7 +86,8 @@ export async function POST(request: Request) {
       "Confirmation Email",
       `Drear ${strCapitalize(user.name.split("").at(0))}, \n\n
         Congratulations ! Your account has been successfully created.\n\n
-        Go to this link ${BASE_PATH}/auth/activate/${user.phone}-${user.idNumber
+        Go to this link ${BASE_PATH}/auth/activate/${user.phone}-${
+        user.idNumber
       }
         You have 24hrs to activate your account. Hurry up to avoid inconviences.
 

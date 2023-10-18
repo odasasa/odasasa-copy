@@ -2,12 +2,25 @@
 import { DeleteButton } from "@/components";
 import { useFetch } from "@/hooks";
 import { strCapitalize } from "@/utils";
+import { User } from "@/types/core";
+import { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 
 export default function Vendors({ params }: any) {
-  const { data: vendors, error } = useFetch(
-    `/api/user?vendor=${params.vendor}`
-  );
+  const [vendors, setVendors] = useState<User[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const fetchedVendors = await (
+          await fetch(`/api/user?vendor=${params.vendor}`)
+        ).json();
+        setVendors(fetchedVendors);
+      } catch (error) {
+        console.log({ error });
+      }
+    })();
+  });
   if (!Array.isArray(vendors))
     return (
       <div className="flex justify-center items-center m-10"> No vendors</div>
@@ -28,13 +41,11 @@ export default function Vendors({ params }: any) {
           <span className={`overflow-hidden flex justify-center items-center`}>
             {" "}
             <span
-              className={`p-1 rounded-full mx-1 ${
-                p.status.toLowerCase().includes("active")
-                  ? "bg-green-300"
-                  : "bg-red-400"
+              className={`p-1 rounded-full mx-2 ${
+                p.status ? "bg-green-300" : "bg-red-400"
               }`}
             ></span>
-            {" " + strCapitalize(p.status)}
+            {" " + strCapitalize(p.status ? "Active" : "Inactive")}
           </span>
           <div className="flex justify-between items-center ">
             <button

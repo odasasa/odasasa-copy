@@ -10,7 +10,7 @@ const table = "products";
 export async function GET(request: Request) {
   const vendor = getSearchParams(request.url);
 
-  try {
+  try { 
     let data;
     if (vendor) {
       data = await getRecordByFields(table, { vendor });

@@ -4,17 +4,17 @@ import { useFetch } from "@/hooks";
 import { strCapitalize } from "@/utils";
 import { FaEdit } from "react-icons/fa";
 
-export default function OrderPage({ params }: any) {
-  const { data: orders, error } = useFetch(
-    `/api/orders?vendor=${params.vendor}`
+export default function Vendors({ params }: any) {
+  const { data: vendors, error } = useFetch(
+    `/api/user?vendor=${params.vendor}`
   );
-  if (!Array.isArray(orders))
+  if (!Array.isArray(vendors))
     return (
-      <div className="flex justify-center items-center m-10"> No orders</div>
+      <div className="flex justify-center items-center m-10"> No vendors</div>
     );
   return (
     <>
-      {orders.map((p: any, indx: number) => (
+      {vendors.map((p: any, indx: number) => (
         <div
           key={`${p._id}-${indx}`}
           className="w-full overflow-x-hidden grid grid-cols-4 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"

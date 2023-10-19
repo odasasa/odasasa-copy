@@ -1,27 +1,19 @@
 "use client";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+
 import { fetchData } from "@/utils";
 import { Wrapper } from "@/components/templates/dashboard/main";
 import { BannerCard, Typography, useDzUpload } from "@/components";
+import { banners as defBanners } from "@/dummy_data/banners";
+
 interface BannerProp {
   name: string;
   src: string;
 }
 
-async function getData(cb: any, vendor: string) {
-  try {
-    let data = await fetchData(`/api/banner?vendor=${vendor}`);
-    if (data) {
-      cb(data);
-    }
-  } catch (error) {
-    console.log("No data in Banners ");
-  }
-}
-
-import { banners as defBanners } from "@/dummy_data/banners";
-
 const BannersPage = ({ params }: any) => {
+  const searchParams = useSearchParams();
 
   const [banners, setBanners] = useState<BannerProp[] | null>(defBanners);
   const [activeIndx, setActiveIndx] = useState<number | null>(null);
@@ -29,12 +21,39 @@ const BannersPage = ({ params }: any) => {
     "jpg",
     "png",
     "jpeg",
-    "gif"
+    "gif",
   ]);
 
-  console.log({ params });
+  // console.log({ params });
 
   useEffect(() => {
+    (async () => {
+      try {
+        let data = await fetchData(
+          `/api/banner?vendor=${searchParams.get("owner") || params.vendor}`
+        );
+        if (data) {
+          console.log({ Banners: data });
+        }
+      } catch (error) {
+        console.log("No data in Banners ");
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        let data = await fetchData(
+          `/api/banner?vendor=${searchParams.get("owner") || params.vendor}`
+        );
+        if (data) {
+        }
+      } catch (error) {
+        console.log("No data in Banners ");
+      }
+    })();
+
     if (success) {
       // alert(filepath)
       setBanners((old) => {

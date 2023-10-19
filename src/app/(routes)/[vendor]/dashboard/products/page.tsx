@@ -10,21 +10,21 @@ import { ProductPageWrapper } from "./ProductPageWrapper";
 import { DeleteButton, Img } from "@/components";
 import { useEffect, useState } from "react";
 import { useGlobalContext } from "@/context/GlobalContext";
-
+import { useSearchParams } from "next/navigation";
 export default function ProductPage({ params }: any) {
   const [categories, setCategories] = useState<Category[]>([])
   const [products, setProducts] = useState<Product[]>([])
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null)
   const { data: globalData, setData } = useGlobalContext()
-
+  const searchParams = useSearchParams()
 
   useEffect(() => {
 
     (async () => {
       try {
         const [fectchedCategories, fetchProducts] = await Promise.all([
-          fetchData(`/api/category?vendor=${params?.vendor}`),
-          fetchData(`/api/product?vendor=${params?.vendor}`)
+          fetchData(`/api/category?vendor=${searchParams.get('owner')||params?.vendor}`),
+          fetchData(`/api/product?vendor=${searchParams.get('owner')||params?.vendor}`)
         ]);
 
         setCategories(fectchedCategories)

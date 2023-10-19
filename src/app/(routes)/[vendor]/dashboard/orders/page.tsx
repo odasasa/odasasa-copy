@@ -2,11 +2,13 @@
 import { DeleteButton } from "@/components";
 import { useFetch } from "@/hooks";
 import { strCapitalize } from "@/utils";
+import { useSearchParams } from "next/navigation";
 import { FaEdit } from "react-icons/fa";
 
 export default function OrderPage({ params }: any) {
+  const searchParams = useSearchParams()
   const { data: orders, error } = useFetch(
-    `/api/orders?vendor=${params.vendor}`
+    `/api/orders?vendor=${searchParams.get('owner')||params.vendor}`
   );
   if (!Array.isArray(orders))
     return (

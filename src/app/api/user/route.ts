@@ -20,7 +20,7 @@ export async function GET(request: Request) {
     await dbCon();
     data = await UserModel.find({
 
-      // $nor: [ { role: "su" }, { role: "admin" }],
+      $nor: [ { role: "su" }, { role: "admin" }],
     });
     if (vendor) data = await getRecordByFields(table, { vendor });
     else data = await getRecords(table);

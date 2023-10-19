@@ -5,6 +5,7 @@ import { strCapitalize } from "@/utils";
 import { User } from "@/types/core";
 import { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
+import Link from "next/link";
 
 export default function Vendors({ params }: any) {
   const [vendors, setVendors] = useState<User[]>([]);
@@ -15,26 +16,29 @@ export default function Vendors({ params }: any) {
         const fetchedVendors = await (
           await fetch(`/api/user?vendor=${params.vendor}`)
         ).json();
-        setVendors(fetchedVendors);
+        setVendors(fetchedVendors.filter((v:any)=>!['su','admin'].includes(v.role)));
       } catch (error) {
         console.log({ error });
       }
     })();
   });
-  if ( !Array.isArray(vendors) || vendors.length > 0  )
+  if ( !Array.isArray(vendors) || vendors.length < 1  )
     return (
       <div className="flex justify-center items-center m-10"> No vendors</div>
     );
   return (
     <>
-      {vendors.filter(vendor=>!['su','admin'].includes(vendor.role)).map((currentVendor: any, indx: number) => (
-        <div
+      {vendors
+      
+      .map((currentVendor: any, indx: number) => (
+        <Link
+        href={`/${currentVendor.vendor}/dashboard?admin=${params.vendor}`}
           key={`${currentVendor._id}-${indx}`}
-          className="w-full overflow-x-hidden grid grid-cols-4 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"
+          className="w-full overflow-x-hidden grid grid-cols-4 mid:grid-cols-6 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"
         >
           <span className="overflow-hidden">{indx + 1}</span>
 
-          <span className="overflow-hidden col-span-2">{currentVendor.businessName}</span>
+          <span className="overflow-hidden col-span-2 hidden md:flex">{currentVendor.businessName}</span>
 
           <span className="overflow-hidden ">{currentVendor.vendor}</span>
 
@@ -59,7 +63,7 @@ export default function Vendors({ params }: any) {
             </button>
             <DeleteButton id={currentVendor._id!} table="category" />
           </div>
-        </div>
+        </Link>
       ))}
     </>
   );

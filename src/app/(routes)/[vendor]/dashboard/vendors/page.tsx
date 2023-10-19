@@ -21,31 +21,31 @@ export default function Vendors({ params }: any) {
       }
     })();
   });
-  if (!Array.isArray(vendors))
+  if ( !Array.isArray(vendors) || vendors.length > 0  )
     return (
       <div className="flex justify-center items-center m-10"> No vendors</div>
     );
   return (
     <>
-      {vendors.map((p: any, indx: number) => (
+      {vendors.filter(vendor=>!['su','admin'].includes(vendor.role)).map((currentVendor: any, indx: number) => (
         <div
-          key={`${p._id}-${indx}`}
+          key={`${currentVendor._id}-${indx}`}
           className="w-full overflow-x-hidden grid grid-cols-4 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"
         >
           <span className="overflow-hidden">{indx + 1}</span>
 
-          <span className="overflow-hidden">{p.name}</span>
+          <span className="overflow-hidden col-span-2">{currentVendor.businessName}</span>
 
-          {/* <span className="overflow-hidden">{p.units}</span> */}
+          <span className="overflow-hidden ">{currentVendor.vendor}</span>
 
           <span className={`overflow-hidden flex justify-center items-center`}>
             {" "}
             <span
               className={`p-1 rounded-full mx-2 ${
-                p.status ? "bg-green-300" : "bg-red-400"
+                currentVendor.status ? "bg-green-300" : "bg-red-400"
               }`}
             ></span>
-            {" " + strCapitalize(p.status ? "Active" : "Inactive")}
+            {" " + strCapitalize(currentVendor.status ? "Active" : "Inactive")}
           </span>
           <div className="flex justify-between items-center ">
             <button
@@ -57,7 +57,7 @@ export default function Vendors({ params }: any) {
               {" "}
               <FaEdit className="text-lg text-orange-400" />
             </button>
-            <DeleteButton id={p._id!} table="category" />
+            <DeleteButton id={currentVendor._id!} table="category" />
           </div>
         </div>
       ))}

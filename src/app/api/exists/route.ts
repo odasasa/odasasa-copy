@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const field = await request.json();
-  const table = getSearchParams(request.url, "table");
+  const table = getSearchParams(request.url, "table") as string;
   try {
     let exists = await checkIfExists(table, field);
     if (!exists)

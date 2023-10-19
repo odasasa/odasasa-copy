@@ -18,14 +18,14 @@ export async function GET(request: Request) {
   try {
     let data;
     await dbCon();
-    data = await UserModel.find({
-
-      $nor: [ { role: "su" }, { role: "admin" }],
-    });
-    if (vendor) data = await getRecordByFields(table, { vendor });
+    data = await  UserModel.find({ $nor: [{ vendor: "su" }, { vendor}, {vendor:"admin"}] })
+    // data= data.filter((v:any)=>['su','admin'].includes(v.role) === false)
+    // console.log()
+    if (vendor) data = await  UserModel.find({ $nor: [{ vendor: "su" }, { vendor}, {vendor:"admin"}] })
+    //  await getRecordByFields(table, { vendor });
     else data = await getRecords(table);
 
-    return new Response(JSON.stringify(data || []), {
+    return new Response(JSON.stringify(data.filter((v:any)=>!['su','admin'].includes(v.role)) || []), {
       status: 200,
       statusText: "OK",
     });

@@ -1,32 +1,28 @@
-"use client"
-import { Sidebar, SidebarNav, VendorHeader } from '@/components';
-import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { FaBell } from 'react-icons/fa';
+"use client";
+import { Button, Sidebar, SidebarNav, VendorHeader } from "@/components";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { FaBell } from "react-icons/fa";
 
-
-
-
-export default function DashboardWarrper({ params,
+export default function DashboardWarrper({
+  params,
   children,
 }: {
-  params: any,
-  children: React.ReactNode
+  params: any;
+  children: React.ReactNode;
 }) {
-
-  const[navHeaderTitle, setNavHeaderTtitle] = useState("")
-  const vendor = params.vendor
-  const pathname = usePathname()
+  const [navHeaderTitle, setNavHeaderTtitle] = useState("");
+  const vendor = params.vendor;
+  const pathname = usePathname();
   const router = useRouter();
-  
-  useEffect(()=>{
 
-  },[navHeaderTitle])
+  useEffect(() => {}, [navHeaderTitle]);
 
   return (
     <div className="w-full flex flex-col">
       <VendorHeader logoImageSrc={"/assets/logo-default.png"}>
-        <div className="flex justify-between items-center w-3/12 gap-5">
+        <div className=" justify-between items-center w-3/12 gap-5 hidden">
           <div className="flex justify-end items-center w-2/3  ">
             {/* Search box */}
             <input
@@ -47,7 +43,14 @@ export default function DashboardWarrper({ params,
             </div>
           </div>
         </div>
+
         {/* <AuthNav /> */}
+
+        <div className="w-2/12 flex justify-center items-center">
+         {/* <Link href={}> */}
+          <Button>Logout</Button>
+          {/* </Link>  */}
+        </div>
       </VendorHeader>
       {/*  */}
       <div className="mt-20 w-full flex flex-col sm:flex-row bg-dpage-gray ">
@@ -65,7 +68,11 @@ export default function DashboardWarrper({ params,
           />
         </Sidebar>
         {/* Page roote */}
-        <div className={`w-full sm:flex-1  mx-8 my-4 flex flex-col ${pathname.includes('banners') ? '' : 'bg-white'}  rounded-lg min-h-screen h-fit  `}>
+        <div
+          className={`w-full sm:flex-1  mx-8 my-4 flex flex-col ${
+            pathname.includes("banners") ? "" : "bg-white"
+          }  rounded-lg min-h-screen h-fit  `}
+        >
           {children}
         </div>
       </div>

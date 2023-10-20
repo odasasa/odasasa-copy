@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Banners, Category } from ".";
 
 export interface User {
     _id?: string;
@@ -21,3 +22,31 @@ export interface User {
    children?: ReactNode;
    
  }
+
+ export type CartProduct = {
+  name: string;
+  quantity: number;
+  price: number;
+  id?: string;
+};
+
+export type Order = null | {
+  customer: {
+    name: string;
+    phone: string;
+    location: string;
+  };
+  vendor?: string
+  cart: CartProduct[];
+};
+
+export type GlobalData = {
+  user: User | null;
+  categories: Category[];
+  banners: Banners[];
+  shoppingCart: CartProduct[];
+  order: Order;
+  isModalOpen: boolean;
+  uploadedImgPath?: string
+};
+

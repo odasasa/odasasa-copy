@@ -59,11 +59,11 @@ export default function DashboardLandingPage(props: any) {
 
       <div className="w-full flex flex-col lg:flex-row pt-5">
         <div className="w-full lg:w-2/3">
-          <RecentVendors />
+          {/* <RecentVendors /> */}
         </div>
 
         <div className="w-full lg:w-1/3">
-          <Typography variant="h4" className="underline">Recent Payments</Typography>
+          <Typography variant="p" className="">Recent Payments</Typography>
           {/* <RecentVendors /> */}
         </div>
       </div>

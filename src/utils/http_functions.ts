@@ -6,7 +6,7 @@ const headers = {
 //Fetch method
 let fetchData = async (endpoint: string, next: any = null) => {
   let options = next !== null ? { headers, next } : { headers };
-  // console.log({ BASE_PATH })
+  console.log({ BASE_PATH })
   return await (await fetch(`${BASE_PATH}${endpoint}`, options)).json();
 };
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Typography } from "@/components";
+import { RecentVendors, Typography } from "@/components";
 import { Wrapper } from "@/components/templates/dashboard/main";
 import { useGlobalContext } from "@/context/GlobalContext";
 import { useFetch } from "@/hooks";
@@ -8,7 +8,7 @@ import LocalStorageManager from "@/utils/localStorage";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
-export default function Page(props: any) {
+export default function DashboardLandingPage(props: any) {
   const { data, setData } = useGlobalContext();
   let user = data.user || LocalStorageManager.get("user");
   const { data: fetchedData } = useFetch(
@@ -55,6 +55,17 @@ export default function Page(props: any) {
             </Typography>
           </Link>
         ))}
+      </div>
+
+      <div className="w-full flex pt-5">
+        <div className="w-full md:w-1/2">
+          <RecentVendors />
+          hello
+        </div>
+
+        <div className="w-full md:w-1/2">
+          hell 2
+        </div>
       </div>
     </Wrapper>
   );

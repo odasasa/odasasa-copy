@@ -40,6 +40,13 @@ export function extraProductCategories(products: { category: string }[]) {
 // HTTPSFUNCTIONS
 
 export function getSearchParams(url: string, field = "vendor") {
+  let paramsObject: { string: any } | {} = {};
   let params = new URL(url).searchParams;
-  return params.get(field) || "";
+  field.split(",").forEach((f) => {
+    paramsObject = { ...paramsObject, [f]: params.get(f) || "" };
+  });
+
+  return Object.values(paramsObject).length > 1
+    ? paramsObject
+    : params.get(field) || "";
 }

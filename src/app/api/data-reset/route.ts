@@ -3,7 +3,7 @@ import { getSearchParams } from "@/utils/key_functions";
 
 
 export async function GET(request: Request) {
-  const table = getSearchParams(request.url,"table");
+  const table = getSearchParams(request.url,"table") as string;
 
   try {
     

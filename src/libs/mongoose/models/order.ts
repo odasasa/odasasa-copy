@@ -15,8 +15,6 @@ interface IOrderCustomer {
 
 interface IOrder extends Document {
   vendor: string;
-  name: string;
-  units: string;
   status: string;
   customer: IOrderCustomer;
   cart: CartProduct[];
@@ -25,9 +23,7 @@ interface IOrder extends Document {
 const OrderSchema = new mongoose.Schema<IOrder>(
   {
     vendor: String,
-    name: String,
-    units: String,
-    status: String,
+     status: String,
     customer: {
       name: String,
       phone: String,

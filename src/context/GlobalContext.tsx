@@ -1,7 +1,7 @@
 "use client";
 
 import { Banners, Category } from "@/types";
-import { User } from "@/types/core";
+import { GlobalData, User } from "@/types/core";
 import {
   Dispatch,
   SetStateAction,
@@ -10,45 +10,19 @@ import {
   useState,
 } from "react";
 
-type CartProduct = {
-  name: string;
-  quantity: number;
-  price: number;
-  id?: string;
-};
-
-type Order = null | {
-  customer: {
-    name: string;
-    phone: string;
-    location: string;
-  };
-  cart: CartProduct[];
-};
-
-type Data = {
-  user: User | null;
-  categories: Category[];
-  banners: Banners[];
-  shoppingCart: CartProduct[];
-  order: Order;
-  isModalOpen: boolean;
-  uploadedImgPath?:string
-};
-
-interface ContextProps {
-  data: Data;
-  setData: Dispatch<SetStateAction<Data>>;
+export interface ContextProps {
+  data: GlobalData;
+  setData: Dispatch<SetStateAction<GlobalData>>;
 }
 
-const initialData: Data = {
+const initialData: GlobalData = {
   user: null,
   categories: [],
   banners: [],
   shoppingCart: [],
   order: null,
   isModalOpen: false,
-  uploadedImgPath:""
+  uploadedImgPath: ""
 };
 
 const GlobalContext = createContext<ContextProps>({
@@ -59,7 +33,7 @@ const GlobalContext = createContext<ContextProps>({
 });
 
 export const GlobalContextProvider = ({ children }: { children: any }) => {
-  const [data, setData] = useState<Data>(initialData);
+  const [data, setData] = useState<GlobalData>(initialData);
 
   return (
     <GlobalContext.Provider value={{ data, setData }}>

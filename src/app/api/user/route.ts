@@ -1,23 +1,31 @@
 import mongoose from "mongoose";
 import { pwdHasher } from "@/libs/bcrypt/passord";
 import { UserModel } from "@/libs/mongoose/models";
-import { createRecord, getRecords } from "@/libs/mongoose/mongoseCrud";
+import { getRecordByFields, getRecords } from "@/libs/mongoose/mongoseCrud";
 
 import { NextResponse } from "next/server";
 import { dbCon } from "@/libs/mongoose/dbCon";
 import { sendTestEmail } from "@/libs/nodemailer/gmail";
 import { strCapitalize } from "@/utils";
 import { BASE_PATH } from "@/utils/next_host";
+import { getSearchParams } from "@/utils/key_functions";
 const table = "users";
 const headers: any = {
   "Content-Type": "application/json",
 };
 export async function GET(request: Request) {
+  const vendor = getSearchParams(request.url);
   try {
-    const data = await getRecords(table);
-    // console.log({ data })
+    let data;
+    await dbCon();
+    data = await  UserModel.find({ $nor: [{ vendor: "su" }, { vendor}, {vendor:"admin"}] })
+    // data= data.filter((v:any)=>['su','admin'].includes(v.role) === false)
+    // console.log()
+    if (vendor) data = await  UserModel.find({ $nor: [{ vendor: "su" }, { vendor}, {vendor:"admin"}] })
+    //  await getRecordByFields(table, { vendor });
+    else data = await getRecords(table);
 
-    return new Response(JSON.stringify(data || []), {
+    return new Response(JSON.stringify(data.filter((v:any)=>!['su','admin'].includes(v.role)) || []), {
       status: 200,
       statusText: "OK",
     });

@@ -1,21 +1,19 @@
-"use client"
-import { DzFileUpload, useDzUpload } from "@/components";
-import ImageUploadForm from "@/components/templates/upload/upload";
-import { useEffect } from "react";
+"use client";
 
-export default function OrderPage() {
+import { Orders } from "@/components";
+import { useFetch } from "@/hooks";
+
+import { useSearchParams } from "next/navigation";
 
 
-    const { uploadField, error, filepath, success } = useDzUpload()
-    useEffect(() => {
-        if(success) alert(filepath)
-    }, [filepath,success])
-
-    return <div className="px-4 py-2 md:px-8 md:py-4">
-        {/* <ImageUploadForm /> */}
-        <p className="my-5 border-b-4 border-solid "></p>
-        {/* <DzFileUpload /> */}
-        {uploadField}
-        {/* <p>Hello there </p> */}
-    </div>
+export default function OrderPage({ params }: any) {
+  const searchParams = useSearchParams();
+  const { data: orders, error } = useFetch(
+    `/api/orders?vendor=${searchParams.get("owner") || params.vendor}`
+  );
+  if (!Array.isArray(orders))
+    return (
+      <div className="flex justify-center items-center m-10"> No orders</div>
+    );
+  return <Orders  orders = {Array.isArray(orders)? orders: []} />
 }

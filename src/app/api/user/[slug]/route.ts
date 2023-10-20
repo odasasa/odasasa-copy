@@ -14,7 +14,7 @@ export async function GET(
   try {
     const product = await getRecordById(table, slug);
     if (product) {
-      return NextResponse.json(product);
+      return new NextResponse(JSON.stringify(product));
     } else {
       return new NextResponse(
         JSON.stringify({
@@ -38,9 +38,9 @@ export async function DELETE(
 ) {
   try {
     const result = await deleteRecord(table, slug);
-    return NextResponse.json({ message: result });
+    return new NextResponse(JSON.stringify({ message: result }));
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return new NextResponse(JSON.stringify({ error: error.message }), { status: 500 });
   }
 }
 export async function PUT(
@@ -49,15 +49,15 @@ export async function PUT(
 ) {
   let body = await request.json();
 
-  if(Object.keys(body).includes('password')){
+  if (Object.keys(body).includes('password')) {
     const hashedPassword = pwdHasher(body.password)
     body['passowrd'] = hashedPassword
   }
 
   try {
     const result = await updateRecord(table, slug, body);
-    return NextResponse.json({ message: result });
+    return new NextResponse(JSON.stringify({success:true, message: result }));
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return new NextResponse(JSON.stringify({ error: error.message }), { status: 500 });
   }
 }

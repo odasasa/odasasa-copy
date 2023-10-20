@@ -5,7 +5,6 @@ import { Wrapper } from "@/components/templates/dashboard/main";
 import { useGlobalContext } from "@/context/GlobalContext";
 import { useFetch } from "@/hooks";
 import LocalStorageManager from "@/utils/localStorage";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 

@@ -7,8 +7,7 @@ import { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import Link from "next/link";
 
-
-export default function Vendors({ params }: any) {
+export default function VendorsPage({ params }: any) {
   const [vendors, setVendors] = useState<User[]>([]);
 
   useEffect(() => {
@@ -28,10 +27,20 @@ export default function Vendors({ params }: any) {
   });
   if (!Array.isArray(vendors) || vendors.length < 1)
     return (
-      <div className="flex justify-center items-center m-10"> No vendors</div>
+      <div className="flex justify-center items-center m-10 mx-4">
+        {" "}
+        No vendors
+      </div>
     );
   return (
     <>
+      <div className="w-full overflow-x-hidden grid grid-cols-5 mid:grid-cols-7 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm font-bold bg-[#f9f9ff] ">
+        <span className="">#</span>
+        <span>Business Name</span>
+        <span>Business Code</span>
+        <span>Status</span>
+        <span>Operation</span>
+      </div>
       {vendors.map((currentVendor: any, indx: number) => (
         <Link
           // href={`/${currentVendor.vendor}/dashboard?owner=${params.vendor}`}

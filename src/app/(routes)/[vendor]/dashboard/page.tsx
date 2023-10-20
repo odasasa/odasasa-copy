@@ -57,14 +57,15 @@ export default function DashboardLandingPage(props: any) {
         ))}
       </div>
 
-      <div className="w-full flex pt-5">
+      <div className="w-full flex flex-col lg:flex-row pt-5">
         <div className="w-full lg:w-1/2">
           <RecentVendors />
         </div>
 
-        {/* <div className="w-full lg:w-1/2">
-          <RecentVendors />
-        </div> */}
+        <div className="w-full lg:w-1/2">
+          <Typography variant="h4" className="underline">Recent Payments</Typography>
+          {/* <RecentVendors /> */}
+        </div>
       </div>
     </Wrapper>
   );

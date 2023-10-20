@@ -1,5 +1,5 @@
 "use client";
-import { DeleteButton } from "@/components";
+import { DeleteButton, Typography } from "@/components";
 import { useFetch } from "@/hooks";
 import { strCapitalize } from "@/utils";
 import { User } from "@/types/core";
@@ -34,19 +34,22 @@ export default function VendorsPage({ params }: any) {
     );
   return (
     <>
-      <div className="w-full overflow-x-hidden grid grid-cols-5 mid:grid-cols-7 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm font-bold bg-[#f9f9ff] ">
-        <span className="">#</span>
-        <span>Business Name</span>
+    <Typography variant="h2" className="w-full underline">Vendors Page</Typography>
+      <div className="w-full overflow-x-hidden grid grid-cols-6 mid:grid-cols-6 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm font-bold bg-[#f9f9ff] ">
+        <span className="p-3">#</span>
+        <span className="hidden md:flex">Business Name</span>
         <span>Business Code</span>
-        <span>Status</span>
-        <span>Operation</span>
+        <span className="text-center">Status</span>
+        <span>Email</span>
+        <span>Phone</span>
+        <span className="hidden">Operation</span>
       </div>
       {vendors.map((currentVendor: any, indx: number) => (
         <Link
           // href={`/${currentVendor.vendor}/dashboard?owner=${params.vendor}`}
           href={`/${params.vendor}/dashboard?owner=${currentVendor.vendor}`}
           key={`${currentVendor._id}-${indx}`}
-          className="w-full overflow-x-hidden grid grid-cols-5 mid:grid-cols-7 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"
+          className="w-full overflow-x-hidden grid grid-cols-6 mid:grid-cols-6 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"
         >
           <span className="overflow-hidden p-3">{indx + 1}</span>
 
@@ -65,7 +68,9 @@ export default function VendorsPage({ params }: any) {
             ></span>
             {" " + strCapitalize(currentVendor.status ? "Active" : "Inactive")}
           </span>
-          <div className="flex justify-between items-center ">
+          <span>{currentVendor.email}</span>
+          <span>{currentVendor.phone}</span>
+          <div className=" justify-between items-center hidden">
             <button
               className="border-2 border-solid border-orange-400 p-2 rounded-md"
               onClick={() => {

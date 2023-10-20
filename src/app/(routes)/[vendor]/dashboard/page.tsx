@@ -58,14 +58,13 @@ export default function DashboardLandingPage(props: any) {
       </div>
 
       <div className="w-full flex pt-5">
-        <div className="w-full md:w-1/2">
+        <div className="w-full lg:w-1/2">
           <RecentVendors />
-          hello
         </div>
 
-        <div className="w-full md:w-1/2">
-          hell 2
-        </div>
+        {/* <div className="w-full lg:w-1/2">
+          <RecentVendors />
+        </div> */}
       </div>
     </Wrapper>
   );

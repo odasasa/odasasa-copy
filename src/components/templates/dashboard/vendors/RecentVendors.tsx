@@ -1,10 +1,13 @@
-import { Typography } from "@/components";
+"use client";
+import { DashboardPageWrapper, Typography } from "@/components";
+import { useFetch } from "@/hooks";
 import { fetchData, strCapitalize } from "@/utils";
-import { BASE_PATH } from "@/utils/next_host";
 import Link from "next/link";
 
-export default async function Recent({ params }: any) {
-  const vendors = await ( await fetch(`${BASE_PATH}/api/user?vendor=${params?.vendor||'mds'}`)).json();
+export default function Recent({ params, vendor = null }: any) {
+  const { data: vendors, error } = useFetch(
+    `/api/user?vendor=${params?.vendor || vendor || "mds"}`
+  );
 
   if (!Array.isArray(vendors) || vendors.length < 1)
     return (
@@ -14,35 +17,42 @@ export default async function Recent({ params }: any) {
       </div>
     );
   return (
-    <>
-      <Typography variant="h2" className="w-full underline">
-        Vendors Page
+    <DashboardPageWrapper>
+      <Typography variant="h4" className="w-full underline">
+        Reent Vendors
       </Typography>
-      <div className="w-full overflow-x-hidden grid grid-cols-3 md:grid-cols-6 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm font-bold bg-[#f9f9ff] ">
+      <div className="w-full overflow-x-hidden grid grid-cols-5 lg:grid-cols-7 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm font-bold bg-[#f9f9ff] ">
         <span className="p-3">#</span>
-        <span className="hidden md:flex">Business Name</span>
-        <span>Business Code</span>
-        <span className="text-center hidden md:flex">Status</span>
-        <span className="hidden md:flex">Email</span>
-        <span>Phone</span>
+        <span className=" col-span-2">Business Name (Code)</span>
+        <span className="text-center hidden lg:flex">Status</span>
+        <span className="">Phone</span>
+        <span className="hidden lg:flex">Email</span>
+        {/* <span>Phone</span> */}
+        <span>Reg. Date</span>
       </div>
       {vendors.map((currentVendor: any, indx: number) => (
         <Link
           // href={`/${currentVendor.vendor}/dashboard?owner=${params.vendor}`}
-          href={`/${params.vendor}/dashboard?owner=${currentVendor.vendor}`}
+          href={
+            params?.vendor
+              ? `/${
+                  params?.vendor as string
+                }/dashboard?owner=${currentVendor.vendor!}`
+              : ""
+          }
           key={`${currentVendor._id}-${indx}`}
-          className="w-full overflow-x-hidden grid grid-cols-3 md:grid-cols-6 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"
+          className="w-full overflow-x-hidden grid grid-cols-5 lg:grid-cols-7 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm"
         >
           <span className="overflow-hidden p-3">{indx + 1}</span>
 
-          <span className=" hidden md:flex overflow-x-hidden">
-            {strCapitalize(currentVendor.businessName)}
+          <span className="  overflow-x-hidden col-span-2">
+            {`${strCapitalize(currentVendor.businessName)} (${currentVendor.vendor})`}
           </span>
 
-          <span className="overflow-hidden ">{currentVendor.vendor}</span>
+         
 
           <span
-            className={`overflow-hidden hidden md:flex justify-center items-center`}
+            className={`overflow-hidden hidden lg:flex justify-center items-center`}
           >
             {" "}
             <span
@@ -52,10 +62,12 @@ export default async function Recent({ params }: any) {
             ></span>
             {" " + strCapitalize(currentVendor.status ? "Active" : "Inactive")}
           </span>
-          <span className="hidden md:flex">{currentVendor.email}</span>
-          <span>{currentVendor.phone}</span>
+          <span className=" overflow-x-hidden ">{currentVendor.phone}</span>
+          <span className="hidden lg:flex overflow-x-hidden ">{currentVendor.email}</span>
+          {/* <span>{currentVendor.phone}</span> */}
+          <span className="pl-1 text-center">{new Date(currentVendor.created_at).toISOString().split('T')[0] }</span>
         </Link>
       ))}
-    </>
+    </DashboardPageWrapper>
   );
 }

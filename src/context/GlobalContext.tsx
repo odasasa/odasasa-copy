@@ -2,6 +2,7 @@
 
 import { Banners, Category } from "@/types";
 import { GlobalData, User } from "@/types/core";
+import LocalStorageManager from "@/utils/localStorage";
 import {
   Dispatch,
   SetStateAction,
@@ -22,7 +23,14 @@ const initialData: GlobalData = {
   shoppingCart: [],
   order: null,
   isModalOpen: false,
-  uploadedImgPath: ""
+  uploadedImgPath: "",
+  handleLogout:  function (cb: any = null) {
+    this.user = null;
+     LocalStorageManager.removeItem("user");
+    if (cb) cb();
+    window.alert("Hello teher")
+    console.log({user : LocalStorageManager.get('user')||'Not there'})
+  },
 };
 
 const GlobalContext = createContext<ContextProps>({

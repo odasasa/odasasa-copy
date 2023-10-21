@@ -1,15 +1,14 @@
 "use client";
 
-import { Typography } from "@/components";
+import { RecentVendors, Typography } from "@/components";
 import { Wrapper } from "@/components/templates/dashboard/main";
 import { useGlobalContext } from "@/context/GlobalContext";
 import { useFetch } from "@/hooks";
 import LocalStorageManager from "@/utils/localStorage";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
-export default function Page(props: any) {
+export default function DashboardLandingPage(props: any) {
   const { data, setData } = useGlobalContext();
   let user = data.user || LocalStorageManager.get("user");
   const { data: fetchedData } = useFetch(
@@ -56,6 +55,17 @@ export default function Page(props: any) {
             </Typography>
           </Link>
         ))}
+      </div>
+
+      <div className="w-full flex flex-col lg:flex-row pt-5">
+        <div className="w-full lg:w-2/3">
+          {/* <RecentVendors /> */}
+        </div>
+
+        <div className="w-full lg:w-1/3">
+          <Typography variant="p" className="">Recent Payments</Typography>
+          {/* <RecentVendors /> */}
+        </div>
       </div>
     </Wrapper>
   );

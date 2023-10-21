@@ -25,7 +25,7 @@ export async function GET(request: Request) {
     //  await getRecordByFields(table, { vendor });
     else data = await getRecords(table);
 
-    return new Response(JSON.stringify(data.filter((v:any)=>!['su','admin'].includes(v.role)) || []), {
+    return new Response(JSON.stringify(data.filter((v:any)=>!['su','admin'].includes(v.role)).sort((a:any,b:any)=>b.created_at - a.created_at) || []), {
       status: 200,
       statusText: "OK",
     });

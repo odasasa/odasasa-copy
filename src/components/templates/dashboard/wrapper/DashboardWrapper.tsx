@@ -27,7 +27,7 @@ export default function DashboardWarrper({
   useEffect(() => {}, [navHeaderTitle]);
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col max-w-7xl mx-auto">
       <VendorHeader logoImageSrc={"/assets/logo-default.png"} className="">
         {/* This holds the notification bell and ther avator icon */}
         <DashboardAuthNav className="" />

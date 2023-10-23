@@ -42,8 +42,11 @@ export default function RootLayout({
     <html lang="en">
       <body className='w-full relative '>
         <GlobalContextProvider>
+          <div className=''>
         {children}
+        </div>
         </GlobalContextProvider>
+        
         </body>
     </html>
   )

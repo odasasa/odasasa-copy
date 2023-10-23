@@ -105,7 +105,7 @@ export default function Products({
 
   return (
     <>
-      <div className="w-full flex  flex-col">
+      <div className="w-full px-4  flex  flex-col justify-center items-center mx-auto">
         {/*  Products Filter*/}
         <Select
           className="mx-2"
@@ -121,7 +121,7 @@ export default function Products({
         />
         {/*  Products Grid*/}
 
-        <div className="w-[96vw] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 space-x-2">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 space-x-2">
           {(activeCategory
             ? products.filter((p: any) => p.category === activeCategory)
             : products

@@ -4,8 +4,8 @@ import {
   VendorHeader,
 } from "@/components";
 import Carousel from "@/components/organisms/Carousel";
-import { ShoppingCartNotification } from "@/components/templates/Products";
-import Products from "@/components/templates/Products/ProductPage";
+import { ShoppingCartNotification } from "@/components/templates/Shop";
+import Products from "@/components/templates/Shop/ProductPage";
 import { useFetch } from "@/hooks";
 import { useEffect, useState } from "react";
 
@@ -40,13 +40,14 @@ export default function VendorHome({ params: { vendor } }: any) {
   ]
 
   return (
-    <div className="w-full flex flex-col  shadow-xl relative">
+    <div className="w-full flex flex-col  shadow-xl relative max-w-7xl mx-auto ">
       <VendorHeader>
         <ShoppingCartNotification />
       </VendorHeader>
 
       <p className="mt-20"></p>
       <Carousel
+      
         images={heroBanners}
       />
 

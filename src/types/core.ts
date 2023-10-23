@@ -7,7 +7,7 @@ export interface User {
   email: string;
   // idNumber: string;
   role: "vendor" | "admin" | "su";
-  createdAt: Date;
+  created_at: Date;
   status: string;
   phone: string;
   password: string;

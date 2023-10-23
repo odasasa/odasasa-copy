@@ -3,8 +3,9 @@ import { DashboardPageWrapper, Typography } from "@/components";
 import { useFetch } from "@/hooks";
 import { fetchData, strCapitalize } from "@/utils";
 import Link from "next/link";
+import {User  as Vendor} from '@/types/core'
 
-export default function Recent({ params, vendor = null }: any) {
+export default function Recent({ params, vendor = null, title= null }: any) {
   const { data: vendors, error } = useFetch(
     `/api/user?vendor=${params?.vendor || vendor || "mds"}`
   );
@@ -18,8 +19,8 @@ export default function Recent({ params, vendor = null }: any) {
     );
   return (
     <DashboardPageWrapper>
-      <Typography variant="h4" className="w-full underline">
-        Recent Vendors
+      <Typography variant="h4" className="w-full font-normal">
+       {title || 'Recent Vendors'}
       </Typography>
       <div className="w-full overflow-x-hidden grid grid-cols-5 lg:grid-cols-7 border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm font-bold bg-[#f9f9ff] ">
         <span className="p-3">#</span>

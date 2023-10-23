@@ -17,7 +17,7 @@ import {
 
 export default function Home() {
   return (
-    <div className="w-full flex flex-col  ">
+    <div className="w-full flex flex-col  max-w-7xl mx-auto">
       <VendorHeader logoImageSrc={"/assets/logo-default.png"}>
         <AuthNav />
       </VendorHeader>

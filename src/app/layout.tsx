@@ -40,10 +40,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className='w-full relative'>
+      <body className='w-full relative '>
         <GlobalContextProvider>
+          <div className=''>
         {children}
+        </div>
         </GlobalContextProvider>
+        
         </body>
     </html>
   )

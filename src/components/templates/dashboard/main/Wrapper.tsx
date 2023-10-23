@@ -24,7 +24,7 @@ export default function Wrapper({
 
 
 
-    return <div className={twMerge(`w-full px-8 py-5 flex flex-col gap-3 overflow-hidden`, className)}>
+    return <div className={twMerge(`w-full px-4 mid:px-8 py-5 flex flex-col gap-3 overflow-x-hidden items-center justify-center`, className)}>
         {
             shouldAddBtn &&
             <div className="w-full flex justify-end my-3">
@@ -41,7 +41,7 @@ export default function Wrapper({
 
             </div>
         }
-        <div className="w-full my-2">
+        <div className="w-[90%] mx-auto  my-2 ">
             {/* children go here */}
             {children}
 

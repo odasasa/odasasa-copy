@@ -30,7 +30,7 @@ export default function DashboardLandingPage(props: any) {
   return (
     <Wrapper>
       <div
-        className={`grid grid-cols-1 sm:grid-cols-2 ${
+        className={`w-full grid grid-cols-1 sm:grid-cols-2 ${
           Object.keys(panels).length > 3 ? "md:grid-cols-4" : "md:grid-cols-3"
         } gap-2 mid:gap-6 `}
       >

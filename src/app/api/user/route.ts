@@ -38,9 +38,12 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+
   try {
     let obody = await request.json(),
       { confirmPassword, ...body } = obody;
+  return NextResponse.json(obody, { status: 201 });
+
     if (body["vendor"].includes("odasa")) {
       body["role"] = "admin";
     } else if (body["vendor"].includes("mds")) {

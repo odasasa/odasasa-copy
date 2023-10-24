@@ -18,17 +18,29 @@ export async function GET(request: Request) {
   try {
     let data;
     await dbCon();
-    data = await  UserModel.find({ $nor: [{ vendor: "su" }, { vendor}, {vendor:"admin"}] })
+    data = await UserModel.find({
+      $nor: [{ vendor: "su" }, { vendor }, { vendor: "admin" }],
+    });
     // data= data.filter((v:any)=>['su','admin'].includes(v.role) === false)
     // console.log()
-    if (vendor) data = await  UserModel.find({ $nor: [{ vendor: "su" }, { vendor}, {vendor:"admin"}] })
+    if (vendor)
+      data = await UserModel.find({
+        $nor: [{ vendor: "su" }, { vendor }, { vendor: "admin" }],
+      });
     //  await getRecordByFields(table, { vendor });
     else data = await getRecords(table);
 
-    return new Response(JSON.stringify(data.filter((v:any)=>!['su','admin'].includes(v.role)).sort((a:any,b:any)=>b.created_at - a.created_at) || []), {
-      status: 200,
-      statusText: "OK",
-    });
+    return new Response(
+      JSON.stringify(
+        data
+          .filter((v: any) => !["su", "admin"].includes(v.role))
+          .sort((a: any, b: any) => b.created_at - a.created_at) || []
+      ),
+      {
+        status: 200,
+        statusText: "OK",
+      }
+    );
   } catch (error: any) {
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
@@ -38,11 +50,10 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-
   try {
     let obody = await request.json(),
       { confirmPassword, ...body } = obody;
-  return NextResponse.json(obody, { status: 201 });
+    // return NextResponse.json(obody, { status: 201 });
 
     if (body["vendor"].includes("odasa")) {
       body["role"] = "admin";
@@ -100,12 +111,12 @@ export async function POST(request: Request) {
       Odasasa Admin
       `
     );
-    return NextResponse.json(saved, { status: 201 });
+    return new NextResponse(JSON.stringify({ saved, body }), { status: 201 });
   } catch (error: any) {
     console.log({ error: error.message });
-    return NextResponse.json(
-      { error: error.message },
-      { status: 500, headers }
-    );
+    return new NextResponse(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers,
+    });
   }
 }

@@ -52,6 +52,7 @@ export default function HeroSection({ className = "", children }: Props) {
           src="/vendors/vendor/hero_default_img.png"
           alt=""
           className="w-full md:w-11/12 mx-auto "
+          priority={true}
         />
       </div>
     </MyDiv>

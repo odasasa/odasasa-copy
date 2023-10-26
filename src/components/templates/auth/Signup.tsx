@@ -107,7 +107,7 @@ const Signup = ({ setOp, className = "" }: SignupProps) => {
 
       redirect("/");
     } catch (error: any) {
-      alert("There was an error creating your account.Pleasetry again");
+      Swal.fire("There was an error creating your account.Pleasetry again");
 
       console.log({ msg: error.message });
     }

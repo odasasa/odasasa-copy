@@ -63,12 +63,13 @@ export async function POST(request: Request) {
       body["role"] = "vendor";
     }
     body["status"] = false;
-    body["idNumber"] = body["vendor"]+`xxx${Math.random() * 1000}yyy${Math.random() * 1000}`;
+    // body["idNumber"] = body["vendor"]+`xxx${Math.random() * 1000}yyy${Math.random() * 1000}`;
     const hashedPassword = pwdHasher(body["password"]);
     body["password"] = hashedPassword;
 
     // const result = await createRecord(table, body);
     await dbCon();
+    await UserModel.updateMany({}, {$unset:{idNumber:1}})
     const newUser = new UserModel(body);
     let activationToken = await generateUniqueToken();
     let createdActivationRecord = await createUserActivationRecord(

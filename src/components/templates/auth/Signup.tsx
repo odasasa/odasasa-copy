@@ -101,11 +101,15 @@ const Signup = ({ setOp, className = "" }: SignupProps) => {
       ).json();
       console.log(data);
       // alert(JSON.stringify(data));
+      if (!data.success)
+        throw new Error(
+          "There was an error creating your account.Pleasetry again"
+        );
       Swal.fire(
         "Account Successfully created. Check your inbox for activation link"
       );
 
-      redirect("/");
+      return redirect("/");
     } catch (error: any) {
       Swal.fire("There was an error creating your account.Pleasetry again");
 

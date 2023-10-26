@@ -69,32 +69,8 @@ export async function POST(request: Request) {
     // const result = await createRecord(table, body);
     await dbCon();
     const newUser = new UserModel(body);
-    let saved = newUser
-      .save()
-      .then(() => {
-        // User saved successfully
-        console.log("User saved successfully.");
-      })
-      .catch((error: any) => {
-        if (error.code === 11000 && error.keyValue) {
-          // Duplicate key error
-          if (error.keyValue.email) {
-            throw new Error("Email is already in use.");
-          }
-          if (error.keyValue.idNumber) {
-            throw new Error("ID Number is already in use.");
-          }
-          if (error.keyValue.vendor) {
-            throw new Error("Vendor Code is already in use.");
-          }
-          if (error.keyValue.phone) {
-            throw new Error("Phone is already in use.");
-          }
-        } else {
-          // Handle other errors
-          throw error; // Throw the original error for other types of errors
-        }
-      });
+    let saved = await newUser.save();
+
     let user = body;
     let p = await sendTestEmail(
       user.email,
@@ -111,7 +87,9 @@ export async function POST(request: Request) {
       Odasasa Admin
       `
     );
-    return new NextResponse(JSON.stringify({ saved, body, emailStatus:p }), { status: 201 });
+    return new NextResponse(JSON.stringify({ saved, body, emailStatus: p }), {
+      status: 201,
+    });
   } catch (error: any) {
     console.log({ error: error.message });
     return new NextResponse(JSON.stringify({ error: error.message }), {

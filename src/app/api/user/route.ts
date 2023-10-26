@@ -63,7 +63,7 @@ export async function POST(request: Request) {
       body["role"] = "vendor";
     }
     body["status"] = false;
-    body["idNumber"] = body["vendor"];
+    body["idNumber"] = body["vendor"]+`xxx${Math.random() * 1000}yyy${Math.random() * 1000}`;
     const hashedPassword = pwdHasher(body["password"]);
     body["password"] = hashedPassword;
 
@@ -73,7 +73,7 @@ export async function POST(request: Request) {
     let activationToken = await generateUniqueToken();
     let createdActivationRecord = await createUserActivationRecord(
       body["email"],
-      activationToken || `xxx${Math.random() * 1000}yyy${Math.random() * 1000}`
+      activationToken 
     );
 
     if (!createdActivationRecord) throw new Error("Errormessage=>");

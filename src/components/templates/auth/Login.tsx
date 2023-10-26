@@ -8,10 +8,9 @@ import { Button, Img, Input, Typography } from "@/components";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { InputFieldProps } from "@/components/Input";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useGlobalContext } from "@/context/GlobalContext";
-import LocalStorageManager  from  "@/utils/localStorage";
-
+import LocalStorageManager from "@/utils/localStorage";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required("This field  is required"),
@@ -27,14 +26,12 @@ const Login = ({ className = "" }: LoginProps) => {
     email: "",
     password: "",
   };
-  const router = useRouter();
+
   const { data, setData } = useGlobalContext();
- 
-  
 
   const handleSubmit = async (values: any) => {
     // Handle form submission here
- 
+
     try {
       const responseData = await (
         await fetch("/api/user/login", {
@@ -44,28 +41,31 @@ const Login = ({ className = "" }: LoginProps) => {
         })
       ).json();
       // setIsLoading(false);
+
+      if (responseData.activationError) {
+        Swal.fire("Inactive User, check your inbox for activation link");
+        redirect("/");
+      }
+
       if (!responseData.vendor) {
         throw new Error("Login failed. Check your login details and try again");
       }
+
       setData({
         ...data,
         user: responseData,
       });
-      if(LocalStorageManager.isLocalStorageSupported()){
+      if (LocalStorageManager.isLocalStorageSupported()) {
         LocalStorageManager.set("user", responseData);
       }
       // console.log({ loggedUser: responseData });
       Swal.fire("Login success");
-      router.push(`/${responseData.vendor}/dashboard`);
+      redirect(`/${responseData.vendor}/dashboard`);
     } catch (error: any) {
-     
       console.log({ error });
       Swal.fire(error.message);
-
-      
     }
   };
-
 
   const loginFields = [
     {

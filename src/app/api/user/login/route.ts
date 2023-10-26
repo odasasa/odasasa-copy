@@ -13,8 +13,17 @@ export async function POST(request: Request) {
       { password, email } = body;
 
     await dbCon();
+    const checkActivation = await UserModel.find({
+      email,
+      activationStatus: false,
+    });
+    if (checkActivation)
+      return new NextResponse(
+        JSON.stringify({ sucess: false, activationError: true })
+      );
+
     const users = await UserModel.find({
-      $or: [{ email }, { vendor: email }, { idNumber: email }],
+      $or: [{ email }, { vendor: email }],
     });
 
     if (!users)

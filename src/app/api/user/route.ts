@@ -9,6 +9,7 @@ import { sendTestEmail } from "@/libs/nodemailer/gmail";
 import { strCapitalize } from "@/utils";
 import { BASE_PATH } from "@/utils/next_host";
 import { getSearchParams } from "@/utils/key_functions";
+import { randomUUID } from "crypto";
 const table = "users";
 const headers: any = {
   "Content-Type": "application/json",
@@ -63,6 +64,7 @@ export async function POST(request: Request) {
       body["role"] = "vendor";
     }
     body["status"] = false;
+    body["idNumber"] = randomUUID();
     const hashedPassword = pwdHasher(body["password"]);
     body["password"] = hashedPassword;
 

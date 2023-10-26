@@ -1,15 +1,15 @@
-import mongoose from "mongoose";
 import { pwdHasher } from "@/libs/bcrypt/passord";
 import { UserModel } from "@/libs/mongoose/models";
-import { getRecordByFields, getRecords } from "@/libs/mongoose/mongoseCrud";
+import { getRecords } from "@/libs/mongoose/mongoseCrud";
 
 import { NextResponse } from "next/server";
 import { dbCon } from "@/libs/mongoose/dbCon";
-import { sendTestEmail } from "@/libs/nodemailer/gmail";
-import { strCapitalize } from "@/utils";
-import { BASE_PATH } from "@/utils/next_host";
+
 import { getSearchParams } from "@/utils/key_functions";
-import { randomUUID } from "crypto";
+
+import { generateUniqueToken } from "@/libs/uniqueKey";
+import { createUserActivationRecord } from "@/libs/mongoose/userActivation";
+import { handlesendConfirmationEmail } from "@/utils/emails/ConfirmationEmail";
 const table = "users";
 const headers: any = {
   "Content-Type": "application/json",
@@ -54,7 +54,6 @@ export async function POST(request: Request) {
   try {
     let obody = await request.json(),
       { confirmPassword, ...body } = obody;
-    // return NextResponse.json(obody, { status: 201 });
 
     if (body["vendor"].includes("odasa")) {
       body["role"] = "admin";
@@ -64,34 +63,35 @@ export async function POST(request: Request) {
       body["role"] = "vendor";
     }
     body["status"] = false;
-    body["idNumber"] = randomUUID();
+    body["idNumber"] = body["vendor"];
     const hashedPassword = pwdHasher(body["password"]);
     body["password"] = hashedPassword;
 
     // const result = await createRecord(table, body);
     await dbCon();
     const newUser = new UserModel(body);
+    let activationToken = await generateUniqueToken();
+    let createdActivationRecord = await createUserActivationRecord(
+      body["email"],
+      activationToken || `xxx${Math.random() * 1000}yyy${Math.random() * 1000}`
+    );
+
+    if (!createdActivationRecord) throw new Error("Errormessage=>");
+
     let saved = await newUser.save();
 
-    let user = body;
-    let p = await sendTestEmail(
-      user.email,
-      "Confirmation Email",
-      `Drear ${strCapitalize(user.name.split("").at(0))}, \n\n
-        Congratulations ! Your account has been successfully created.\n\n
-        Go to this link ${BASE_PATH}/auth/activate/${user.phone}-${
-        user.idNumber
-      }
-        You have 24hrs to activate your account. Hurry up to avoid inconviences.
-
-      Regards,
-
-      Odasasa Admin
-      `
+    const emailStatus = await handlesendConfirmationEmail(
+      body.name.split(" ")[0] || "",
+      body["email"],
+      activationToken
     );
-    return new NextResponse(JSON.stringify({ saved, body, emailStatus: p }), {
-      status: 201,
-    });
+
+    return new NextResponse(
+      JSON.stringify({ success: true, saved, body, emailStatus }),
+      {
+        status: 201,
+      }
+    );
   } catch (error: any) {
     console.log({ error: error.message });
     return new NextResponse(JSON.stringify({ error: error.message }), {

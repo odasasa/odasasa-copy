@@ -14,6 +14,7 @@ export interface User {
   confirmPassword: string;
   businessName: string;
   vendor: string;
+  activationStatus?:boolean
 }
 
 export interface ElementProps {

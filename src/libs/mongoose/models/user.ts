@@ -44,6 +44,10 @@ const userSchema = new mongoose.Schema<User>(
       required: [true, "Password is required"],
       minlength: [8, "Password must be at least 8 characters long"],
     },
+    activationStatus: {
+      type: Boolean,
+      default: false,
+    },
     businessName: {
       type: String,
       required: [true, "Business Name is required"],
@@ -74,6 +78,5 @@ const userSchema = new mongoose.Schema<User>(
 
 const UserModel =
   mongoose.models.User || mongoose.model<User>("User", userSchema);
-
 
 export { UserModel };

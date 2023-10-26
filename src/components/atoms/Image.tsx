@@ -12,8 +12,8 @@ const Img: React.FC<ImageProps> = ({ src, alt, className , ...others}) => (
   <Image
     src={src}
     alt={alt}
-    width={600}
-    height={600}
+    width={400}
+    height={400}
     className={twMerge(`w-full aspect-auto object-contain `, className)}
     loading={others.priority?'eager' : 'lazy'}
     {...others}

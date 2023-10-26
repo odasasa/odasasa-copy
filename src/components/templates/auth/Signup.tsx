@@ -10,6 +10,7 @@ import { InputFieldProps } from "@/components/Input";
 import { useRouter } from "next/navigation";
 import { postData } from "@/utils";
 import Swal from "sweetalert2";
+import { verifyEmail } from "@/libs/email-verify";
 async function checkFieldExistance(field: [string, string], table: string) {
   if (!field[1]) return true;
   try {
@@ -25,9 +26,19 @@ async function checkFieldExistance(field: [string, string], table: string) {
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Full Name is required"),
   email: Yup.string()
-    .test("checkIfExists", "Email already exists", async function (value: any) {
-      return await checkFieldExistance(["email", value], "users");
-    })
+    .test(
+      "checkIfExists",
+      "Email already exists Or Invalid",
+      async function (value: any) {
+        return (
+          // verifyEmail(value, (error, infor) => {
+          //   if (error) return false;
+          //   return infor.success;
+          // }) ||
+          await checkFieldExistance(["email", value], "users")
+        );
+      }
+    )
     .email("Invalid email address")
     .required("Email is required"),
   // idNumber: Yup.string()
@@ -70,7 +81,7 @@ interface SignupProps {
 const Signup = ({ setOp, className = "" }: SignupProps) => {
   const initialValues = {
     email: "",
-   password: "",
+    password: "",
     name: "",
     confirmPassword: "",
     phone: "",
@@ -91,7 +102,7 @@ const Signup = ({ setOp, className = "" }: SignupProps) => {
       ).json();
       console.log(data);
       // alert(JSON.stringify(data));
-     Swal.fire("Account Successfully created.Go to login");
+      Swal.fire("Account Successfully created.Go to login");
 
       router.push("/auth/login");
     } catch (error: any) {

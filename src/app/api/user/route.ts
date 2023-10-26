@@ -18,17 +18,29 @@ export async function GET(request: Request) {
   try {
     let data;
     await dbCon();
-    data = await  UserModel.find({ $nor: [{ vendor: "su" }, { vendor}, {vendor:"admin"}] })
+    data = await UserModel.find({
+      $nor: [{ vendor: "su" }, { vendor }, { vendor: "admin" }],
+    });
     // data= data.filter((v:any)=>['su','admin'].includes(v.role) === false)
     // console.log()
-    if (vendor) data = await  UserModel.find({ $nor: [{ vendor: "su" }, { vendor}, {vendor:"admin"}] })
+    if (vendor)
+      data = await UserModel.find({
+        $nor: [{ vendor: "su" }, { vendor }, { vendor: "admin" }],
+      });
     //  await getRecordByFields(table, { vendor });
     else data = await getRecords(table);
 
-    return new Response(JSON.stringify(data.filter((v:any)=>!['su','admin'].includes(v.role)).sort((a:any,b:any)=>b.created_at - a.created_at) || []), {
-      status: 200,
-      statusText: "OK",
-    });
+    return new Response(
+      JSON.stringify(
+        data
+          .filter((v: any) => !["su", "admin"].includes(v.role))
+          .sort((a: any, b: any) => b.created_at - a.created_at) || []
+      ),
+      {
+        status: 200,
+        statusText: "OK",
+      }
+    );
   } catch (error: any) {
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
@@ -41,6 +53,8 @@ export async function POST(request: Request) {
   try {
     let obody = await request.json(),
       { confirmPassword, ...body } = obody;
+    // return NextResponse.json(obody, { status: 201 });
+
     if (body["vendor"].includes("odasa")) {
       body["role"] = "admin";
     } else if (body["vendor"].includes("mds")) {
@@ -55,32 +69,8 @@ export async function POST(request: Request) {
     // const result = await createRecord(table, body);
     await dbCon();
     const newUser = new UserModel(body);
-    let saved = newUser
-      .save()
-      .then(() => {
-        // User saved successfully
-        console.log("User saved successfully.");
-      })
-      .catch((error: any) => {
-        if (error.code === 11000 && error.keyValue) {
-          // Duplicate key error
-          if (error.keyValue.email) {
-            throw new Error("Email is already in use.");
-          }
-          if (error.keyValue.idNumber) {
-            throw new Error("ID Number is already in use.");
-          }
-          if (error.keyValue.vendor) {
-            throw new Error("Vendor Code is already in use.");
-          }
-          if (error.keyValue.phone) {
-            throw new Error("Phone is already in use.");
-          }
-        } else {
-          // Handle other errors
-          throw error; // Throw the original error for other types of errors
-        }
-      });
+    let saved = await newUser.save();
+
     let user = body;
     let p = await sendTestEmail(
       user.email,
@@ -97,12 +87,14 @@ export async function POST(request: Request) {
       Odasasa Admin
       `
     );
-    return NextResponse.json(saved, { status: 201 });
+    return new NextResponse(JSON.stringify({ saved, body, emailStatus: p }), {
+      status: 201,
+    });
   } catch (error: any) {
     console.log({ error: error.message });
-    return NextResponse.json(
-      { error: error.message },
-      { status: 500, headers }
-    );
+    return new NextResponse(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers,
+    });
   }
 }

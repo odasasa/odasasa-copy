@@ -111,7 +111,7 @@ export async function POST(request: Request) {
       Odasasa Admin
       `
     );
-    return new NextResponse(JSON.stringify({ saved, body }), { status: 201 });
+    return new NextResponse(JSON.stringify({ saved, body, emailStatus:p }), { status: 201 });
   } catch (error: any) {
     console.log({ error: error.message });
     return new NextResponse(JSON.stringify({ error: error.message }), {

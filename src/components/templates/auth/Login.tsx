@@ -11,6 +11,7 @@ import { InputFieldProps } from "@/components/Input";
 import { redirect } from "next/navigation";
 import { useGlobalContext } from "@/context/GlobalContext";
 import LocalStorageManager from "@/utils/localStorage";
+import { useRouter } from "next/router";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required("This field  is required"),
@@ -28,7 +29,7 @@ const Login = ({ className = "" }: LoginProps) => {
   };
 
   const { data, setData } = useGlobalContext();
-
+const router = useRouter()
   const handleSubmit = async (values: any) => {
     // Handle form submission here
 
@@ -44,7 +45,7 @@ const Login = ({ className = "" }: LoginProps) => {
 
       if (responseData.activationError) {
         Swal.fire("Inactive User, check your inbox for activation link");
-        redirect("/");
+       return  redirect("/");
       }
 
       if (!responseData.vendor) {
@@ -58,11 +59,11 @@ const Login = ({ className = "" }: LoginProps) => {
       if (LocalStorageManager.isLocalStorageSupported()) {
         LocalStorageManager.set("user", responseData);
       }
-      // console.log({ loggedUser: responseData });
+      console.log({ loggedUser: responseData });
       Swal.fire("Login success");
-      redirect(`/${responseData.vendor}/dashboard`);
+      router.push(`/${responseData.vendor}/dashboard`);
     } catch (error: any) {
-      console.log({ error });
+      console.log({ loginError: error.message });
       Swal.fire(error.message);
     }
   };

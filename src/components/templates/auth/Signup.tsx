@@ -7,10 +7,10 @@ import { Button, Input, Typography } from "@/components";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { InputFieldProps } from "@/components/Input";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { postData } from "@/utils";
 import Swal from "sweetalert2";
-import { verifyEmail } from "@/libs/email-verify";
+// import { verifyEmail } from "@/libs/email-verify";
 async function checkFieldExistance(field: [string, string], table: string) {
   if (!field[1]) return true;
   try {
@@ -89,7 +89,6 @@ const Signup = ({ setOp, className = "" }: SignupProps) => {
     vendor: "",
   };
 
-  const router = useRouter();
   const handleSubmit = async (values: any) => {
     // Handle form submission here
     try {
@@ -102,11 +101,17 @@ const Signup = ({ setOp, className = "" }: SignupProps) => {
       ).json();
       console.log(data);
       // alert(JSON.stringify(data));
-      Swal.fire("Account Successfully created.Go to login");
+      if (!data.success)
+        throw new Error(
+          "There was an error creating your account.Pleasetry again"
+        );
+      Swal.fire(
+        "Account Successfully created. Check your inbox for activation link"
+      );
 
-      router.push("/auth/login");
+      return redirect("/");
     } catch (error: any) {
-      alert("There was an error creating your account.Pleasetry again");
+      Swal.fire("There was an error creating your account.Pleasetry again");
 
       console.log({ msg: error.message });
     }

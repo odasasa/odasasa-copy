@@ -1,9 +1,6 @@
 import { pwdConfirm } from "@/libs/bcrypt/passord";
 import { dbCon } from "@/libs/mongoose/dbCon";
 import { UserModel } from "@/libs/mongoose/models";
-import { sendTestEmail } from "@/libs/nodemailer/gmail";
-import { strCapitalize } from "@/utils";
-import { BASE_PATH } from "@/utils/next_host";
 import { NextResponse } from "next/server";
 const table = "Users";
 
@@ -13,8 +10,17 @@ export async function POST(request: Request) {
       { password, email } = body;
 
     await dbCon();
+    const checkActivation = await UserModel.find({
+      email,
+      activationStatus: false,
+    });
+    if (checkActivation)
+      return new NextResponse(
+        JSON.stringify({ success: false, activationError: true, checkActivation })
+      );
+
     const users = await UserModel.find({
-      $or: [{ email }, { vendor: email }, { idNumber: email }],
+      $or: [{ email }, { vendor: email }],
     });
 
     if (!users)

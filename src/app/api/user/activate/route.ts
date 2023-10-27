@@ -7,27 +7,26 @@ import {
 import { generateUniqueToken } from "@/libs/uniqueKey";
 import { handlesendConfirmationEmail } from "@/utils/emails/ConfirmationEmail";
 import { NextResponse } from "next/server";
-import { useState } from "react";
 
 export async function POST(request: Request) {
   try {
-   
     const [token, email, name] = await request.json();
 
     try {
+      await dbCon();
       //get token and get read
       const activationRecord = await findUserActivationRecord(token || "");
       let emailStatus;
       if (!activationRecord) {
         // check if user exists
-        await dbCon;
+
         let user = await UserModel.findOne({ email });
         if (!user)
           return new NextResponse(
             JSON.stringify({ sucees: false, message: "An error has ocured!" })
           );
 
-        let activationToken = await generateUniqueToken();
+        let activationToken = generateUniqueToken();
         await createUserActivationRecord(email, activationToken);
         emailStatus = await handlesendConfirmationEmail(
           name.split(" ")[0] || "",

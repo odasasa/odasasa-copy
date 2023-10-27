@@ -45,7 +45,7 @@ export const markUserActivationRecordAsUsed = async (
       { email, token },
       { isUsed: true }
     ).exec();
-    await UserModel.findOneAndUpdate(
+    await UserModel.updateOne(
       { email },
       { activationStatus: true }
     ).exec();

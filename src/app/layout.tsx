@@ -1,7 +1,6 @@
-import { GlobalContextProvider } from '@/context/GlobalContext';
-import './globals.css'
-import type { Metadata } from 'next'
-
+import { GlobalContextProvider } from "@/context/GlobalContext";
+import "./globals.css";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Odasasa ",
@@ -36,18 +35,15 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className='w-full relative '>
+      <body className="w-full relative ">
         <GlobalContextProvider>
-          <div className=''>
-        {children}
-        </div>
+          {children}
         </GlobalContextProvider>
-        
-        </body>
+      </body>
     </html>
-  )
+  );
 }

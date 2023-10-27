@@ -7,9 +7,11 @@ import {
 import { generateUniqueToken } from "@/libs/uniqueKey";
 import { handlesendConfirmationEmail } from "@/utils/emails/ConfirmationEmail";
 import { NextResponse } from "next/server";
+import { useState } from "react";
 
 export async function POST(request: Request) {
   try {
+   
     const [token, email, name] = await request.json();
 
     try {

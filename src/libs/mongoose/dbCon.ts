@@ -17,7 +17,8 @@ function getDbURI(dbname: string) {
 // export const db = mongoose.createConnection(MONGO_DB_URI);
 export async function dbCon() {
 
-  const MONGO_DB_URI = getDbURI('splendid_media_db')
+  // const MONGO_DB_URI = getDbURI('splendid_media_db')
+  const MONGO_DB_URI = getDbURI('oda_db')
   // Connecting to MongoDB using Mongoose
   mongoose.connect(MONGO_DB_URI);
   // mongoose.connect('mongodb://127.0.0.1:27017/mydatabase');

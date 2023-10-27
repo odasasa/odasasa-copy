@@ -29,7 +29,7 @@ const Login = ({ className = "" }: LoginProps) => {
   };
 
   const { data, setData } = useGlobalContext();
-const router = useRouter()
+  const router = useRouter();
   const handleSubmit = async (values: any) => {
     // Handle form submission here
 
@@ -45,7 +45,7 @@ const router = useRouter()
 
       if (responseData.activationError) {
         Swal.fire("Inactive User, check your inbox for activation link");
-       return  redirect("/");
+        return router.push("/");
       }
 
       if (!responseData.vendor) {

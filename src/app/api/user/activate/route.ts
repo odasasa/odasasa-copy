@@ -3,6 +3,7 @@ import { UserModel } from "@/libs/mongoose/models";
 import {
   createUserActivationRecord,
   findUserActivationRecord,
+  markUserActivationRecordAsUsed,
 } from "@/libs/mongoose/userActivation";
 import { generateUniqueToken } from "@/libs/uniqueKey";
 import { handlesendConfirmationEmail } from "@/utils/emails/ConfirmationEmail";
@@ -37,8 +38,10 @@ export async function POST(request: Request) {
           JSON.stringify({ success: false, emailStatus })
         );
       }
+
+      await markUserActivationRecordAsUsed(email, token);
       return new NextResponse(
-        JSON.stringify({ sucees: true, activationRecord })
+        JSON.stringify({ success: true, activationRecord })
       );
     } catch (error) {}
   } catch (error: any) {

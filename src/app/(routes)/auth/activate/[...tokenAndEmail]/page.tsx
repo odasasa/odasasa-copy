@@ -17,7 +17,7 @@ async function UserActivationPage({
     console.log({ msg: error.message });
   }
   Swal.fire("Check your email inbox for the activation link");
-  redirect("/");
+  // redirect("/");
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">

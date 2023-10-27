@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     });
     if (checkActivation)
       return new NextResponse(
-        JSON.stringify({ success: false, activationError: true })
+        JSON.stringify({ success: false, activationError: true, checkActivation })
       );
 
     const users = await UserModel.find({

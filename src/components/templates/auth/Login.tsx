@@ -8,10 +8,10 @@ import { Button, Img, Input, Typography } from "@/components";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { InputFieldProps } from "@/components/Input";
-import { redirect } from "next/navigation";
+import {useRouter } from "next/navigation";
 import { useGlobalContext } from "@/context/GlobalContext";
 import LocalStorageManager from "@/utils/localStorage";
-import { useRouter } from "next/router";
+
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required("This field  is required"),

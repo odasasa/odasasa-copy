@@ -21,7 +21,7 @@ async function UserActivationPage({
   // redirect("/");
   if (!data)
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 w-full">
         <div className="bg-white p-6 rounded-lg shadow-md w-96">
           <h2 className="text-2xl font-semibold mb-6">
             Check inbox and try again
@@ -30,7 +30,7 @@ async function UserActivationPage({
       </div>
     );
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 w-full">
       <div className="bg-white p-6 rounded-lg shadow-md w-96">
         <Link href={"/auth/login"} className="text-2xl font-semibold mb-6">Successfully activated! Go to login</Link>
       </div>

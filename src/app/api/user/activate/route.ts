@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     try {
       await dbCon();
       //get token and get read
-      const activationRecord = await findUserActivationRecord(token || "");
+      const activationRecord = await findUserActivationRecord(token);
       let emailStatus;
       if (!activationRecord) {
         // check if user exists
@@ -34,6 +34,7 @@ export async function POST(request: Request) {
           email,
           activationToken
         );
+        
         return new NextResponse(
           JSON.stringify({ success: false, emailStatus })
         );

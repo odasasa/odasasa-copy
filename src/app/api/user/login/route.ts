@@ -14,9 +14,14 @@ export async function POST(request: Request) {
       email,
       activationStatus: false,
     });
-    if (checkActivation)
+
+    if (checkActivation.length > 0)
       return new NextResponse(
-        JSON.stringify({ success: false, activationError: true, checkActivation })
+        JSON.stringify({
+          success: false,
+          activationError: true,
+          checkActivation,
+        })
       );
 
     const users = await UserModel.find({

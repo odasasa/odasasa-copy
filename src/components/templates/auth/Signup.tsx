@@ -7,7 +7,7 @@ import { Button, Input, Typography } from "@/components";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { InputFieldProps } from "@/components/Input";
-import { redirect } from "next/navigation";
+import {useRouter } from "next/navigation";
 import { postData } from "@/utils";
 import Swal from "sweetalert2";
 // import { verifyEmail } from "@/libs/email-verify";
@@ -26,19 +26,15 @@ async function checkFieldExistance(field: [string, string], table: string) {
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Full Name is required"),
   email: Yup.string()
-    .test(
-      "checkIfExists",
-      "Email already exists Or Invalid",
-      async function (value: any) {
-        return (
-          // verifyEmail(value, (error, infor) => {
-          //   if (error) return false;
-          //   return infor.success;
-          // }) ||
-          await checkFieldExistance(["email", value], "users")
-        );
-      }
-    )
+    .test("checkIfExists", "Email already exists", async function (value: any) {
+      return (
+        // verifyEmail(value, (error, infor) => {
+        //   if (error) return false;
+        //   return infor.success;
+        // }) ||
+        await checkFieldExistance(["email", value], "users")
+      );
+    })
     .email("Invalid email address")
     .required("Email is required"),
   // idNumber: Yup.string()
@@ -88,7 +84,7 @@ const Signup = ({ setOp, className = "" }: SignupProps) => {
     businessName: "",
     vendor: "",
   };
-
+  const router = useRouter();
   const handleSubmit = async (values: any) => {
     // Handle form submission here
     try {
@@ -109,7 +105,7 @@ const Signup = ({ setOp, className = "" }: SignupProps) => {
         "Account Successfully created. Check your inbox for activation link"
       );
 
-      return redirect("/");
+      router.push("/");
     } catch (error: any) {
       Swal.fire("There was an error creating your account.Pleasetry again");
 

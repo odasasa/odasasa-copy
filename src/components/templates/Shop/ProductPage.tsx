@@ -9,11 +9,7 @@ import { Product } from "@/types";
 import { useGlobalContext } from "@/context/GlobalContext";
 import { User } from "@/types/core";
 
-const customerFields = [
-  { label: "Name", name: "name", type: "text" },
-  { label: "Phone", name: "phone", type: "text" },
-  { label: "Location", name: "location", type: "text" },
-];
+
 
 export default function Products({
   products,
@@ -24,16 +20,6 @@ export default function Products({
   const { data: globalData, setData } = useGlobalContext(),
     { shoppingCart: cartItems, isModalOpen } = globalData;
 
-  const [formData, setFormData] = useState<{
-    name: string;
-    phone: string;
-    location: string;
-  }>({ name: "", phone: "", location: "" });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
   const handleToggleCartVisibility = () => {
     setData({
@@ -142,29 +128,11 @@ export default function Products({
         <ShoppingCart
           shopDetails={shopDetails}
           items={cartItems}
-          customer={formData}
-          onItemRemove={removeFromCart}
+              onItemRemove={removeFromCart}
           onItemIncrement={incrementItem}
           onItemDecrement={decrementItem}
         />
-        {/* The customer infor */}
-        <div className="px-2 md:px-6 w-full">
-          {cartItems.length > 0 &&
-            customerFields.map((field) => (
-              <div key={field.name} className="my-2 md:my-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                  {field.label}
-                </label>
-                <input
-                  type={field.type}
-                  name={field.name}
-                  onChange={handleChange}
-                  required={true}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-              </div>
-            ))}
-        </div>
+      
       </Modal>
     </>
   );

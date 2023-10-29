@@ -1,9 +1,15 @@
 "use client";
 import { strCapitalize } from "@/utils";
-import React from "react";
+import React, { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { User } from "@/types/core";
+import { useGlobalContext } from "@/context/GlobalContext";
+const customerFields = [
+  { label: "Name", name: "name", type: "text" },
+  { label: "Phone", name: "phone", type: "text" },
+  { label: "Location", name: "location", type: "text" },
+];
 
 interface CartItem {
   name: string;
@@ -14,7 +20,6 @@ interface CartItem {
 interface ShoppingCartProps {
   items: CartItem[];
   shopDetails: User | null;
-  customer: { name: string; phone: string; location: string };
   onItemRemove: (index: number) => void;
   onItemIncrement: (index: number) => void;
   onItemDecrement: (index: number) => void;
@@ -23,12 +28,27 @@ interface ShoppingCartProps {
 const ShoppingCart: React.FC<ShoppingCartProps> = ({
   items,
   shopDetails,
-  customer,
   onItemRemove,
   onItemIncrement,
   onItemDecrement,
 }) => {
-  console.log({shopDetails})
+  const {
+    data: { shoppingCart: cartItems },
+    setData,
+  } = useGlobalContext();
+
+  const [customer, setCustomer] = useState<{
+    name: string;
+    phone: string;
+    location: string;
+  }>({ name: "", phone: "", location: "" });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setCustomer({ ...customer, [name]: value });
+  };
+
+  console.log({ shopDetails });
   const calculateTotalAmount = () => {
     return items.reduce((total, item) => total + item.price * item.quantity, 0);
   };
@@ -53,11 +73,32 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
 
     // Encode the message and phone number for use in the WhatsApp URL
     const encodedMessage = encodeURIComponent(message);
-    const whatsappURL = `https://wa.me/${shopDetails?.whatsappNumber ||phoneNumber}?text=${encodedMessage}`;
+    const whatsappURL = `https://wa.me/${
+      shopDetails?.whatsappNumber || phoneNumber
+    }?text=${encodedMessage}`;
 
     return whatsappURL;
   };
 
+  const customerForm = (
+    <div className="px-2 md:px-6 w-full">
+      {cartItems.length > 0 &&
+        customerFields.map((field) => (
+          <div key={field.name} className="my-2 md:my-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              {field.label}
+            </label>
+            <input
+              type={field.type}
+              name={field.name}
+              onChange={handleChange}
+              required={true}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+        ))}
+    </div>
+  );
   return (
     <div className="shopping-cart">
       {/* <h2>Shopping Cart</h2> */}
@@ -105,26 +146,29 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
           </ul>
           <div className="total-amount font-bold text-xl">
             <span>Total Amount:</span>
-            <span>${calculateTotalAmount()}</span>
+            <span>Ksh. {calculateTotalAmount()}</span>
             <br />
-            <button
-              // disabled ={Object.values(customer).includes("")}
-              onClick={() => {
-                if (Object.values(customer).includes(""))
-                  return Swal.fire("Fill Customer Details");
-                window
-                  .open(
-                    generateWhatsAppMessage(
-                      shopDetails?.whatsappNumber || "254727654531"
-                    ),
-                    "_blank"
-                  )
-                  ?.focus();
-              }}
-              className="px-2 py-1 bg-green-500 text-white rounded"
-            >
-              Share on WhatsApp
-            </button>
+            {customerForm}
+            { (
+              <button
+                // disabled ={Object.values(customer).includes("")}
+                onClick={() => {
+                  if (Object.values(customer).includes(""))
+                    return Swal.fire("Fill Customer Details");
+                  window
+                    .open(
+                      generateWhatsAppMessage(
+                        shopDetails?.whatsappNumber || "254727654531"
+                      ),
+                      "_blank"
+                    )
+                    ?.focus();
+                }}
+                className="px-2 py-1 bg-green-500 text-white rounded"
+              >
+                Share on WhatsApp
+              </button>
+            )}
           </div>
         </div>
       )}

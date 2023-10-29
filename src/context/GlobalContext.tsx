@@ -29,7 +29,6 @@ const initialData: GlobalData = {
     this.user = null;
     LocalStorageManager.removeItem("user");
     if (cb) cb();
-    window.alert("Hello teher");
     console.log({ user: LocalStorageManager.get("user") || "Not there" });
   },
 };

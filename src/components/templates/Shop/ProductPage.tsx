@@ -7,6 +7,7 @@ import Modal from "@/components/molecules/Modal";
 import ProductCard from "./ProductCard";
 import { Product } from "@/types";
 import { useGlobalContext } from "@/context/GlobalContext";
+import { User } from "@/types/core";
 
 const customerFields = [
   { label: "Name", name: "name", type: "text" },
@@ -18,6 +19,7 @@ export default function Products({
   products,
   handleFilterByCategory,
   activeCategory,
+ shopDetails
 }: any) {
   const { data: globalData, setData } = useGlobalContext(),
     { shoppingCart: cartItems, isModalOpen } = globalData;
@@ -138,6 +140,7 @@ export default function Products({
       {/* Shopping cart here */}
       <Modal isOpen={isModalOpen} onClose={() => handleToggleCartVisibility()}>
         <ShoppingCart
+          shopDetails={shopDetails}
           items={cartItems}
           customer={formData}
           onItemRemove={removeFromCart}

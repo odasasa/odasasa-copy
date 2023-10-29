@@ -24,12 +24,13 @@ const initialData: GlobalData = {
   order: null,
   isModalOpen: false,
   uploadedImgPath: "",
-  handleLogout:  function (cb: any = null) {
+  shopDetails: null,
+  handleLogout: function (cb: any = null) {
     this.user = null;
-     LocalStorageManager.removeItem("user");
+    LocalStorageManager.removeItem("user");
     if (cb) cb();
-    window.alert("Hello teher")
-    console.log({user : LocalStorageManager.get('user')||'Not there'})
+    window.alert("Hello teher");
+    console.log({ user: LocalStorageManager.get("user") || "Not there" });
   },
 };
 

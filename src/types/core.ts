@@ -10,12 +10,12 @@ export interface User {
   created_at: Date;
   status: string;
   phone: string;
-  whatsappNumber:string
+  whatsappNumber: string;
   password: string;
   confirmPassword: string;
   businessName: string;
   vendor: string;
-  activationStatus?:boolean
+  activationStatus?: boolean;
 }
 
 export interface ElementProps {
@@ -46,6 +46,7 @@ export type GlobalData = {
   banners: Banners[];
   shoppingCart: CartProduct[];
   order: Order;
+  shopDetails: User | null;
   isModalOpen: boolean;
   uploadedImgPath?: string;
   handleLogout: () => void;

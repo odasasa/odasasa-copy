@@ -7,9 +7,11 @@ import { Button, Input, Typography } from "@/components";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 import { InputFieldProps } from "@/components/Input";
-import {useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { postData } from "@/utils";
 import Swal from "sweetalert2";
+import { isValidPhoneNumber } from "@/utils/key_functions";
+import { signupFormFields } from "@/constants";
 // import { verifyEmail } from "@/libs/email-verify";
 async function checkFieldExistance(field: [string, string], table: string) {
   if (!field[1]) return true;
@@ -66,7 +68,22 @@ const validationSchema = Yup.object().shape({
       async function (value: any) {
         return await checkFieldExistance(["phone", value], "users");
       }
-    ),
+    )
+    .test("checkValidity", "Invalid Phone Number ", function (value: any) {
+      return isValidPhoneNumber(value);
+    }),
+  whatsappNumber: Yup.string()
+    .required("Field is required")
+    .test(
+      "checkIfExists",
+      "Phone Number already exists",
+      async function (value: any) {
+        return await checkFieldExistance(["whatsappNumber", value], "users");
+      }
+    )
+    .test("checkValidity", "Invalid Phone Number ", function (value: any) {
+      return isValidPhoneNumber(value);
+    }),
 });
 
 interface SignupProps {
@@ -81,6 +98,7 @@ const Signup = ({ setOp, className = "" }: SignupProps) => {
     name: "",
     confirmPassword: "",
     phone: "",
+    whatsappNumber:"",
     businessName: "",
     vendor: "",
   };
@@ -112,6 +130,7 @@ const Signup = ({ setOp, className = "" }: SignupProps) => {
       console.log({ msg: error.message });
     }
   };
+  /*
   const signupFields = [
     {
       name: "name",
@@ -155,7 +174,7 @@ const Signup = ({ setOp, className = "" }: SignupProps) => {
       type: "password",
     },
   ] as InputFieldProps[];
-
+*/
   const inputCommonClasses =
     "mb-3 px-3 py-2 rounded-sm w-full outline outline-2 outline-auth-border_color";
   return (
@@ -189,7 +208,7 @@ const Signup = ({ setOp, className = "" }: SignupProps) => {
           {/* <hr /> */}
         </div>
         <div className="w-full  flex flex-col justify-center items-center px-3 pt-3 border-solid border-b border-auth-border_color">
-          {signupFields.map((field, indx) => (
+          {signupFormFields.map((field, indx) => (
             <Input
               key={indx}
               name={field.name}

@@ -10,6 +10,7 @@ export interface User {
   created_at: Date;
   status: string;
   phone: string;
+  whatsappNumber:string
   password: string;
   confirmPassword: string;
   businessName: string;

@@ -17,6 +17,11 @@ export const signupFormFields = [
       type: "tel",
     },
     {
+      name: "whatsappNumber",
+      label: "Whatsapp Number",
+      type: "tel",
+    },
+    {
       name: "email",
       label: "Email Address",
       type: "email",

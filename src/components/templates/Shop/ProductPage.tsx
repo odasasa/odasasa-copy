@@ -98,10 +98,10 @@ export default function Products({
   };
 
   useEffect(() => {
-    console.log({ cartItems });
+    // console.log({ cartItems });
   }, [cartItems]);
 
-  if (!Array.isArray(products)) return <div> The shop is empty </div>
+  if (!Array.isArray(products)) return <div> The shop is empty </div>;
 
   return (
     <>
@@ -137,10 +137,18 @@ export default function Products({
 
       {/* Shopping cart here */}
       <Modal isOpen={isModalOpen} onClose={() => handleToggleCartVisibility()}>
-        <div className="px-6 w-full">
+        <ShoppingCart
+          items={cartItems}
+          customer={formData}
+          onItemRemove={removeFromCart}
+          onItemIncrement={incrementItem}
+          onItemDecrement={decrementItem}
+        />
+        {/* The customer infor */}
+        <div className="px-2 md:px-6 w-full">
           {cartItems.length > 0 &&
             customerFields.map((field) => (
-              <div key={field.name} className="mb-4">
+              <div key={field.name} className="my-2 md:my-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                   {field.label}
                 </label>
@@ -154,13 +162,6 @@ export default function Products({
               </div>
             ))}
         </div>
-        <ShoppingCart
-          items={cartItems}
-          customer={formData}
-          onItemRemove={removeFromCart}
-          onItemIncrement={incrementItem}
-          onItemDecrement={decrementItem}
-        />
       </Modal>
     </>
   );

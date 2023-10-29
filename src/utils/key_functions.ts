@@ -50,3 +50,10 @@ export function getSearchParams(url: string, field = "vendor") {
     ? paramsObject
     : params.get(field) || "";
 }
+
+// Phone  Validator
+export function isValidPhoneNumber(phoneNumber: string): boolean {
+  const trimmedPhoneNumber = phoneNumber.trim();
+  const kenyanPhoneRegex = /^(\+2547\d{8}|2547\d{8}|07\d{8})$/;
+  return kenyanPhoneRegex.test(trimmedPhoneNumber);
+}

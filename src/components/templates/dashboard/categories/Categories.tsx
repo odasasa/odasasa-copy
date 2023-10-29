@@ -1,6 +1,5 @@
 "use client";
 
-import { fetchData } from "@/utils";
 import { Wrapper } from "@/components/templates/dashboard/main";
 
 import { FaEdit } from "react-icons/fa";
@@ -19,8 +18,9 @@ import { useEffect, useState } from "react";
 import AddCategoryForm from "./AddCategoryForm";
 import EditCategoryForm from "./edtiCategoryForm";
 import { Category } from "@/types";
+import { useFetch } from "@/hooks";
 
-export default function Categories() {
+export default function Categories({ vendor }: any) {
   const { data: globalData, setData } = useGlobalContext(),
     { isModalOpen } = globalData;
   let user = globalData.user || LocalStorageManager.get("user");
@@ -30,20 +30,20 @@ export default function Categories() {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
   );
-  const [categories, setCategories] = useState<Category[]>([]);
+
+  let {data:fetchedCategories} = useFetch(
+    `/api/category?vendor=${vendor || user.vendor}`
+  );
+
+  console.log({  vendor, fetchedCategories});
+
+  const [categories, setCategories] = useState<Category[]>(
+    Array.isArray(fetchedCategories) ? fetchedCategories : []
+  );
 
   useEffect(() => {
-    (async () => {
-      try {
-        let fetchedCategories = await fetchData(
-          "/api/category?vendor=" + user.vendor
-        );
-        setCategories(fetchedCategories);
-      } catch (error) {
-        console.log({ error });
-      }
-    })();
-  }, [categories, user.vendor]);
+    if (Array.isArray(fetchedCategories)) setCategories(fetchedCategories as Category[]);
+  }, [fetchedCategories]);
 
   if (!Array.isArray(categories)) return <div>No data</div>;
 

@@ -80,12 +80,16 @@ Mubarak Abdalla
 Ground floor,CBA building.
  
 */
-// 🛒 Shopping Cart 🛒\n
-    const customerDetails = `*My Details:*\n${strCapitalize(customer?.name!)}\n${strCapitalize(customer?.phone!)}\n${strCapitalize(customer?.location!)}`;
-    const totalMessage = `Total: $${calculateTotalAmount().toFixed(2)}`;
+    // 🛒 Shopping Cart 🛒\n
+    const customerDetails = `*My Details:*\n${strCapitalize(
+      customer?.name!
+    )}\n${strCapitalize(customer?.phone!)}\n${strCapitalize(
+      customer?.location!
+    )}`;
+    const totalMessage = `Total : KES${calculateTotalAmount().toFixed(2)}`;
 
     // Combine the individual item messages and the total message with line breaks and separators
-    const message =`odasasa.com\n\nNew order request\n${itemsMessage.join("\n")}\n${totalMessage}\n\n${customerDetails}\n`;
+    const message = `odasasa.com\n\nNew order request\n${itemsMessage.join("\n"  )}\n${totalMessage}\n\n${customerDetails}\n`;
     // Encode the message and phone number for use in the WhatsApp URL
     const encodedMessage = encodeURIComponent(message);
     const whatsappURL = `https://wa.me/${
@@ -132,7 +136,7 @@ Ground floor,CBA building.
                 <span className=" col-span-2">
                   {item.name} x {item.quantity}
                 </span>
-                <span>Ksh. {item.price * item.quantity}</span>
+                <span>KES. {item.price * item.quantity}</span>
                 <div className="col-span-2 grid grid-cols-3 ">
                   <button
                     className={" rounded-md bg-product-blue"}
@@ -161,7 +165,7 @@ Ground floor,CBA building.
           </ul>
           <div className="total-amount font-bold text-xl">
             <span>Total Amount:</span>
-            <span>Ksh. {calculateTotalAmount()}</span>
+            <span>KES. {calculateTotalAmount()}</span>
             <br />
             {customerForm}
             {

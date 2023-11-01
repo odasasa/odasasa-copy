@@ -55,22 +55,48 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
   const generateWhatsAppMessage = (phoneNumber: string) => {
     const itemsMessage = items.map((item) => {
       const subtotal = (item.price * item.quantity).toFixed(2);
-      return `${item.name} (x${item.quantity}) - $${subtotal}`;
+      return `${item.name} (x${item.quantity}) - KES ${subtotal}`;
     });
+    /*
+Let's change it to this ...👇🏻
 
+
+
+odasasa.com
+
+New order request
+
+Fresh pineapple (×1) - KES 80
+Fresh Avocados (×1) - KES 30 
+Mahragwe (×1) - KES 120
+Dengu Nzima (×1) - KES 140
+Mazie Seeds (×2) - KES 300
+
+Total: KES 670
+
+My details:
+Mubarak Abdalla
+0727654531
+Ground floor,CBA building.
+ 
+*/
+// 🛒 Shopping Cart 🛒\n
     const customerDetails = `
-     *Customer Details:*\n
-     ${strCapitalize(customer?.name!)},
-       ${strCapitalize(customer?.phone!)},
+     *My Details:*
+     ${strCapitalize(customer?.name!)}
+       ${strCapitalize(customer?.phone!)}
        ${strCapitalize(customer?.location!)}
      `;
     const totalMessage = `Total: $${calculateTotalAmount().toFixed(2)}`;
 
     // Combine the individual item messages and the total message with line breaks and separators
-    const message = `🛒 Shopping Cart 🛒\n
-     ${customerDetails}\n
-     ${itemsMessage.join("\n")}\n\n${totalMessage}\n\n`;
+    const message = `
+    odasasa.com 
 
+    New order request 
+    
+     ${itemsMessage.join("\n")}\n${totalMessage}\n
+     ${customerDetails}\n`;
     // Encode the message and phone number for use in the WhatsApp URL
     const encodedMessage = encodeURIComponent(message);
     const whatsappURL = `https://wa.me/${
@@ -149,7 +175,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
             <span>Ksh. {calculateTotalAmount()}</span>
             <br />
             {customerForm}
-            { (
+            {
               <button
                 // disabled ={Object.values(customer).includes("")}
                 onClick={() => {
@@ -168,7 +194,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
               >
                 Share on WhatsApp
               </button>
-            )}
+            }
           </div>
         </div>
       )}

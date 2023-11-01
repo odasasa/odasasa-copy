@@ -31,18 +31,16 @@ module.exports = {
         },
         dashboard: {
           primary: "#00728d",
-          
-          dark: "#393a3e",
+          dark: "#1d2939",
           blue: "#0e0c28",
           green: "#1d2939",
           red: "#fa0101",
           nav_item_bg:"#5184b1",
-       
-          gra_end:"#3e453e",
-          gra_start: "#7ed956",
-          // gra_end:"#232b4c",
-          // gra_start: "#00718c",
-         
+          // gra_end: "#242849",
+          // gra_end:"#212d4d",
+          gra_end:"#232b4c",
+          gra_start: "#00718c",
+          //  gra_start: "#01708b #00718c"
           btn_green :"#057884",
           btn_green_end:"#35bd41"
 

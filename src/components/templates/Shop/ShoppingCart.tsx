@@ -82,19 +82,14 @@ Ground floor,CBA building.
 */
 // 🛒 Shopping Cart 🛒\n
     const customerDetails = `
-     *My Details:*
-     ${strCapitalize(customer?.name!)}
-       ${strCapitalize(customer?.phone!)}
-       ${strCapitalize(customer?.location!)}
+     *My Details:*\n${strCapitalize(customer?.name!)}\n${strCapitalize(customer?.phone!)}\n${strCapitalize(customer?.location!)}
      `;
     const totalMessage = `Total: $${calculateTotalAmount().toFixed(2)}`;
 
     // Combine the individual item messages and the total message with line breaks and separators
-    const message = `
-    odasasa.com 
-
-    New order request 
-    
+    const message =`
+    \nodasasa.com\n 
+    New order request\n     
      ${itemsMessage.join("\n")}\n${totalMessage}\n
      ${customerDetails}\n`;
     // Encode the message and phone number for use in the WhatsApp URL

@@ -5,7 +5,11 @@ import { FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { User } from "@/types/core";
 import { useGlobalContext } from "@/context/GlobalContext";
-import { handleAddToCart, handleDecrementItem, handleIncrementItem, handleRemoveFromCart } from "@/utils/shoppingCartFuctions";
+import {
+  handleDecrementItem,
+  handleIncrementItem,
+  handleRemoveFromCart,
+} from "@/utils/shoppingCartFuctions";
 const customerFields = [
   { label: "Name", name: "name", type: "text" },
   { label: "Phone", name: "phone", type: "text" },
@@ -19,19 +23,10 @@ interface CartItem {
 }
 
 interface ShoppingCartProps {
-  // items: CartItem[];
   shopDetails: User | null;
-  // onItemRemove: (index: number) => void;
-  // onItemIncrement: (index: number) => void;
-  // onItemDecrement: (index: number) => void;
 }
 
-const ShoppingCart: React.FC<ShoppingCartProps> = ({
-  shopDetails,
-  // onItemRemove,
-  // onItemIncrement,
-  // onItemDecrement,
-}) => {
+const ShoppingCart: React.FC<ShoppingCartProps> = ({ shopDetails }) => {
   const { data: globalData, setData } = useGlobalContext(),
     { shoppingCart: cartItems } = globalData;
 
@@ -46,7 +41,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
     setCustomer({ ...customer, [name]: value });
   };
 
-  console.log({ shopDetails });
+  // console.log({ shopDetails });
   const calculateTotalAmount = () => {
     return cartItems.reduce(
       (total: number, item: CartItem) => total + item.price * item.quantity,
@@ -143,19 +138,25 @@ Ground floor,CBA building.
                 <div className="col-span-2 grid grid-cols-3 ">
                   <button
                     className={" rounded-md bg-product-blue"}
-                    onClick={() => handleIncrementItem(index, globalData,setData)}
+                    onClick={() =>
+                      handleIncrementItem(index, globalData, setData)
+                    }
                   >
                     +
                   </button>
                   <button
                     className={" rounded-sm bg-red-500"}
-                    onClick={() => handleDecrementItem(index, globalData,setData)}
+                    onClick={() =>
+                      handleDecrementItem(index, globalData, setData)
+                    }
                   >
                     -
                   </button>
 
                   <button
-                    onClick={() => handleRemoveFromCart(index, globalData,setData)}
+                    onClick={() =>
+                      handleRemoveFromCart(index, globalData, setData)
+                    }
                     className={
                       " rounded-md bg-slate-500 flex justify-center items-center"
                     }

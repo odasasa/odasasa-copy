@@ -42,14 +42,14 @@ export default function DashboardLandingPage(props: any) {
             key={indx}
             className={twMerge(
               "bg-orange-500 ",
-              `flex flex-col justify-center items-center text-white shadow-lg rounded-lg bg-${colors[indx]}-500 px-8 py-4 `
+              `flex flex-col justify-center items-center text-white shadow-lg rounded-lg bg-${colors[indx]}-500 px-6 py-3 `
             )}
           >
             <Typography variant="p" className="mb-1 pb-0">
               {" "}
               {item[0].substring(7)}
             </Typography>
-            <Typography variant="h4" className="my-0 py-0">
+            <Typography variant="h5" className="my-0 py-0">
               {" "}
               {item[1]}
             </Typography>

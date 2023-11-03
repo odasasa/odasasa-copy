@@ -86,10 +86,10 @@ Ground floor,CBA building.
     )}\n${strCapitalize(customer?.phone!)}\n${strCapitalize(
       customer?.location!
     )}`;
-    const totalMessage = `Total : KES${calculateTotalAmount().toFixed(2)}`;
+    const totalMessage = `Total : KES ${calculateTotalAmount().toFixed(2)}`;
 
     // Combine the individual item messages and the total message with line breaks and separators
-    const message = `odasasa.com\n\nNew order request\n${itemsMessage.join("\n"  )}\n${totalMessage}\n\n${customerDetails}\n`;
+    const message = `odasasa.com\n\nNew order request\n${itemsMessage.join("\n"  )}\n\n${totalMessage}\n\n${customerDetails}\n`;
     // Encode the message and phone number for use in the WhatsApp URL
     const encodedMessage = encodeURIComponent(message);
     const whatsappURL = `https://wa.me/${

@@ -13,7 +13,7 @@ import {
 
 export interface ContextProps {
   data: GlobalData;
-  setData: Dispatch<SetStateAction<GlobalData>>;
+   setData: Dispatch<SetStateAction<GlobalData>>;
 }
 
 const initialData: GlobalData = {
@@ -25,11 +25,12 @@ const initialData: GlobalData = {
   isModalOpen: false,
   uploadedImgPath: "",
   shopDetails: null,
+  cartFuncs:{},
   handleLogout: function (cb: any = null) {
     this.user = null;
     LocalStorageManager.removeItem("user");
     if (cb) cb();
-    console.log({ user: LocalStorageManager.get("user") || "Not there" });
+    // console.log({ user: LocalStorageManager.get("user") || "Not there" });
   },
 };
 
@@ -41,10 +42,13 @@ const GlobalContext = createContext<ContextProps>({
 });
 
 export const GlobalContextProvider = ({ children }: { children: any }) => {
-  const [data, setData] = useState<GlobalData>(initialData);
+  const [globalData, setData] = useState<GlobalData>(initialData);
+
 
   return (
-    <GlobalContext.Provider value={{ data, setData }}>
+    <GlobalContext.Provider value={{ 
+      data: globalData,
+       setData }}>
       {children}
     </GlobalContext.Provider>
   );

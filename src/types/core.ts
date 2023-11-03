@@ -48,6 +48,7 @@ export type GlobalData = {
   order: Order;
   shopDetails: User | null;
   isModalOpen: boolean;
+  cartFuncs:any;
   uploadedImgPath?: string;
   handleLogout: () => void;
 };

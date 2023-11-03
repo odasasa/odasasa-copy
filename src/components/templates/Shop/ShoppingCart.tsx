@@ -5,6 +5,7 @@ import { FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { User } from "@/types/core";
 import { useGlobalContext } from "@/context/GlobalContext";
+import { handleAddToCart, handleDecrementItem, handleIncrementItem, handleRemoveFromCart } from "@/utils/shoppingCartFuctions";
 const customerFields = [
   { label: "Name", name: "name", type: "text" },
   { label: "Phone", name: "phone", type: "text" },
@@ -18,24 +19,21 @@ interface CartItem {
 }
 
 interface ShoppingCartProps {
-  items: CartItem[];
+  // items: CartItem[];
   shopDetails: User | null;
-  onItemRemove: (index: number) => void;
-  onItemIncrement: (index: number) => void;
-  onItemDecrement: (index: number) => void;
+  // onItemRemove: (index: number) => void;
+  // onItemIncrement: (index: number) => void;
+  // onItemDecrement: (index: number) => void;
 }
 
 const ShoppingCart: React.FC<ShoppingCartProps> = ({
-  items,
   shopDetails,
-  onItemRemove,
-  onItemIncrement,
-  onItemDecrement,
+  // onItemRemove,
+  // onItemIncrement,
+  // onItemDecrement,
 }) => {
-  const {
-    data: { shoppingCart: cartItems },
-    setData,
-  } = useGlobalContext();
+  const { data: globalData, setData } = useGlobalContext(),
+    { shoppingCart: cartItems } = globalData;
 
   const [customer, setCustomer] = useState<{
     name: string;
@@ -50,10 +48,13 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
 
   console.log({ shopDetails });
   const calculateTotalAmount = () => {
-    return items.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cartItems.reduce(
+      (total: number, item: CartItem) => total + item.price * item.quantity,
+      0
+    );
   };
   const generateWhatsAppMessage = (phoneNumber: string) => {
-    const itemsMessage = items.map((item) => {
+    const itemsMessage = cartItems.map((item: CartItem) => {
       const subtotal = (item.price * item.quantity).toFixed(2);
       return `${item.name} (x${item.quantity}) - KES ${subtotal}`;
     });
@@ -89,7 +90,9 @@ Ground floor,CBA building.
     const totalMessage = `Total : KES ${calculateTotalAmount().toFixed(2)}`;
 
     // Combine the individual item messages and the total message with line breaks and separators
-    const message = `odasasa.com\n\nNew order request\n${itemsMessage.join("\n"  )}\n\n${totalMessage}\n\n${customerDetails}\n`;
+    const message = `odasasa.com\n\nNew order request\n${itemsMessage.join(
+      "\n"
+    )}\n\n${totalMessage}\n\n${customerDetails}\n`;
     // Encode the message and phone number for use in the WhatsApp URL
     const encodedMessage = encodeURIComponent(message);
     const whatsappURL = `https://wa.me/${
@@ -121,14 +124,14 @@ Ground floor,CBA building.
   return (
     <div className="shopping-cart">
       {/* <h2>Shopping Cart</h2> */}
-      {items.length === 0 ? (
+      {cartItems.length === 0 ? (
         <p className="w-full h-full flex justify-center items-center">
           Your cart is empty.
         </p>
       ) : (
         <div>
           <ul>
-            {items.map((item, index) => (
+            {cartItems.map((item: CartItem, index: number) => (
               <li
                 key={index}
                 className="w-full grid grid-cols-5 gap-3 mb-1 border-b p-2"
@@ -140,19 +143,19 @@ Ground floor,CBA building.
                 <div className="col-span-2 grid grid-cols-3 ">
                   <button
                     className={" rounded-md bg-product-blue"}
-                    onClick={() => onItemIncrement(index)}
+                    onClick={() => handleIncrementItem(index, globalData,setData)}
                   >
                     +
                   </button>
                   <button
                     className={" rounded-sm bg-red-500"}
-                    onClick={() => onItemDecrement(index)}
+                    onClick={() => handleDecrementItem(index, globalData,setData)}
                   >
                     -
                   </button>
 
                   <button
-                    onClick={() => onItemRemove(index)}
+                    onClick={() => handleRemoveFromCart(index, globalData,setData)}
                     className={
                       " rounded-md bg-slate-500 flex justify-center items-center"
                     }

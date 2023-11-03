@@ -7,7 +7,8 @@ import Modal from "@/components/molecules/Modal";
 import ProductCard from "./ProductCard";
 import { Product } from "@/types";
 import { useGlobalContext } from "@/context/GlobalContext";
-import { User } from "@/types/core";
+import { handleAddToCart } from "@/utils/shoppingCartFuctions";
+
 
 
 
@@ -27,7 +28,7 @@ export default function Products({
       isModalOpen: !isModalOpen,
     });
   };
-
+/*
   const handleAddToCart = (item: {
     name: string;
     price: number;
@@ -84,7 +85,7 @@ export default function Products({
       });
     }
   };
-
+*/
   useEffect(() => {
     // console.log({ cartItems });
   }, [cartItems]);
@@ -118,6 +119,8 @@ export default function Products({
               key={indx}
               product={prod}
               handleAddToCart={handleAddToCart}
+              globalData = {globalData}
+               setData = {setData}
             />
           ))}
         </div>
@@ -127,10 +130,10 @@ export default function Products({
       <Modal isOpen={isModalOpen} onClose={() => handleToggleCartVisibility()}>
         <ShoppingCart
           shopDetails={shopDetails}
-          items={cartItems}
-              onItemRemove={removeFromCart}
-          onItemIncrement={incrementItem}
-          onItemDecrement={decrementItem}
+          // items={cartItems}
+          //     onItemRemove={handleRemoveFromCart}
+          // onItemIncrement={handleIncrementItem}
+          // onItemDecrement={handleDecrementItem}
         />
       
       </Modal>

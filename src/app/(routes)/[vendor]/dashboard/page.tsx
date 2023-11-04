@@ -6,16 +6,18 @@ import { useGlobalContext } from "@/context/GlobalContext";
 import { useFetch } from "@/hooks";
 import LocalStorageManager from "@/utils/localStorage";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
-export default function DashboardLandingPage(props: any) {
+export default function DashboardLandingPage({ params: { vendor } }: any) {
   const { data, setData } = useGlobalContext();
   let user = data.user || LocalStorageManager.get("user");
+  const searchParams = useSearchParams();
   const { data: fetchedData } = useFetch(
-    "/api/dashboard?vendor=" + user.vendor
+    `/api/dashboard?vendor=${searchParams.get("owner") || user.vendor}`
   );
 
-  const colors = ["orange", "green", "red", "blue"];
+  const colors = ["orange", "blue", "green", "red"];
 
   let panels = fetchedData as {
     [key: string]: string;
@@ -58,12 +60,12 @@ export default function DashboardLandingPage(props: any) {
       </div>
 
       <div className="w-full flex flex-col lg:flex-row pt-5">
-        <div className="w-full lg:w-2/3">
-          {/* <RecentVendors /> */}
-        </div>
+        <div className="w-full lg:w-2/3">{/* <RecentVendors /> */}</div>
 
         <div className="w-full lg:w-1/3">
-          <Typography variant="p" className="">Recent Payments</Typography>
+          <Typography variant="p" className="">
+            Recent Payments
+          </Typography>
           {/* <RecentVendors /> */}
         </div>
       </div>

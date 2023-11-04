@@ -62,3 +62,10 @@ export interface Activation {
   accountId: string;
   createdAt: Date;
 }
+
+
+// 
+export type NavItem = {
+  title: string;
+  href: string;
+};

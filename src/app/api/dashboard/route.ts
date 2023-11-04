@@ -14,6 +14,7 @@ export async function GET(request: Request) {
   try {
     await dbCon();
     const user = await UserModel.findOne({ vendor });
+
     // let data:{vendors:number,categories:number,orders:number};
     const [fetchedVendors, fetchedCategories, fetchedProducts, fetchedOrders] =
       await Promise.all([
@@ -32,11 +33,11 @@ export async function GET(request: Request) {
           "fetchedActive Vendors": 0,
           "fetchedInactive Vendors": 0,
         })
-      : {
+      : (data = {
           fetchedCategories,
           fetchedProducts,
           fetchedOrders,
-        };
+        });
 
     return new NextResponse(JSON.stringify(data), {
       status: 200,

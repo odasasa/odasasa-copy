@@ -7,31 +7,22 @@ import Modal from "@/components/molecules/Modal";
 import ProductCard from "./ProductCard";
 import { Product } from "@/types";
 import { useGlobalContext } from "@/context/GlobalContext";
-
-const customerFields = [
-  { label: "Name", name: "name", type: "text" },
-  { label: "Phone", name: "phone", type: "text" },
-  { label: "Location", name: "location", type: "text" },
-];
+import {
+  handleAddToCart,
+  handleDecrementItem,
+  handleIncrementItem,
+  handleRemoveFromCart,
+} from "@/utils/shoppingCartFuctions";
+import { CartItem } from "./types";
 
 export default function Products({
   products,
   handleFilterByCategory,
   activeCategory,
+  shopDetails,
 }: any) {
   const { data: globalData, setData } = useGlobalContext(),
     { shoppingCart: cartItems, isModalOpen } = globalData;
-
-  const [formData, setFormData] = useState<{
-    name: string;
-    phone: string;
-    location: string;
-  }>({ name: "", phone: "", location: "" });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
   const handleToggleCartVisibility = () => {
     setData({
@@ -40,68 +31,11 @@ export default function Products({
     });
   };
 
-  const handleAddToCart = (item: {
-    name: string;
-    price: number;
-    unit?: string;
-  }) => {
-    const productIndex = cartItems.findIndex((p: any) => p.name == item.name);
-    if (productIndex === -1) {
-      return setData({
-        ...globalData,
-        shoppingCart: [
-          ...cartItems,
-          { name: item.name, quantity: 1, price: item.price },
-        ],
-      });
-    }
-
-    //Increment Item
-    const updatedItems = cartItems;
-    updatedItems[productIndex].quantity += 1;
-
-    setData({
-      ...globalData,
-      shoppingCart: updatedItems,
-    });
-  };
-
-  const removeFromCart = (index: number) => {
-    const updatedCart = [...cartItems];
-    updatedCart.splice(index, 1);
-    setData({
-      ...globalData,
-      shoppingCart: updatedCart,
-    });
-  };
-
-  const incrementItem = (index: number) => {
-    const updatedCart = [...cartItems];
-    updatedCart[index].quantity += 1;
-    setData({
-      ...globalData,
-      shoppingCart: updatedCart,
-    });
-  };
-
-  const decrementItem = (index: number) => {
-    const updatedCart = [...cartItems];
-    if (updatedCart[index].quantity > 1) {
-      updatedCart[index].quantity -= 1;
-      if (updatedCart[index].quantity < 1) updatedCart.splice(index, 1);
-
-      setData({
-        ...globalData,
-        shoppingCart: updatedCart,
-      });
-    }
-  };
-
   useEffect(() => {
-    console.log({ cartItems });
+    // console.log({ cartItems });
   }, [cartItems]);
 
-  if (!Array.isArray(products)) return <div> The shop is empty </div>
+  if (!Array.isArray(products)) return <div> The shop is empty </div>;
 
   return (
     <>
@@ -128,8 +62,20 @@ export default function Products({
           ).map((prod: Product, indx: number) => (
             <ProductCard
               key={indx}
+              index={indx}
               product={prod}
-              handleAddToCart={handleAddToCart}
+              handleAddToCart={(item: CartItem) =>
+                handleAddToCart(item, globalData, setData)
+              }
+              handleIncrementItem={(indx: number) =>
+                handleIncrementItem(indx, globalData, setData)
+              }
+              handleDecrementItem={(indx: number) =>
+                handleDecrementItem(indx, globalData, setData)
+              }
+              handleRemoveFromCart={(indx: number) =>
+                handleRemoveFromCart(indx, globalData, setData)
+              }
             />
           ))}
         </div>
@@ -137,30 +83,7 @@ export default function Products({
 
       {/* Shopping cart here */}
       <Modal isOpen={isModalOpen} onClose={() => handleToggleCartVisibility()}>
-        <div className="px-6 w-full">
-          {cartItems.length > 0 &&
-            customerFields.map((field) => (
-              <div key={field.name} className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2">
-                  {field.label}
-                </label>
-                <input
-                  type={field.type}
-                  name={field.name}
-                  onChange={handleChange}
-                  required={true}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-              </div>
-            ))}
-        </div>
-        <ShoppingCart
-          items={cartItems}
-          customer={formData}
-          onItemRemove={removeFromCart}
-          onItemIncrement={incrementItem}
-          onItemDecrement={decrementItem}
-        />
+        <ShoppingCart shopDetails={shopDetails} />
       </Modal>
     </>
   );

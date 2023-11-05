@@ -6,16 +6,18 @@ import { useGlobalContext } from "@/context/GlobalContext";
 import { useFetch } from "@/hooks";
 import LocalStorageManager from "@/utils/localStorage";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
-export default function DashboardLandingPage(props: any) {
+export default function DashboardLandingPage({ params: { vendor } }: any) {
   const { data, setData } = useGlobalContext();
   let user = data.user || LocalStorageManager.get("user");
+  const searchParams = useSearchParams();
   const { data: fetchedData } = useFetch(
-    "/api/dashboard?vendor=" + user.vendor
+    `/api/dashboard?vendor=${searchParams.get("owner") || user.vendor}`
   );
 
-  const colors = ["orange", "green", "red", "blue"];
+  const colors = ["orange", "blue", "green", "red"];
 
   let panels = fetchedData as {
     [key: string]: string;
@@ -42,14 +44,14 @@ export default function DashboardLandingPage(props: any) {
             key={indx}
             className={twMerge(
               "bg-orange-500 ",
-              `flex flex-col justify-center items-center text-white shadow-lg rounded-lg bg-${colors[indx]}-500 px-8 py-4 `
+              `flex flex-col justify-center items-center text-white shadow-lg rounded-lg bg-${colors[indx]}-500 px-6 py-3 `
             )}
           >
             <Typography variant="p" className="mb-1 pb-0">
               {" "}
               {item[0].substring(7)}
             </Typography>
-            <Typography variant="h4" className="my-0 py-0">
+            <Typography variant="h5" className="my-0 py-0">
               {" "}
               {item[1]}
             </Typography>
@@ -58,12 +60,12 @@ export default function DashboardLandingPage(props: any) {
       </div>
 
       <div className="w-full flex flex-col lg:flex-row pt-5">
-        <div className="w-full lg:w-2/3">
-          {/* <RecentVendors /> */}
-        </div>
+        <div className="w-full lg:w-2/3">{/* <RecentVendors /> */}</div>
 
         <div className="w-full lg:w-1/3">
-          <Typography variant="p" className="">Recent Payments</Typography>
+          <Typography variant="p" className="">
+            Recent Payments
+          </Typography>
           {/* <RecentVendors /> */}
         </div>
       </div>

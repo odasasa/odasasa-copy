@@ -2,19 +2,6 @@ import { User } from "@/types/core";
 import mongoose from "mongoose";
 import * as Yup from "yup";
 
-// interface User {
-//   _id: string;
-//   name: string;
-//   email: string;
-//   idNumber: string;
-//   role: string;
-//   createdAt: Date;
-//   status: string;
-//   phone: string;
-//   password: string;
-//   bu
-// }
-
 const userSchema = new mongoose.Schema<User>(
   {
     name: {
@@ -33,7 +20,7 @@ const userSchema = new mongoose.Schema<User>(
         message: "Invalid email address",
       },
     },
-   
+
     password: {
       type: String,
       required: [true, "Password is required"],
@@ -58,6 +45,11 @@ const userSchema = new mongoose.Schema<User>(
       unique: true,
       index: true,
       required: [true, "Phone is required"],
+    },
+    whatsappNumber: {
+      type: String,
+      unique: true,
+      required: [true, "Whatsapp Number is required"],
     },
     status: Boolean,
     role: {

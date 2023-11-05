@@ -1,159 +1,101 @@
-export const products: {
+export const defProducts: {
+    _id: string | number,
     name: string,
-    category: string
+    category: string,
     description: string,
-    unit: string
-    img?: string
-    price: number
-}[] = 
-[
+    unit: string,
+    img?: string,
+    price: number,
+  }[] = [
     {
-        "name": "Fresh Potatoes",
-        "category": "vegetables",
-        "description": "Fresh Potatoes Best for Fries",
-        "unit": "MOQ 3KGS",
-        "img": "viazi.jpg",
-        "price": 50
+      _id: 1,
+      name: "product 1",
+      category: "category 1",
+      description: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium",
+      unit: "1KG",
+      img: "product_default.jpg",
+      price: 50,
     },
     {
-        "name": "Fresh Onion",
-        "category": "vegetables",
-        "description": "Fresh Onion Best for Cooking",
-        "unit": "MOQ 2KGS",
-        "img": "kitungu.jfif",
-        "price": 200
+      _id: 2,
+      name: "product 2",
+      category: "category 2",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      unit: "500g",
+      img: "product_default.jpg",
+      price: 30,
     },
     {
-        "name": "Fresh Carrots",
-        "category": "vegetables",
-        "description": "Fresh Carrots Best for Cooking",
-        "unit": "MOQ 1KGS",
-        "img": "carrot.webp",
-        "price": 70
+      _id: 3,
+      name: "product 3",
+      category: "category 1",
+      description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      unit: "2KG",
+      img: "product_default.jpg",
+      price: 70,
     },
     {
-        "name": "Fresh Gingers",
-        "category": "vegetables",
-        "description": "Fresh Gingers Best for Cooking",
-        "unit": "MOQ 1KGS",
-        "img": "tangawizi.webp",
-        "price": 65
+      _id: 4,
+      name: "product 4",
+      category: "category 3",
+      description: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      unit: "750g",
+      img: "product_default.jpg",
+      price: 45,
     },
     {
-        "name": "Fresh Tomatoes",
-        "category": "vegetables",
-        "description": "Fresh Tomatoes Best for Cooking",
-        "unit": "MOQ 1KGS",
-        "img": "tomatoes1.webp",
-        "price": 100
+      _id: 5,
+      name: "product 5",
+      category: "category 2",
+      description: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      unit: "1.5KG",
+      img: "product_default.jpg",
+      price: 60,
     },
     {
-        "name": "Fresh Garlic",
-        "category": "vegetables",
-        "description": "Fresh Garlics Best for Cooking",
-        "unit": "MOQ 1KGS",
-        "img": "garlic.jpg_480Wx480H",
-        "price": 160
+      _id: 6,
+      name: "product 6",
+      category: "category 3",
+      description: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+      unit: "800g",
+      img: "product_default.jpg",
+      price: 40,
     },
     {
-        "name": "Fresh Pineapple",
-        "category": "fruits",
-        "description": "Fresh Pineapple Best For Juice",
-        "unit": "Per Pc",
-        "img": "pina.jpg",
-        "price": 80
+      _id: 7,
+      name: "product 7",
+      category: "category 1",
+      description: "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+      unit: "1.2KG",
+      img: "product_default.jpg",
+      price: 55,
     },
     {
-        "name": "Fresh Avocadoes",
-        "category": "fruits",
-        "description": "Fresh Avocadoes Best For Juice",
-        "unit": "Per Pc",
-        "img": "avocado.jpg",
-        "price": 30
+      _id: 8,
+      name: "product 8",
+      category: "category 2",
+      description: "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.",
+      unit: "900g",
+      img: "product_default.jpg",
+      price: 65,
     },
     {
-        "name": "Fresh Oranges",
-        "category": "fruits",
-        "description": "Fresh Oranges Best for juice",
-        "unit": "Per Pc",
-        "img": "oranges.jpg",
-        "price": 15
+      _id: 9,
+      name: "product 9",
+      category: "category 3",
+      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      unit: "1.8KG",
+      img: "product_default.jpg",
+      price: 75,
     },
     {
-        "name": "Fresh Apples",
-        "category": "fruits",
-        "description": "Fresh Apples Best for juice",
-        "unit": "Per Pc",
-        "img": "apples.webp",
-        "price": 25
+      _id: 10,
+      name: "product 10",
+      category: "category 1",
+      description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      unit: "1.5KG",
+      img: "product_default.jpg",
+      price: 55,
     },
-    {
-        "name": "Fresh Mangoes",
-        "category": "fruits",
-        "description": "Fresh Mangoes Best for juice",
-        "unit": "Per Pc",
-        "img": "mangoes.jpeg",
-        "price": 30
-    },
-   
-    {
-        "name": "Maharagwe",
-        "category": "cereals",
-        "description": "Availability subject to stocks and seasonality",
-        "unit": "MOQ 1KGS",
-        "img": "maharagwe.webp",
-        "price": 120
-    },
-    {
-        "name": "Dengu Nzima",
-        "category": "cereals",
-        "description": "Availability subject to stocks and seasonality",
-        "unit": "MOQ 1KGS",
-        "img": "lentis.jpg",
-        "price": 140
-    },
-    {
-        "name": "Maize Seeds",
-        "category": "cereals",
-        "description": "Availability subject to stocks and seasonality",
-        "unit": "MOQ 1KGS",
-        "img": "mahindi.jpg",
-        "price": 150
-    },
-    {
-        "name": "Pojo Nzima",
-        "category": "cereals",
-        "description": "Availability subject to stocks and seasonality",
-        "unit": "MOQ 1KGS",
-        "img": "pojo.jpg",
-        "price": 130
-    },
-    {
-        "name": "Chick Peas",
-        "category": "cereals",
-        "description": "Availability subject to stocks and seasonality",
-        "unit": "MOQ 1KGS",
-        "img": "chpea.jpg",
-        "price": 240
-    },
-    {
-        "name": "White Beans",
-        "category": "cereals",
-        "description": "Availability subject to stocks and seasonality",
-        "unit": "MOQ 1KGS",
-        "img": "whitebeans.jpg",
-        "price": 120
-    }
-];
-
-
-const user = {
-    "name": "Mwero",
-    "email": "mdroaer@gmail.com",
-    "role": "su",
-    "status": "active",
-    "phone": "0713559421",
-    "password": "pwd@1"
-}
-
-//   qzap=>f6enHRpRhRDrjULqtC3aLtFIG0kWMkPJzuddhK2g
+  ];
+  

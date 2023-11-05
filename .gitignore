@@ -18,8 +18,7 @@
 # uppload folder
 /public/uploads/*
 !/public/uploads/.gitkeep
-/public/temp/*
-!/public/temp/.gitkeep
+
 
 # misc
 .DS_Store

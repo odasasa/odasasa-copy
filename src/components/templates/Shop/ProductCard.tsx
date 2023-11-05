@@ -36,8 +36,8 @@ export default function ProductCard({
         </div>
         <div className="w-1/2 flex flex-col px-2 gap-2">
           <Typography
-            variant="h2"
-            className="text-product-gold font-bold text-2xl"
+            variant="h3"
+            className={` text-product-gold font-bold py-2 text-left ${product.name.length > 8? 'text-xl':'text-2xl'}`}
           >
             {strCapitalize(product.name)}
           </Typography>
@@ -46,8 +46,8 @@ export default function ProductCard({
           <Typography variant="p" className="text-gray-600 font-light">
             {strCapitalize(product.units)}
           </Typography>
-          <Typography variant="p" className="text-gray-600 font-light">
-            {strCapitalize(product.description)}
+          <Typography variant="p" className="text-gray-600 font-light overflow-hidden">
+            {strCapitalize(product.description.substring(0,80))}
           </Typography>
         </div>
       </div>

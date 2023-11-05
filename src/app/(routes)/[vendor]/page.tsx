@@ -17,8 +17,7 @@ export default function VendorHome({ params: { vendor } }: any) {
     `/api/vendor/?vendor=${vendor}`
   );
   const { data: shopDetails } = useFetch(`/api/user/shop?vendor=${vendor}`);
-
-  if (!vendorData?.length) return notFound();
+  // if (vendorData?.length<1) return notFound();
   // console.log({ error, products, shopDetails });
 
   const handleFilterByCategory = (category: string) => {

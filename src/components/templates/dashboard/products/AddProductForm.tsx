@@ -45,7 +45,7 @@ export default function AddProductForm({
         </Typography>
         <div className="">
           {(filepath) ||(initialImgPath && !showImagePrev)? (
-            <span onClick={() => setShowImagePrev(!showImagePrev)}> <Img alt="img" src={`/uploads/${filepath || initialImgPath}`} className="h-[100px]" />
+            <span onClick={() => setShowImagePrev(!showImagePrev)}> <Img alt="img" src={`/temp/${filepath || initialImgPath}`} className="h-[100px]" />
             </span>
           ) : (
             uploadField

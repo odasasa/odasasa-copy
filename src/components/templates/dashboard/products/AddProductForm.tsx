@@ -8,21 +8,21 @@ import { useState } from "react";
 export default function AddProductForm({
   categories,
   setImgPath,
-  initialImgPath
+  initialImgPath,
 }: {
   categories: Category[];
   setImgPath: any;
-  initialImgPath?: string
+  initialImgPath?: string;
 }) {
-  const [showImagePrev, setShowImagePrev] = useState(false)
-  const { filepath, success, uploadField } = useDzUpload();
+  const [showImagePrev, setShowImagePrev] = useState(false);
+  const { filepath, success, uploadField, error } = useDzUpload();
   if (success || filepath) {
     setImgPath(filepath);
   }
   if (initialImgPath) {
-    setImgPath(initialImgPath)
+    setImgPath(initialImgPath);
   }
-
+  console.log({ imgUploadError: error });
   return (
     <div className=" flex flex-col w-full  mid:w-[500px] py-5  text-gray-600 ">
       <Typography variant="p" className="my-2 pl-3">
@@ -44,8 +44,14 @@ export default function AddProductForm({
           UPLOAD IMAGE
         </Typography>
         <div className="">
-          {(filepath) ||(initialImgPath && !showImagePrev)? (
-            <span onClick={() => setShowImagePrev(!showImagePrev)}> <Img alt="img" src={`/temp/${filepath || initialImgPath}`} className="h-[100px]" />
+          {filepath || (initialImgPath && !showImagePrev) ? (
+            <span onClick={() => setShowImagePrev(!showImagePrev)}>
+              {" "}
+              <Img
+                alt="img"
+                src={`/temp/${filepath || initialImgPath}`}
+                className="h-[100px]"
+              />
             </span>
           ) : (
             uploadField
@@ -106,17 +112,15 @@ export default function AddProductForm({
         <ErrorMessage name="status" component="div" className="text-red-600" />
       </div>
       {
-
-         <AddButton
-         label={initialImgPath? 'Update Product':'Add Product'}
-         className="my-6 mx-12"
-         type={"submit"}
-         onClick={() => {
-           setShowImagePrev(!showImagePrev);
-         }}
-       />
+        <AddButton
+          label={initialImgPath ? "Update Product" : "Add Product"}
+          className="my-6 mx-12"
+          type={"submit"}
+          onClick={() => {
+            setShowImagePrev(!showImagePrev);
+          }}
+        />
       }
-     
     </div>
   );
 }

@@ -16,8 +16,7 @@
 /build
 
 # uppload folder
-/public/uploads/*
-!/public/uploads/.gitkeep
+
 
 
 # misc

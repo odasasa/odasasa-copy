@@ -25,7 +25,14 @@ export default function ProductCard({
     <div className="w-full flex flex-col gap-2 aspect-w-2 aspect-h-1 shadow-2xl border bg-white px-3 py-2">
       <div className="w-full flex mb-1 h-full">
         <div className="w-1/2 flex justify-center items-center h-full">
-          <Img src={`/uploads/${product.img}`} alt={`${product.name}`} />
+          <Img
+            src={
+              product.img?.includes("default")
+                ? `/assets/defaults/${product.img}`
+                : `/uploads/${product.img}`
+            }
+            alt={`${product.name}`}
+          />
         </div>
         <div className="w-1/2 flex flex-col px-2 gap-2">
           <Typography

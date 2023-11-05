@@ -1,4 +1,4 @@
-import { products } from '@/dummy_data/products';
+import { defProducts as products } from '@/dummy_data/products';
 import { createRecord, getRecords } from '@/libs/mongoose/mongoseCrud';
 import { NextResponse } from 'next/server';
 const table = "products"

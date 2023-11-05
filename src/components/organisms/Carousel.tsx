@@ -5,7 +5,7 @@ import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { Img } from "..";
 
 interface CarouselProps {
-  images: { id: string; src: string; alt: string }[];
+  images: { _id: string; src: string; alt: string }[];
 }
 
 export default function Carousel({ images }: CarouselProps) {
@@ -48,8 +48,8 @@ export default function Carousel({ images }: CarouselProps) {
             if (index === currentSlide) {
               return (
                 <Img
-                  key={image.id}
-                  src={image.src}
+                  key={image._id}
+                  src={!image.src.includes('default')?`/uploads/${image.src}` : `/assets/defaults/${image.src}`}
                   alt={image.alt}
                   className=" ease animate-fadeIn  w-full aspect-ratio"
                 />

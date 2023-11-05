@@ -47,7 +47,7 @@ export const handleFileUpload = async (infile: File | null) => {
     console.log(`Uploaded file saved at: ${filepath}`);
     return { success: true, filename };
   } catch (error: any) {
-    console.error("Error saving the file:", error);
+    console.error("Error saving the file:", error.message);
     throw new Error(error.message);
   }
 };

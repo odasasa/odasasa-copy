@@ -7,15 +7,18 @@ import Products from "@/components/templates/Shop/ProductPage";
 import { useFetch } from "@/hooks";
 import { useState } from "react";
 import { defProducts } from "@/dummy_data/products";
+import { notFound } from "next/navigation";
 
 export default function VendorHome({ params: { vendor } }: any) {
   const [activeCategory, setActiveCategory] = useState<string>("");
+  const { data: vendorData } = useFetch(`/api/shop/exists/?vendor=${vendor}`);
   const { data: products, error } = useFetch(`/api/product/?vendor=${vendor}`);
   const { data: fetchedBanners, error: bannerError } = useFetch(
     `/api/vendor/?vendor=${vendor}`
   );
   const { data: shopDetails } = useFetch(`/api/user/shop?vendor=${vendor}`);
 
+  if (!vendorData?.length) return notFound();
   // console.log({ error, products, shopDetails });
 
   const handleFilterByCategory = (category: string) => {
@@ -36,7 +39,11 @@ export default function VendorHome({ params: { vendor } }: any) {
       <Carousel images={heroBanners} />
 
       <Products
-        products={Array.isArray(products) && products.length>0 ? products : defProducts}
+        products={
+          Array.isArray(products) && products.length > 0
+            ? products
+            : defProducts
+        }
         handleFilterByCategory={handleFilterByCategory}
         activeCategory={activeCategory}
         shopDetails={shopDetails}

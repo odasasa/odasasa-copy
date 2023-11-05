@@ -6,6 +6,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const res = await handleFileUpload(data.get("file") as unknown as File);
+    if(!res.success) throw new Error("An error occured while uploading")
     return new NextResponse(JSON.stringify(res));
   } catch (error: any) {
     return new NextResponse(

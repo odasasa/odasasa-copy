@@ -18,7 +18,7 @@ const Select: React.FC<SelectProps> = ({ options, value, onChange, className =""
   <select
     value={value}
     onChange={(e) => onChange(e.target.value)}
-    className={twMerge('w-full border border-2 rounded px-3 py-2 mx-auto my-4', className)}
+    className={twMerge('w-full  border-2 rounded px-3 py-2 mx-auto my-4', className)}
   >
     {options.map((option) => (
       <option key={option.value} value={option.value} placeholder={placeholder}>

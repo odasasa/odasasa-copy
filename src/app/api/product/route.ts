@@ -36,6 +36,7 @@ export async function POST(request: Request) {
 
     const result = await createRecord(table, body);
     await moveFilesToUpload(body.img);
+    
     return new NextResponse(JSON.stringify({ success: true, result }), {
       status: 201,
     });

@@ -13,4 +13,4 @@ export const ucWords = (str: string) =>
     .map((s) => {
       // if (str.split(' ').includes(s)) return s;
       return strCapitalize(s);
-    }).join();
+    }).join(' ');

@@ -8,9 +8,12 @@ import {
 } from "fs/promises";
 import path from "path";
 
+
 const uploadFolderPath = path.join(process.cwd(), "public", "uploads");
 const tempFolderPath = path.join(process.cwd(), "public", "temp");
 
+// const uploadFolderPath = path.join(BASE_PATH, "uploads");
+// const tempFolderPath = path.join(BASE_PATH, "temp");
 export const handleFileUpload = async (infile: File | null) => {
   const file: File | null = infile as unknown as File;
 

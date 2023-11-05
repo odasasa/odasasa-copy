@@ -3,7 +3,7 @@ import {
   getRecordById,
   updateRecord,
 } from "@/libs/mongoose/mongoseCrud";
-import { deleteUploadedFile } from "@/utils/upload";
+import { deleteUploadedFile, moveFilesToUpload } from "@/utils/upload";
 import { NextResponse } from "next/server";
 
 const table = "Products";
@@ -12,7 +12,6 @@ export async function GET(
   { params: { slug } }: { params: { slug: any } }
 ) {
   try {
-    
     const product = await getRecordById(table, slug);
     if (product) {
       return new NextResponse(JSON.stringify(product));
@@ -34,9 +33,9 @@ export async function DELETE(
   { params: { slug } }: { params: { slug: any } }
 ) {
   try {
-    const fetchedProduct = await getRecordById(table,slug)
+    const fetchedProduct = await getRecordById(table, slug);
     const result = await deleteRecord(table, slug);
-    if(fetchedProduct.img)  await deleteUploadedFile(fetchedProduct.img)
+    if (fetchedProduct.img) await deleteUploadedFile(fetchedProduct.img);
 
     return new NextResponse(JSON.stringify({ success: true, message: result }));
   } catch (error: any) {
@@ -53,7 +52,10 @@ export async function PUT(
 
   try {
     const result = await updateRecord(table, slug, body);
-    return new NextResponse(JSON.stringify({success:true, message: result }));
+    if (body.img) {
+      await moveFilesToUpload(body.img);
+    }
+    return new NextResponse(JSON.stringify({ success: true, message: result }));
   } catch (error: any) {
     return new NextResponse(JSON.stringify({ error: error.message }), {
       status: 500,

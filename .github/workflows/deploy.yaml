@@ -24,6 +24,14 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        server: ftp.samkirkland.com
-        username: myFtpUserName
-        password: ${{ secrets.ftp_password2 }}
+         server: ${{ secrets.FTP_SERVER2 }}
+          username: ${{ secrets.FTP_USERNAME2 }}
+          password: ${{ secrets.FTP_PASSWORD2 }}
+          port: ${{ secrets.FTP_PORT }}
+          exclude: |
+            **/.vscode/**
+            **/.git*
+            **/.zip*
+            **/.rar*
+            **/.git*/**
+            **/node_modules/**

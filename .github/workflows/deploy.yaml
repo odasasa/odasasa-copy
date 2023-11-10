@@ -27,7 +27,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER2 }}
           username: ${{ secrets.FTP_USERNAME2 }}
           password: ${{ secrets.FTP_PASSWORD2 }}
-          port: ${{ secrets.FTP_PORT }}
+          # port: ${{ secrets.FTP_PORT }}
           exclude: |
             **/.vscode/**
             **/.git*

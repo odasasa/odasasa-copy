@@ -1,6 +1,6 @@
 on:
   push:
-    branches: dev
+    branches: dev2
 
 name: 🚀 Deploy dev-site on push on the dev branch
 jobs:
@@ -22,7 +22,7 @@ jobs:
           npm run build
 
       - name: 📂 Sync  file to server 1
-        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        uses: SamKirkland/FTP-Deploy-Action@4.3.4
         with:
           server: ${{ secrets.FTP_SERVER2 }}
           username: ${{ secrets.FTP_USERNAME2 }}

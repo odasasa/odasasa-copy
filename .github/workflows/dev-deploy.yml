@@ -24,9 +24,10 @@ jobs:
       - name: 📂 Sync  file to server 1
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
-          server: ${{ secrets.ftp_server }}
-          username: ${{ secrets.ftp_user }}
-          password: ${{ secrets.ftp_pwd }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PWD }}
+          port: ${{ secrets.FTP_PORT }}
           exclude: |
             **/.vscode/**
             **/.git*

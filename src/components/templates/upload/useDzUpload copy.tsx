@@ -13,7 +13,7 @@ interface FileUploadProps {
     apiEndpoint?: string
 }
 
-const useDzUpload = (acceptedFileExtensions: string[] = [], apiEndpoint: string = "", postFileName="file") => {
+const useDzUpload = (acceptedFileExtensions: string[] = [], apiEndpoint: string = "") => {
     const [uploadProgress, setUploadProgress] = useState<number | null>(null);
     const [uploadSuccess, setUploadSuccess] = useState<boolean | null>(null);
     const [filepath, setFilePath] = useState<string | null>(null)
@@ -34,7 +34,7 @@ const useDzUpload = (acceptedFileExtensions: string[] = [], apiEndpoint: string 
             }
         }
         const formData = new FormData();
-        formData.append(postFileName, file);
+        formData.append('file', file);
 
         try {
             const response: AxiosResponse =
@@ -61,11 +61,11 @@ const useDzUpload = (acceptedFileExtensions: string[] = [], apiEndpoint: string 
                 setError("Something went wrong ...")
             }
         } catch (error: any) {
-            console.error('Error uploading file:', error.message);
+            console.error('Error uploading file:', error);
             setError('Error uploading file: ' + error.message)
             setUploadSuccess(false);
         }
-    }, [acceptedFileExtensions,apiEndpoint,postFileName]);
+    }, [acceptedFileExtensions,apiEndpoint]);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 

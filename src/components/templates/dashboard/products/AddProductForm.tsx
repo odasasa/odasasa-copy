@@ -15,7 +15,11 @@ export default function AddProductForm({
   initialImgPath?: string;
 }) {
   const [showImagePrev, setShowImagePrev] = useState(false);
-  const { filepath, success, uploadField, error } = useDzUpload();
+  const { filepath, success, uploadField, error } = useDzUpload(
+    ["jpg", "png", "jpeg", "gif"],
+    `${process.env.NEXT_PUBLIC_IMAGE_SERVER}/upload`,
+    "image"
+  );
   if (success || filepath) {
     setImgPath(filepath);
   }
@@ -49,7 +53,7 @@ export default function AddProductForm({
               {" "}
               <Img
                 alt="img"
-                src={`/temp/${filepath || initialImgPath}`}
+                src={`${filepath || initialImgPath}`}
                 className="h-[100px]"
               />
             </span>

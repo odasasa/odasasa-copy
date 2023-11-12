@@ -29,6 +29,8 @@ export default function ProductCard({
             src={
               product.img?.includes("default")
                 ? `/assets/defaults/${product.img}`
+                : product.img?.includes("http")
+                ? product.img
                 : `/uploads/${product.img}`
             }
             alt={`${product.name}`}
@@ -37,7 +39,9 @@ export default function ProductCard({
         <div className="w-1/2 flex flex-col px-2 gap-2">
           <Typography
             variant="h3"
-            className={` text-product-gold font-bold py-2 text-left ${product.name.length > 8? 'text-xl':'text-2xl'}`}
+            className={` text-product-gold font-bold py-2 text-left ${
+              product.name.length > 8 ? "text-xl" : "text-2xl"
+            }`}
           >
             {strCapitalize(product.name)}
           </Typography>
@@ -46,8 +50,11 @@ export default function ProductCard({
           <Typography variant="p" className="text-gray-600 font-light">
             {strCapitalize(product.units)}
           </Typography>
-          <Typography variant="p" className="text-gray-600 font-light overflow-hidden">
-            {strCapitalize(product.description.substring(0,80))}
+          <Typography
+            variant="p"
+            className="text-gray-600 font-light overflow-hidden"
+          >
+            {strCapitalize(product.description.substring(0, 80))}
           </Typography>
         </div>
       </div>

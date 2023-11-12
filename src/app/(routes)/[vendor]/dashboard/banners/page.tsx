@@ -22,7 +22,7 @@ const BannersPage = ({ params }: any) => {
     "png",
     "jpeg",
     "gif",
-  ]);
+  ], `${process.env.NEXT_PUBLIC_IMAGE_SERVER}/upload`,'image');
 
   // console.log({ params });
   const {data} = useFetch(

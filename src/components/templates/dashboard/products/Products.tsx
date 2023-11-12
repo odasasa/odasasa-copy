@@ -60,7 +60,7 @@ export default function ProductPage({ vendor, params }: any) {
             className="w-full overflow-x-hidden grid  grid-cols-6 md:grid-cols-10  border-b-2 border-solid hover:bg-[#f9f9ff] py-3 mx-1 text-sm place-content-center"
           >
             <span className="overflow-hidden">{indx + 1}</span>
-            <span className="overflow-hidden "><Img src={`/uploads/${p.img!}`} alt={p.name} className={'w-10'} /></span>
+            <span className="overflow-hidden "><Img src={p.img?.includes('http')?p.img :`/uploads/${p.img!}`} alt={p.name} className={'w-10'} /></span>
             <span className="overflow-hidden ">{p.name}</span>
             <span className="overflow-hidden hidden md:flex">{p.category}</span>
             <span className="overflow-hidden col-span-2 text-clip hidden md:flex">

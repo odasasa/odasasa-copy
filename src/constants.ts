@@ -1,6 +1,6 @@
 import { NavItem } from "./types";
 
-export const COMPANY_NAME = "";
+export const COMPANY_NAME = null || "";
 export const MAIN_EMAIL = "";
 export const LOCATION = "";
 export const WHATSAPP_NUMBER = "";

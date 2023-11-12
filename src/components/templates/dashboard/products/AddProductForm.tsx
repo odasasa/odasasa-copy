@@ -1,6 +1,7 @@
 // "use client"
 import { Img, Input, Typography, useDzUpload } from "@/components";
 import AddButton from "@/components/templates/dashboard/AddButton";
+import { ACCEPTED_IMAGE_EXT } from "@/constants";
 import { Category } from "@/types";
 import { ErrorMessage, Field } from "formik";
 import { useState } from "react";
@@ -16,7 +17,7 @@ export default function AddProductForm({
 }) {
   const [showImagePrev, setShowImagePrev] = useState(false);
   const { filepath, success, uploadField, error } = useDzUpload(
-    ["jpg", "png", "jpeg", "gif"],
+    ACCEPTED_IMAGE_EXT,
     `${process.env.NEXT_PUBLIC_IMAGE_SERVER}/upload`,
     "image"
   );

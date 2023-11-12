@@ -72,3 +72,6 @@ export const ADMIN_NAV_ITEMS: NavItem[] = [
   { title: "Wallet", href: "wallet" },
   last,
 ];
+
+
+export const ACCEPTED_IMAGE_EXT = ['jpeg', 'gif', 'jpg', 'png', 'bmp', 'tiff', 'webp', 'svg', 'ico'];

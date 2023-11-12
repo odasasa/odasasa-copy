@@ -6,6 +6,7 @@ import { Wrapper } from "@/components/templates/dashboard/main";
 import { BannerCard, Typography, useDzUpload } from "@/components";
 import { banners as defBanners } from "@/dummy_data/banners";
 import { useFetch } from "@/hooks";
+import { ACCEPTED_IMAGE_EXT } from "@/constants";
 
 interface BannerProp {
   name: string;
@@ -17,12 +18,7 @@ const BannersPage = ({ params }: any) => {
 
   const [banners, setBanners] = useState<BannerProp[] | null>(null);
   const [activeIndx, setActiveIndx] = useState<number | null>(null);
-  const { success, uploadField, error, filepath } = useDzUpload([
-    "jpg",
-    "png",
-    "jpeg",
-    "gif",
-  ], `${process.env.NEXT_PUBLIC_IMAGE_SERVER}/upload`,'image');
+  const { success, uploadField, error, filepath } = useDzUpload(ACCEPTED_IMAGE_EXT, `${process.env.NEXT_PUBLIC_IMAGE_SERVER}/upload`,'image');
 
   // console.log({ params });
   const {data} = useFetch(

@@ -1,7 +1,7 @@
 "use client";
 
-import { Banner, Category } from "@/types";
-import { GlobalData, User } from "@/types/core";
+
+import { GlobalData } from "@/types/core";
 import LocalStorageManager from "@/utils/localStorage";
 import {
   Dispatch,

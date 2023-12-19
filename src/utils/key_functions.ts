@@ -1,3 +1,4 @@
+import { Banner } from "@/types";
 import { ucWords } from "./str_functions";
 
 interface KeyedObject {
@@ -56,4 +57,17 @@ export function isValidPhoneNumber(phoneNumber: string): boolean {
   const trimmedPhoneNumber = phoneNumber.trim();
   const kenyanPhoneRegex = /^(\+2547\d{8}|2547\d{8}|07\d{8})$/;
   return kenyanPhoneRegex.test(trimmedPhoneNumber);
+}
+
+export function mergeBanners(defBanners: Banner[], fetchedBanners: Banner[]) {
+  // Determine how many banners are missing
+  const missingBannersCount = Math.max(0, 3 - fetchedBanners.length);
+
+  // Get the missing banners from defBanners
+  const missingBanners = defBanners.slice(0, missingBannersCount);
+
+  // Merge fetchedBanners with missingBanners
+  const [b1, b2, b3] = [...fetchedBanners, ...missingBanners];
+
+  return [b1, b2, b3];
 }

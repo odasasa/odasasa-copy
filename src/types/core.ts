@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Banners, Category } from ".";
+import { Banner, Category } from ".";
 
 export interface User {
   _id?: string;
@@ -43,7 +43,7 @@ export type Order = null | {
 export type GlobalData = {
   user: User | null;
   categories: Category[];
-  banners: Banners[];
+  banners: Banner[];
   shoppingCart: CartProduct[];
   order: Order;
   shopDetails: User | null;

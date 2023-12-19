@@ -12,7 +12,7 @@ import LocalStorageManager from "@/utils/localStorage";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function DashboardWarrper({
+export default function DashboardWrapper({
   params,
   children,
 }: {
@@ -44,7 +44,7 @@ export default function DashboardWarrper({
         </Sidebar>
         {/* Page roote */}
         <div
-          className={`w-full sm:flex-1  mx-8 my-4 flex flex-col ${
+          className={`w-full sm:flex-1  mx-2 md:mx-8 my-4 flex flex-col ${
             pathname.includes("banners") ? "" : "bg-white"
           }  rounded-lg min-h-screen h-fit  `}
         >

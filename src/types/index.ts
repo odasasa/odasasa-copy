@@ -6,8 +6,8 @@ export interface Product {
   units: string;
   img?: string;
   vendor: string;
-  images?:string[],
-  minOrderQuantity:string|number
+  images?: string[];
+  minOrderQuantity: string | number;
   price: number;
   status: string;
   createdAt: Date;
@@ -21,11 +21,13 @@ export interface Category {
   createdAt: Date;
 }
 
-export interface Banners {
+export interface Banner {
   name: string;
-  _id: string;
-  status: string;
-  createdAt: Date;
+  _id: string | number;
+  vendor: string;
+  src: string;
+  status?: string;
+  createdAt?: Date;
 }
 
 export interface Payments {
@@ -63,8 +65,7 @@ export interface Activation {
   createdAt: Date;
 }
 
-
-// 
+//
 export type NavItem = {
   title: string;
   href: string;

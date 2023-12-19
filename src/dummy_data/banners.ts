@@ -1,4 +1,6 @@
-export const banners = [
+import { Banner } from "@/types";
+
+export const banners:Banner[] = [
   {
     _id: 1,
     vendor: "vendor",

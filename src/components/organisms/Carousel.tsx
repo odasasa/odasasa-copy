@@ -50,9 +50,11 @@ export default function Carousel({ images }: CarouselProps) {
                 <Img
                   key={image._id}
                   src={
-                    !image.src.includes("default")
-                      ? `/uploads/${image.src}`
-                      : `/assets/defaults/${image.src}`
+                    image.src.includes("default")
+                      ? `/assets/defaults/${image.src}`
+                      : image.src.includes("http")
+                      ? image.src
+                      : `/uploads/${image.src}`
                   }
                   alt={image.src}
                   className=" ease animate-fadeIn  w-full aspect-ratio"

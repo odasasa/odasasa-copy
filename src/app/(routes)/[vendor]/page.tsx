@@ -14,16 +14,16 @@ export default function VendorHome({ params: { vendor } }: any) {
   const { data: vendorData } = useFetch(`/api/shop/exists/?vendor=${vendor}`);
   const { data: products, error } = useFetch(`/api/product/?vendor=${vendor}`);
   const { data: fetchedBanners, error: bannerError } = useFetch(
-    `/api/vendor/?vendor=${vendor}`
+    `/api/banner?vendor=${vendor}`
   );
   const { data: shopDetails } = useFetch(`/api/user/shop?vendor=${vendor}`);
-  if (vendorData?.length<1) return notFound();
+  if (vendorData?.length < 1) return notFound();
   // console.log({ error, products, shopDetails });
 
   const handleFilterByCategory = (category: string) => {
     setActiveCategory(category);
   };
-
+  console.log({fetchedBanners});
   const heroBanners = Array.isArray(fetchedBanners)
     ? fetchedBanners
     : defBanners;

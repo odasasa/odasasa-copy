@@ -44,9 +44,14 @@ export default function BannerCard({
             </button>
           </div>
           <div className="w-full bg-gray-400 flex-1">
-            
             <Img
-              src={!banner.src.includes('default')?`/uploads/${banner.src}` : `/assets/defaults/${banner.src}`}
+              src={
+                banner.src.includes("default")
+                  ? `/assets/defaults/${banner.src}`
+                  : banner.src.includes("http")
+                  ? banner.src
+                  : `/uploads/${banner.src}`
+              }
               alt="banner img"
               className="w-full "
               priority={true}

@@ -1,6 +1,6 @@
 "use client";
 
-import { Banners, Category } from "@/types";
+import { Banner, Category } from "@/types";
 import { GlobalData, User } from "@/types/core";
 import LocalStorageManager from "@/utils/localStorage";
 import {

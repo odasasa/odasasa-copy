@@ -22,7 +22,7 @@ export default function Wrapper({
   return (
     <div
       className={twMerge(
-        `w-full px-4 mid:px-8 py-5 flex flex-col gap-3 overflow-x-hidden items-center justify-center`,
+        `w-full px-2 md:px-4 lg:px-8 py-5 flex flex-col gap-3 overflow-x-hidden items-center justify-center`,
         className
       )}
     >

@@ -2,6 +2,7 @@ import { GlobalData } from "@/types/core";
 
 export const handleAddToCart = (
   item: {
+    _id?:string
     name: string;
     price: number;
     unit?: string;
@@ -17,7 +18,7 @@ export const handleAddToCart = (
       ...globalData,
       shoppingCart: [
         ...globalData.shoppingCart,
-        { name: item.name, quantity: 1, price: item.price },
+        { _id:item?._id,name: item.name, quantity: 1, price: item.price },
       ],
     });
   }

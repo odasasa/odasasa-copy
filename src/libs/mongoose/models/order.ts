@@ -1,4 +1,5 @@
 import mongoose, { Document, Model } from "mongoose";
+import { Schema } from "yup";
 
 type CartProduct = {
   name: string;
@@ -13,17 +14,17 @@ interface IOrderCustomer {
   location: string;
 }
 
-interface IOrder extends Document {
+export interface  Order extends Document {
   vendor: string;
   status: string;
   customer: IOrderCustomer;
   cart: CartProduct[];
 }
 
-const OrderSchema = new mongoose.Schema<IOrder>(
+const OrderSchema = new mongoose.Schema<Order>(
   {
     vendor: String,
-     status: String,
+     status:{type: String, default:'pending'},
     customer: {
       name: String,
       phone: String,
@@ -34,14 +35,14 @@ const OrderSchema = new mongoose.Schema<IOrder>(
         name: String,
         quantity: Number,
         price: Number,
-        id: String,
+        _id: String,
       },
     ],
   },
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
 
-const OrderModel: Model<IOrder> =
-  mongoose.models.Order || mongoose.model<IOrder>("Order", OrderSchema);
+const OrderModel: Model<Order> =
+  mongoose.models.Order || mongoose.model<Order>("Order", OrderSchema);
 
 export { OrderModel}

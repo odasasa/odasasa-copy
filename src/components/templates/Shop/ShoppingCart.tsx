@@ -17,6 +17,7 @@ const customerFields = [
 ];
 
 interface CartItem {
+  _id?:string
   name: string;
   price: number;
   quantity: number;
@@ -24,9 +25,10 @@ interface CartItem {
 
 interface ShoppingCartProps {
   shopDetails: User | null;
+  vendor?:string
 }
 
-const ShoppingCart: React.FC<ShoppingCartProps> = ({ shopDetails }) => {
+const ShoppingCart: React.FC<ShoppingCartProps> = ({ shopDetails, vendor }) => {
   const { data: globalData, setData } = useGlobalContext(),
     { shoppingCart: cartItems } = globalData;
 
@@ -175,9 +177,20 @@ Ground floor,CBA building.
             {
               <button
                 // disabled ={Object.values(customer).includes("")}
-                onClick={() => {
+                onClick={async () => {
                   if (Object.values(customer).includes(""))
                     return Swal.fire("Fill Customer Details");
+                  const res = await (await fetch("/api/order", {
+                    method : "POST",
+                    body : JSON.stringify({
+                      vendor:shopDetails?.vendor || "",
+                      cart: cartItems,
+                      customer
+                      
+                    })
+                  })).json();
+                  console.log({res})
+                  return alert("Done");
                   window
                     .open(
                       generateWhatsAppMessage(
